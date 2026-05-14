@@ -1,7 +1,8 @@
 from modules import application, main_window
-
+from utils import request
 def main():
     try:
+        
         main_window.show()
         application.exec()
     except Exception as error:

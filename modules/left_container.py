@@ -2,7 +2,7 @@ import PyQt6.QtWidgets as widgets
 import PyQt6.QtGui as gui
 import PyQt6.QtCore as core
 import PyQt6.QtWebEngineWidgets as WebEngine
-
+from utils import request
 import folium 
 import io
 
@@ -11,6 +11,7 @@ from .cards import Cards
 class LeftContainer(widgets.QFrame):
     def __init__(self, parent):
         super().__init__(parent)
+        
         self.COUNTER = 1
         self.setFixedSize(370, 828)
         
@@ -72,9 +73,10 @@ class LeftContainer(widgets.QFrame):
         
         leftcontainer_layout.addWidget(frame)
         
-        for number in range(30):
-            card = Cards(parent = scroll_frame)
-            scroll_frame_layout.addWidget(card, alignment = core.Qt.AlignmentFlag.AlignHCenter)
+        card1 = Cards(parent = scroll_frame,city_name = "Dnipro")
+        card2 = Cards(parent = scroll_frame,city_name = "Dnipro")
+        scroll_frame_layout.addWidget(card1, alignment = core.Qt.AlignmentFlag.AlignHCenter)
+        scroll_frame_layout.addWidget(card2, alignment = core.Qt.AlignmentFlag.AlignHCenter)
     
     def change_button(self):
         
