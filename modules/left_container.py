@@ -12,7 +12,7 @@ class LeftContainer(widgets.QFrame):
     def __init__(self, parent):
         super().__init__(parent)
         
-        self.COUNTER = 1
+        
         self.setFixedSize(370, 828)
         
         self.setStyleSheet("background-color: rgba(0, 0, 0, 0.2);")
@@ -73,10 +73,22 @@ class LeftContainer(widgets.QFrame):
         
         leftcontainer_layout.addWidget(frame)
         
+        
+        
         card1 = Cards(parent = scroll_frame,city_name = "Dnipro")
         card2 = Cards(parent = scroll_frame,city_name = "Dnipro")
+        card3 = Cards(parent = scroll_frame,city_name = "Dnipro")
+        card4 = Cards(parent = scroll_frame,city_name = "Dnipro")
+        card5 = Cards(parent = scroll_frame,city_name = "Dnipro")
+        card6 = Cards(parent = scroll_frame,city_name = "Dnipro")
+        
+
         scroll_frame_layout.addWidget(card1, alignment = core.Qt.AlignmentFlag.AlignHCenter)
         scroll_frame_layout.addWidget(card2, alignment = core.Qt.AlignmentFlag.AlignHCenter)
+        scroll_frame_layout.addWidget(card3, alignment = core.Qt.AlignmentFlag.AlignHCenter)
+        scroll_frame_layout.addWidget(card4, alignment = core.Qt.AlignmentFlag.AlignHCenter)
+        scroll_frame_layout.addWidget(card5, alignment = core.Qt.AlignmentFlag.AlignHCenter)
+        scroll_frame_layout.addWidget(card6, alignment = core.Qt.AlignmentFlag.AlignHCenter)
     
     def change_button(self):
         
@@ -88,9 +100,7 @@ class LeftContainer(widgets.QFrame):
             self.CHANGE_THEME_BUTTON.setIcon(icon)
         self.COUNTER += 1
     
-        
-        
-        
+
         
         
         # self.open_modal_button = widgets.QPushButton(parent = self, text = "Открыть окно")

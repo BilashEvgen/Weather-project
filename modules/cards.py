@@ -5,6 +5,8 @@ from utils import request
 from datetime import datetime, timezone, timedelta
 
 class Cards(widgets.QFrame):
+    CARDS_SELECTED_COUNTER = 0
+    CARDS_LIST = []
     def __init__(self, parent, city_name):
         super().__init__(parent)
         
@@ -16,10 +18,9 @@ class Cards(widgets.QFrame):
         current_time = datetime.now(tz)
         time_str = current_time.strftime("%H:%M")
         
-        self.selected = False
+        self.SELECTED = False
+        
         self.setStyleSheet("border-bottom: 1px solid #859892;")
-        
-        
         self.setFixedSize(330, 82)
         
         card_layout = widgets.QHBoxLayout()
@@ -60,12 +61,26 @@ class Cards(widgets.QFrame):
         card_layout.addStretch(1)
         card_layout.addWidget(frame2)
         
+        Cards.CARDS_LIST.append(self)
         
-
     def mousePressEvent(self, event: gui.QMouseEvent):
-        if event.button() == core.Qt.MouseButton.LeftButton:
-            self.selected = not self.selected
-            if self.selected:
+        if event.button() == core.Qt.MouseButton.LeftButton and self.SELECTED == False:
+            if Cards.CARDS_SELECTED_COUNTER < 1:
+                
                 self.setStyleSheet("background-color: rgba(0, 0, 0, 0.3); border-radius: 17px;")
-                self.selected = False
-            
+                self.SELECTED = True
+                
+                Cards.CARDS_SELECTED_COUNTER += 1
+                
+            elif Cards.CARDS_SELECTED_COUNTER >= 1:
+                
+                for card in Cards.CARDS_LIST:
+                    
+                    if card.SELECTED:
+                        card.setStyleSheet("background-color: transparent; border-radius: 17px;")
+                        card.SELECTED = False
+
+                Cards.CARDS_SELECTED_COUNTER = 1
+                
+                self.setStyleSheet("background-color: rgba(0, 0, 0, 0.3); border-radius: 17px;")
+                self.SELECTED = True
