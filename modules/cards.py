@@ -3,7 +3,7 @@ import PyQt6.QtGui as gui
 import PyQt6.QtCore as core
 from utils import request
 from datetime import datetime, timezone, timedelta
-import json
+
 class Cards(widgets.QFrame):
    
     CARDS_LIST = []

@@ -8,6 +8,7 @@ from .left_container import LeftContainer
 from .weather_container import WeatherContainer
 
 class MainWindow(widgets.QMainWindow):
+    
     def __init__(self):
         super().__init__()
 

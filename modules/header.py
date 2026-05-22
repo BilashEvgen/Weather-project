@@ -5,7 +5,6 @@ import PyQt6.QtGui as gui
 class Header(widgets.QFrame):
     def __init__(self, parent):
         super().__init__(parent)
-        
         self.setStyleSheet("background-color: rgba(0, 0, 0, 0.2);")
         self.setFixedSize(self.window().width(), 40)
         

@@ -13,11 +13,13 @@ class LeftContainer(widgets.QFrame):
         super().__init__(parent)
         self.COUNTER = 0
         
+        
         self.setFixedSize(370, 828)
         
         self.setStyleSheet("background-color: rgba(0, 0, 0, 0.2);")
         
         leftcontainer_layout = widgets.QVBoxLayout()
+        
         self.setLayout(leftcontainer_layout)
         leftcontainer_layout.setAlignment(core.Qt.AlignmentFlag.AlignTop)
         leftcontainer_layout.setContentsMargins(0,0,0,0)
