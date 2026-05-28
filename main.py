@@ -1,5 +1,4 @@
 from modules import application, main_window
-from utils import request
 def main():
     try:
         
@@ -10,4 +9,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

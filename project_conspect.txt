@@ -43,8 +43,9 @@ label.setStyleSheet("font-family: 'Roboto';font-weight: 500;") - меня сти
 
 color: rgba(255, 255, 255, 0.8);
 
+datetime.fromtimestamp(dt,timezone.utc).hour + timezone // 3600 - где fromtimestamp(dt,UTC) это получение текущего времени за UTC(по гринвичу), а + timezone // 3600 это получение времени за timezone-ой
+
+enumerate() - она возвращает и пару (индекс, значение)
 
 
-
-
-
+метод toscroll

@@ -81,7 +81,11 @@ class WeatherContainer(widgets.QFrame):
         # Внутри left weather frame
         self.LEFT_WEATHER_ICON = widgets.QLabel(self.LEFT_WEATHER_FRAME)
         self.LEFT_WEATHER_ICON.setFixedSize(84, 87)
-        self.LEFT_WEATHER_ICON.setStyleSheet("border-radius: 0px;")
+        self.LEFT_WEATHER_ICON_SIZE = core.QSize(84, 87)
+        self.LEFT_WEATHER_ICON.setStyleSheet("border-radius: 0px; background-color: transparent;")
+        self.LEFT_WEATHER_ICON.setAttribute(core.Qt.WidgetAttribute.WA_TranslucentBackground)
+        self.LEFT_WEATHER_ICON.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
+        self.LEFT_WEATHER_ICON.setScaledContents(False)
         self.LEFT_WEATHER_LAYOUT.addWidget(self.LEFT_WEATHER_ICON)
         # Внутри left weather frame
         self.LEFT_WEATHER_LABEL = widgets.QLabel(self.LEFT_WEATHER_FRAME)
@@ -139,6 +143,7 @@ class WeatherContainer(widgets.QFrame):
         self.RIGHT_TODAY_LAYOUT.setContentsMargins(0,0,0,0)
         self.RIGHT_TODAY_LAYOUT.setSpacing(0)
         self.RIGHT_TODAY_LAYOUT.setAlignment(core.Qt.AlignmentFlag.AlignTop)
+        
         # Внутри right moment frame
         self.RIGHT_TODAY_LABEL = widgets.QLabel(self.RIGHT_MOMENT_FRAME, text = "Сьогодні")
         self.RIGHT_TODAY_LABEL.setFixedSize(67, 19)
@@ -155,16 +160,19 @@ class WeatherContainer(widgets.QFrame):
         self.RIGHT_DATA_LAYOUT.setContentsMargins(0,0,0,0)
         self.RIGHT_DATA_LAYOUT.setSpacing(116)
         self.RIGHT_DATA_LAYOUT.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
+        
         # Внутри right data frame
         self.RIGHT_DATA_LABEL1 = widgets.QLabel(self.RIGHT_DATA_FRAME)
-        self.RIGHT_DATA_LABEL1.setFixedSize(119, 28)
+        self.RIGHT_DATA_LABEL1.setFixedSize(123, 28)
         self.RIGHT_DATA_LABEL1.setStyleSheet("color: white; font-size: 24px; border-radius: 0px;background-color: transparent; font-family: 'Roboto';font-weight: 500;")
         self.RIGHT_DATA_LAYOUT.addWidget(self.RIGHT_DATA_LABEL1, alignment = core.Qt.AlignmentFlag.AlignLeft)
+        
         # Внутри right data frame
         self.RIGHT_DATA_LABEL2 = widgets.QLabel(self.RIGHT_DATA_FRAME)
         self.RIGHT_DATA_LABEL2.setFixedSize(123, 28)
         self.RIGHT_DATA_LABEL2.setStyleSheet("color: white; font-size: 24px; border-radius: 0px;background-color: transparent; font-family: 'Roboto';font-weight: 500;")
         self.RIGHT_DATA_LAYOUT.addWidget(self.RIGHT_DATA_LABEL2, alignment = core.Qt.AlignmentFlag.AlignRight)
+        
         # Внутри right moment frame
         self.RIGHT_CLOCK_FRAME = widgets.QLabel(self.RIGHT_MOMENT_FRAME)
         self.RIGHT_CLOCK_FRAME.setFixedSize(168,168)
@@ -186,8 +194,50 @@ class WeatherContainer(widgets.QFrame):
         # Внутри main frame
         self.DAY_WEATHER_FRAME = widgets.QFrame(self.MAIN_FRAME) 
         self.DAY_WEATHER_FRAME.setFixedSize(788, 157)
-        self.DAY_WEATHER_FRAME.setStyleSheet("background-color: rgba(0, 0, 0, 0.2); border-radius: 17px;")
+        self.DAY_WEATHER_FRAME.setStyleSheet("background-color: rgba(0, 0, 0, 0.2); border-radius: 10px;")
         self.MAIN_FRAME_LAYOUT.addWidget(self.DAY_WEATHER_FRAME)
+        
+        self.DAY_WEATHER_FRAME_LAYOUT = widgets.QVBoxLayout(self.DAY_WEATHER_FRAME)
+        self.DAY_WEATHER_FRAME.setLayout(self.DAY_WEATHER_FRAME_LAYOUT)
+        self.DAY_WEATHER_FRAME_LAYOUT.setAlignment(core.Qt.AlignmentFlag.AlignTop)
+        self.DAY_WEATHER_FRAME_LAYOUT.setContentsMargins(0,0,0,0)
+        self.DAY_WEATHER_FRAME_LAYOUT.setSpacing(16)
+        
+        self.DAY_WEATHER_TOP_LABEL = widgets.QLabel(self.DAY_WEATHER_FRAME, text = "Прогноз погоди до кінця дня")
+        self.DAY_WEATHER_TOP_LABEL.setFixedSize(756, 27)
+        self.DAY_WEATHER_FRAME_LAYOUT.addWidget(self.DAY_WEATHER_TOP_LABEL, alignment = core.Qt.AlignmentFlag.AlignCenter)
+        self.DAY_WEATHER_TOP_LABEL.setStyleSheet("border-radius: 0px; background-color: transparent;")
+        
+        self.DAY_WEATHER_SCROLL_PARENT = widgets.QFrame(parent = self.DAY_WEATHER_FRAME)
+        self.DAY_WEATHER_SCROLL_PARENT.setFixedSize(756, 82)
+        self.DAY_WEATHER_SCROLL_PARENT.setStyleSheet("background-color: transparent; border-radius: 0px;")
+        self.DAY_WEATHER_FRAME_LAYOUT.addWidget(self.DAY_WEATHER_SCROLL_PARENT, alignment = core.Qt.AlignmentFlag.AlignCenter)
+        
+        self.DAY_WEATHER_SCROLL_AREA = widgets.QScrollArea(parent = self.DAY_WEATHER_SCROLL_PARENT)
+        self.DAY_WEATHER_SCROLL_AREA.setWidgetResizable(True)
+        self.DAY_WEATHER_SCROLL_AREA.setFixedSize(756, 82)  
+        self.DAY_WEATHER_SCROLL_AREA.setStyleSheet("background-color: transparent;")
+    
+        
+        self.DAY_WEATHER_SCROLL_FRAME = widgets.QFrame(parent = self.DAY_WEATHER_SCROLL_AREA)
+        self.DAY_WEATHER_SCROLL_AREA.setWidget(self.DAY_WEATHER_SCROLL_FRAME)
+        self.DAY_WEATHER_SCROLL_FRAME.setStyleSheet("background-color: transparent; border-radius: 0px;")  
+        
+        self.DAY_WEATHER_SCROLL_FRAME_LAYOUT = widgets.QHBoxLayout()
+        self.DAY_WEATHER_SCROLL_FRAME.setLayout(self.DAY_WEATHER_SCROLL_FRAME_LAYOUT)
+        # self.DAY_WEATHER_SCROLL_AREA.setVerticalScrollBarPolicy(core.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         # Внутри main frame
@@ -196,29 +246,29 @@ class WeatherContainer(widgets.QFrame):
         self.DIAGRAM_FRAME.setStyleSheet("background-color: rgba(0, 0, 0, 0.2); border-radius: 17px;")
         self.MAIN_FRAME_LAYOUT.addWidget(self.DIAGRAM_FRAME)
         
+        self.DIAGRAM_FRAME_LAYOUT = widgets.QVBoxLayout(self.DIAGRAM_FRAME)
+        self.DIAGRAM_FRAME.setLayout(self.DIAGRAM_FRAME_LAYOUT)
+        self.DIAGRAM_FRAME_LAYOUT.setContentsMargins(0,0,0,0)
+        self.DIAGRAM_FRAME_LAYOUT.setSpacing(16)
         
-   
-        # response = request("Sydney")
+        self.DIAGRAM_LABLE = widgets.QLabel(self.DIAGRAM_FRAME, text = "Прогноз на 12 годин")
+        self.DIAGRAM_LABLE.setFixedSize(756, 19)
+        self.DIAGRAM_FRAME_LAYOUT.addWidget(self.DIAGRAM_LABLE, alignment = core.Qt.AlignmentFlag.AlignHCenter)
         
-        # print(json.dumps(response, indent=4))
+
         
-        # if response["cod"] != 404:
-        #     label = widgets.QLabel(self.CETRAL_FRAME, text = str(response["main"]["temp"]))
-        #     self.CENTRAL_LAYOUT.addWidget(label)
-            
-            
-        #     city_label = widgets.QLabel(self.CETRAL_FRAME, text = str(response["name"]))
-        #     self.CENTRAL_LAYOUT.addWidget(city_label)
         
-        # self.CETRAL_FRAME = widgets.QFrame(self)
-        # self.CETRAL_FRAME.setFixedSize(788, 303)
-        # self.CETRAL_FRAME.setStyleSheet("background-color: rgba(0, 0, 0, 0.1); border-radius: 17px;")
-        # self.WEATHER_CONTEINER_LAYOUT.addWidget(self.CETRAL_FRAME)
         
-        # self.CENTRAL_LAYOUT = widgets.QHBoxLayout(self.CETRAL_FRAME)
-        # self.CETRAL_FRAME.setLayout(self.CENTRAL_LAYOUT)
         
-        # self.FOOTER = widgets.QFrame(parent = self)
-        # self.FOOTER.setFixedSize(788, 364)
-        # self.FOOTER.setStyleSheet("background-color: rgba(0, 0, 0, 0.1); border-radius: 17px;")
-        # self.WEATHER_CONTEINER_LAYOUT.addWidget(self.FOOTER)
+
+
+
+
+# 🔘 Створюємо контейнер з прогнозом погоди до кінця дня. Він має бути із можливістю горизонтального скролу
+# 🔘 Налаштовуємо контейнер з діаграмою температури в обраному місті
+# 🔘 Висота кожного стовпцю діаграми має залежати від температури в отриману годину прогнозу
+# 🔘 Налаштовуємо оновлення даних в контейнерах, після обрання міста. Дані отримуємо за допомогою API
+
+# 📌 Кнопки < та > мають переміщувати у початок контейнеру зі скролом та у кінець відповідно
+# 📌 Для картки з даними за окрему годину, в горизонтальному контейнері, рекомендовано створити окремий клас
+# 📌 Позначки температури (-10° до 25°) мають бути фіксованими

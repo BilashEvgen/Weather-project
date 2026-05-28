@@ -86,7 +86,9 @@ class LeftContainer(widgets.QFrame):
         card7 = Cards(parent = scroll_frame,city_name = "London")
         card8 = Cards(parent = scroll_frame,city_name = "Maldives")
         card9 = Cards(parent = scroll_frame,city_name = "New York")
-
+        card10 = Cards(parent = scroll_frame,city_name = "Barselona")
+       
+                
         scroll_frame_layout.addWidget(card1, alignment = core.Qt.AlignmentFlag.AlignHCenter)
         scroll_frame_layout.addWidget(card2, alignment = core.Qt.AlignmentFlag.AlignHCenter)
         scroll_frame_layout.addWidget(card3, alignment = core.Qt.AlignmentFlag.AlignHCenter)
@@ -96,6 +98,7 @@ class LeftContainer(widgets.QFrame):
         scroll_frame_layout.addWidget(card7, alignment = core.Qt.AlignmentFlag.AlignHCenter)
         scroll_frame_layout.addWidget(card8, alignment = core.Qt.AlignmentFlag.AlignHCenter)        
         scroll_frame_layout.addWidget(card9, alignment = core.Qt.AlignmentFlag.AlignHCenter)    
+        scroll_frame_layout.addWidget(card10, alignment = core.Qt.AlignmentFlag.AlignHCenter)   
     def change_button(self):
         
         if self.COUNTER % 2 == 0:
