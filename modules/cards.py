@@ -2,10 +2,10 @@ import PyQt6.QtWidgets as widgets
 import PyQt6.QtGui as gui
 import PyQt6.QtCore as core
 
-from utils import json_write, request
+from utils import json_write, request, clear_layout
 from datetime import datetime, timezone, timedelta
-from modules import Vertical_Card
-from modules import Sun_Move_Card
+from .vertical_card import Vertical_Card
+from .sun_move_card import Sun_Move_Card
 
 class Cards(widgets.QFrame):
    
@@ -58,12 +58,12 @@ class Cards(widgets.QFrame):
         self.FRAME2_LAYOUT.setContentsMargins(0,0,0,0)
         self.FRAME2.setLayout(self.FRAME2_LAYOUT)
         
-        self.FRAME2_LABEL1 = widgets.QLabel(text = f"{int(self.REQUEST_DATA['main']['temp']-273)}°", parent = self.FRAME2)
+        self.FRAME2_LABEL1 = widgets.QLabel(text = f"{int(self.REQUEST_DATA["main"]["temp"])}°", parent = self.FRAME2)
         self.FRAME2_LABEL1.setStyleSheet("font-size: 44px; font-family: 'Roboto'; font-weight: 500; color: rgba(255, 255, 255, 0.8);")
         self.FRAME2_LABEL1.setFixedSize(67,52 )
         
         
-        self.FRAME2_LABEL2 = widgets.QLabel(text = f"Макс.:{int(self.REQUEST_DATA['main']['temp_max']-273)}°, Мін.:{int(self.REQUEST_DATA['main']['temp_min']-273)}°", parent = self.FRAME2)
+        self.FRAME2_LABEL2 = widgets.QLabel(text = f"Макс.:{int(self.REQUEST_DATA["main"]["temp_max"])}°, Мін.:{int(self.REQUEST_DATA["main"]["temp_min"])}°", parent = self.FRAME2)
         self.FRAME2_LABEL2.setStyleSheet("font-size: 12px; font-family: 'Roboto'; font-weight: 500; color: rgba(255, 255, 255, 0.8);")
         self.FRAME2_LABEL2.setFixedSize(110,14)
         self.FRAME2_LABEL2.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
@@ -79,7 +79,7 @@ class Cards(widgets.QFrame):
 
     def data_time(self):
         city_timezone = self.REQUEST_DATA["timezone"]
-
+        self.day_request_data = request(self.CITY_NAME, "daily")
         tz = timezone(timedelta(seconds=city_timezone))
         
         current_time = datetime.now(tz)
@@ -88,75 +88,115 @@ class Cards(widgets.QFrame):
         self.DAY_STR = current_time.strftime("%A")
         self.DATE = current_time.strftime("%d.%m.%Y")
 
-        sunrise = self.REQUEST_DATA["sys"]["sunrise"]
-        self.SUNRISE_TIME = datetime.fromtimestamp(sunrise,timezone.utc).hour
+        self.sunrise = self.REQUEST_DATA["sys"]["sunrise"]
+        self.SUNRISE_TIME = datetime.fromtimestamp(self.sunrise + self.day_request_data["city"]["timezone"], timezone.utc)
         
-        sunset = self.REQUEST_DATA["sys"]["sunset"] 
-        self.SUNSET_TIME = datetime.fromtimestamp(sunset,timezone.utc).hour
+        self.sunset = self.REQUEST_DATA["sys"]["sunset"] 
+        self.SUNSET_TIME = datetime.fromtimestamp(self.sunset + self.day_request_data["city"]["timezone"], timezone.utc)
         
 
     def mousePressEvent(self, event: gui.QMouseEvent):
         if event.button() == core.Qt.MouseButton.LeftButton and self.SELECTED == False:
             self.REQUEST_DATA = request(self.CITY_NAME, "current")
-            self.DAY_REQUEST_DATA = request(self.CITY_NAME, "daily")
-            
+            self.day_request_data = request(self.CITY_NAME, "daily")
             
             weather_container = self.window().findChild(widgets.QFrame,"WEATHER_CONTAINER")
-            real_time = datetime.fromtimestamp(self.DAY_REQUEST_DATA["list"][0]["dt"], timezone.utc).hour + self.DAY_REQUEST_DATA["city"]["timezone"] // 3600
-            
-            vertical_card = self.window().findChild(widgets.QFrame,"vertical_card")
-            
-            
-            for index in range(len(self.DAY_REQUEST_DATA["list"])):
-                hour_data = self.DAY_REQUEST_DATA["list"][index]
-                self.HOUR_TIME = datetime.fromtimestamp(hour_data["dt"], timezone.utc).hour + self.DAY_REQUEST_DATA["city"]["timezone"] // 3600
+            clear_layout(weather_container.DAY_WEATHER_SCROLL_FRAME_LAYOUT)
+            for index in range(len(self.day_request_data["list"])):
+                if index == 0:
+                    self.TEXT_LABEL = "Зараз"
                 
-                vertical_card = Vertical_Card(parent = weather_container.DAY_WEATHER_SCROLL_FRAME)
+                hour_data = self.day_request_data["list"][index]
                 
-                vertical_card.TIME_LABEL.setText(f"{self.HOUR_TIME}")
-                
-                pixmap = gui.QPixmap(f"media/title_bar/weather_icons/{self.DAY_REQUEST_DATA['weather'][hour_data]['icon']}.png")
-                
-                if not pixmap.isNull():
-                    scaled = pixmap.scaled(vertical_card.WEATHER_LABEL.size(), core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
-                    vertical_card.WEATHER_LABEL.setPixmap(scaled)
-                
-                vertical_card.TEMP_LABEL.setText(f"{int(hour_data['main']['temp']-273)}°")
-                
-                if index + 1 < len(self.DAY_REQUEST_DATA["list"]):
-                    next_hour = datetime.fromtimestamp(self.DAY_REQUEST_DATA["list"][index + 1]["dt"], timezone.utc).hour
+                hour_time = datetime.fromtimestamp(hour_data["dt"]+ self.day_request_data["city"]["timezone"], timezone.utc).hour 
+               
+                if hour_time > 24:
+                    hour_time -=24
+                elif hour_time < 0:
+                    hour_time +=24
+                hour_temp = hour_data["main"]["temp"]
+
+                if index + 1 < len(self.day_request_data["list"]):
+                    next_hour = datetime.fromtimestamp(self.day_request_data["list"][index + 1]["dt"] + self.day_request_data["city"]["timezone"], timezone.utc).hour
+                   
+                    if next_hour > 24:
+                        next_hour -=24
+                    elif next_hour < 0 :
+                        next_hour += 24    
                 else:
                     next_hour = None
-
-                if next_hour is not None and self.SUNRISE_TIME > datetime.fromtimestamp(hour_data["dt"], timezone.utc).hour and self.SUNRISE_TIME < next_hour:
-                    sunrise_card = Sun_Move_Card(parent = weather_container.DAY_WEATHER_SCROLL_FRAME, text = "Схід сонця")
-
+              
+                
+                vertical_card = Vertical_Card(parent = weather_container.DAY_WEATHER_SCROLL_FRAME)
+                if self.TEXT_LABEL:
+                    vertical_card.TIME_LABEL.setText(f"{self.TEXT_LABEL}")
+                    self.TEXT_LABEL = None
+                else:
+                    vertical_card.TIME_LABEL.setText(f"{hour_time}")
+                pixmap_scroll_card = gui.QPixmap(f"media/title_bar/scrollbar_weather_icons/{hour_data["weather"][0]["icon"]}.png")
                     
-                if next_hour is not None and self.SUNSET_TIME > datetime.fromtimestamp(hour_data["dt"], timezone.utc).hour and self.SUNRISE_TIME < next_hour:
-                    sunset_card = Sun_Move_Card(parent = weather_container.DAY_WEATHER_SCROLL_FRAME, text = "Захід сонця")
+                if not pixmap_scroll_card.isNull():
+                    scaled_pixmap = pixmap_scroll_card.scaled(24,24, core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
+                    vertical_card.WEATHER_LABEL.setPixmap(scaled_pixmap)
+                    
+                vertical_card.TEMPERATURE_LABEL.setText(f"{int(hour_temp)}°")
+                weather_container.DAY_WEATHER_SCROLL_FRAME_LAYOUT.addWidget(vertical_card)
                 
+                if next_hour is not None and self.SUNRISE_TIME.hour >= hour_time and self.SUNRISE_TIME.hour < next_hour:
+                    sunrise_card = Sun_Move_Card(parent = weather_container.DAY_WEATHER_SCROLL_FRAME)
+                    if self.TEXT_LABEL:
+                        sunrise_card.TIME_LABEL.setText(f"{self.TEXT_LABEL}") 
+                        self.TEXT_LABEL = None
+                    else:
+                        sunrise_card.TIME_LABEL.setText(f"{self.SUNRISE_TIME.strftime('%H:%M')}") 
+                    sunrise_pixmap = gui.QPixmap(f"media/title_bar/sunmove_icons/sunrise.png")
+                    
+                    if not sunrise_pixmap.isNull():
+                        scaled_pixmap = sunrise_pixmap.scaled(sunrise_card.ICON_LABEL.size(), core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
+                        sunrise_card.ICON_LABEL.setPixmap(scaled_pixmap)
+                    
+                    sunrise_card.TEXT_LABEL.setText("Схід сонця")
+                    weather_container.DAY_WEATHER_SCROLL_FRAME_LAYOUT.addWidget(sunrise_card)
                 
+                elif next_hour is not None and self.SUNSET_TIME.hour >= hour_time and self.SUNSET_TIME.hour < next_hour:
+                    sunset_card = Sun_Move_Card(parent = weather_container.DAY_WEATHER_SCROLL_FRAME)
+                    if self.TEXT_LABEL:
+                        sunset_card.TIME_LABEL.setText(f"{self.TEXT_LABEL}")
+                        self.TEXT_LABEL = None
+                    else:
+                        sunset_card.TIME_LABEL.setText(f"{self.SUNSET_TIME.strftime('%H:%M')}")
+                    
+                    
+                    sunset_pixmap = gui.QPixmap(f"media/title_bar/sunmove_icons/sunset.png")
+                    if not sunset_pixmap.isNull():
+                        scaled_pixmap = sunset_pixmap.scaled(24,24, core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
+                        sunset_card.ICON_LABEL.setPixmap(scaled_pixmap)
+                        
+                    sunset_card.TEXT_LABEL.setText("Захід сонця")    
+                    weather_container.DAY_WEATHER_SCROLL_FRAME_LAYOUT.addWidget(sunset_card) 
+                
+                self.TEXT_LABEL = None
+            
                 
             
             json_write("current.json", self.REQUEST_DATA)
-            json_write("daily.json", self.DAY_REQUEST_DATA)
+            json_write("daily.json", self.day_request_data)
             self.data_time()
 
             
             
-            # city
+            # city  
             weather_container.LEFT_CITY_LABEL.setText(self.REQUEST_DATA["name"])
             # temperature
-            weather_container.LEFT_WEATHER_LABEL.setText(f"{int(self.REQUEST_DATA['main']['temp']-273)}°")
+            weather_container.LEFT_WEATHER_LABEL.setText(f"{int(self.REQUEST_DATA["main"]["temp"])}°")
             
             # description
             weather_container.LEFT_DESCRIPTION_LABEL1.setText(self.REQUEST_DATA["weather"][0]["description"].capitalize())
             # max min temp
-            weather_container.LEFT_DESCRIPTION_LABEL2.setText(f"Макс.:{int(self.REQUEST_DATA['main']['temp_max']-273)}°, Мін.:{int(self.REQUEST_DATA['main']['temp_min']-273)}°")
+            weather_container.LEFT_DESCRIPTION_LABEL2.setText(f"Макс.:{int(self.REQUEST_DATA["main"]["temp_max"])}°, Мін.:{int(self.REQUEST_DATA["main"]["temp_min"])}°")
             
             
-            
-            pixmap = gui.QPixmap(f"media/title_bar/weather_icons/{self.REQUEST_DATA['weather'][0]['icon']}.png")
+            pixmap = gui.QPixmap(f"media/title_bar/weather_icons/{self.REQUEST_DATA["weather"][0]["icon"]}.png")
 
             if not pixmap.isNull():
                 scaled = pixmap.scaled(weather_container.LEFT_WEATHER_ICON_SIZE, core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
@@ -174,20 +214,26 @@ class Cards(widgets.QFrame):
             
             self.FRAME1_LABEL2.setText(self.TIME_STR)
             self.FRAME1_LABEL3.setText(self.REQUEST_DATA["weather"][0]["description"].capitalize())
-            self.FRAME2_LABEL1.setText(f"{int(self.REQUEST_DATA['main']['temp']-273)}°")
-            self.FRAME2_LABEL2.setText(f"Макс.:{int(self.REQUEST_DATA['main']['temp_max']-273)}°, Мін.:{int(self.REQUEST_DATA['main']['temp_min']-273)}°")
+            self.FRAME2_LABEL1.setText(f"{int(self.REQUEST_DATA["main"]["temp"])}°")
+            self.FRAME2_LABEL2.setText(f"Макс.:{int(self.REQUEST_DATA["main"]["temp_max"])}°, Мін.:{int(self.REQUEST_DATA["main"]["temp_min"])}°")
             
             for card in Cards.CARDS_LIST:
                 if card.SELECTED:
                     card.setStyleSheet("background-color: transparent; border-radius: 8px;")
                     card.SELECTED = False
 
-            self.setStyleSheet("background-color: rgba(0, 0, 0, 0.3); border-radius: 8px;")
+            self.setStyleSheet("background-color: rgba(0, 0, 0, 0.3); border-radius: 8px; border-bottom: 1px solid #859892;")
             self.SELECTED = True
             
             
             
             
-            # fruits = ['apple', 'banana', 'cherry']
-            # for index, fruit in enumerate(fruits):
-            #     print(f"Индекс: {index}, Фрукт: {fruit}")
+            
+           # print(f"city - {self.DAY_REQUEST_DATA["city"]["name"]}")
+                # print(f"hour_data - {self.HOUR_TIME}")
+                # print(f"data - {datetime.fromtimestamp(self.DAY_REQUEST_DATA["list"][index]["dt"],timezone.utc).hour + self.DAY_REQUEST_DATA["city"]["timezone"] // 3600} ")
+                # print(f"index - {index} ")
+                # print(f"timezone - {self.DAY_REQUEST_DATA["city"]["timezone"]} ")
+                # print(f"city - {self.DAY_REQUEST_DATA["city"]["name"]}")
+                # print(f"temperature - {self.DAY_REQUEST_DATA["list"][index]["main"]["temp"]}")
+                # print(f"hour_data - {hour_data["main"]["temp"]}")

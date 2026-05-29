@@ -84,8 +84,8 @@ class LeftContainer(widgets.QFrame):
         card5 = Cards(parent = scroll_frame,city_name = "Zaporizhzhia")
         card6 = Cards(parent = scroll_frame,city_name = "Lviv")
         card7 = Cards(parent = scroll_frame,city_name = "London")
-        card8 = Cards(parent = scroll_frame,city_name = "Maldives")
-        card9 = Cards(parent = scroll_frame,city_name = "New York")
+        card8 = Cards(parent = scroll_frame,city_name = "Paris")
+        card9 = Cards(parent = scroll_frame,city_name = "Toronto")
         card10 = Cards(parent = scroll_frame,city_name = "Barselona")
        
                 

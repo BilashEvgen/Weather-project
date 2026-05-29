@@ -1,44 +1,44 @@
 {
     "coord": {
-        "lon": 36.25,
-        "lat": 50
+        "lon": 24.0232,
+        "lat": 49.8383
     },
     "weather": [
         {
-            "id": 800,
-            "main": "Clear",
-            "description": "clear sky",
-            "icon": "01n"
+            "id": 804,
+            "main": "Clouds",
+            "description": "\u0445\u043c\u0430\u0440\u043d\u043e",
+            "icon": "04n"
         }
     ],
     "base": "stations",
     "main": {
-        "temp": 282.33,
-        "feels_like": 280.49,
-        "temp_min": 282.33,
-        "temp_max": 282.33,
-        "pressure": 1009,
-        "humidity": 73,
-        "sea_level": 1009,
-        "grnd_level": 991
+        "temp": 13.38,
+        "feels_like": 12.97,
+        "temp_min": 13.38,
+        "temp_max": 13.38,
+        "pressure": 1019,
+        "humidity": 84,
+        "sea_level": 1019,
+        "grnd_level": 982
     },
     "visibility": 10000,
     "wind": {
-        "speed": 3.33,
-        "deg": 283,
-        "gust": 8.52
+        "speed": 3.03,
+        "deg": 212,
+        "gust": 4.72
     },
     "clouds": {
-        "all": 0
+        "all": 100
     },
-    "dt": 1779996496,
+    "dt": 1780081430,
     "sys": {
         "country": "UA",
-        "sunrise": 1779932071,
-        "sunset": 1779989419
+        "sunrise": 1780021395,
+        "sunset": 1780078780
     },
     "timezone": 10800,
-    "id": 706483,
-    "name": "Kharkiv",
+    "id": 702550,
+    "name": "Lviv",
     "cod": 200
 }
