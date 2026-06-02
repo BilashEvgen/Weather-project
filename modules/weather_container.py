@@ -1,6 +1,9 @@
 import PyQt6.QtCore as core
 import PyQt6.QtWidgets as widgets
+import PyQt6.QtGui as gui
+from utils import request,json_write
 from .horizontal_scroll import Horizontal_Scroll
+from .search_frame import SearchFrame
 
 
 
@@ -8,8 +11,8 @@ class WeatherContainer(widgets.QFrame):
     def __init__(self, parent):
         super().__init__(parent)
         
-        self.setFixedSize(828, 800)
         
+        self.setFixedSize(828, 800)
         self.setObjectName("WEATHER_CONTAINER")
         self.WEATHER_CONTEINER_LAYOUT = widgets.QVBoxLayout(self)
         self.WEATHER_CONTEINER_LAYOUT.setContentsMargins(0,0,0,0)
@@ -18,11 +21,69 @@ class WeatherContainer(widgets.QFrame):
         self.setLayout(self.WEATHER_CONTEINER_LAYOUT)
         
         
-        # Внутри weather frame
+        # В weather frame
         self.TOP_FRAME = widgets.QFrame(self)
         self.TOP_FRAME.setFixedSize(788, 36)
-        self.TOP_FRAME.setStyleSheet("background-color: rgba(0, 0, 0, 0.1);")
+        self.TOP_FRAME.setStyleSheet("background-color: transparent; border-radius: 0px;")
         self.WEATHER_CONTEINER_LAYOUT.addWidget(self.TOP_FRAME, alignment = core.Qt.AlignmentFlag.AlignHCenter)
+        
+        self.TOP_FRAME_LAYOUT = widgets.QHBoxLayout(self.TOP_FRAME)
+        self.TOP_FRAME_LAYOUT.setContentsMargins(0,0,0,0)
+        self.TOP_FRAME_LAYOUT.setSpacing(383)
+        self.TOP_FRAME_LAYOUT.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
+        self.TOP_FRAME.setLayout(self.TOP_FRAME_LAYOUT)
+        
+        # В TOP_FRAME
+        self.TOP_SETTINGS_FRAME = widgets.QFrame(self.TOP_FRAME)
+        self.TOP_SETTINGS_FRAME.setFixedSize(144, 36)
+        self.TOP_SETTINGS_FRAME.setStyleSheet("background-color: transparent; border-radius: 0px;")
+
+        self.TOP_SETTINGS_FRAME_LAYOUT = widgets.QHBoxLayout(self.TOP_SETTINGS_FRAME)
+        self.TOP_SETTINGS_FRAME_LAYOUT.setContentsMargins(0,0,0,0)
+        self.TOP_SETTINGS_FRAME_LAYOUT.setSpacing(10)
+        self.TOP_SETTINGS_FRAME_LAYOUT.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
+        
+        self.TOP_FRAME_LAYOUT.addWidget(self.TOP_SETTINGS_FRAME, alignment = core.Qt.AlignmentFlag.AlignLeft)
+        
+        # В TOP_SETTINGS_FRAME
+        self.TOP_SETTINGS_FRAME_BUTTON = widgets.QPushButton(parent = self.TOP_SETTINGS_FRAME, icon = gui.QIcon("media/title_bar/additional_elements/settings.png"))
+        self.TOP_SETTINGS_FRAME_BUTTON.setFixedSize(36,36)
+        self.TOP_SETTINGS_FRAME_BUTTON.setStyleSheet("background-color: rgba(0, 0, 0, 0.2); border-radius: 4px")
+
+        self.TOP_SETTINGS_FRAME_LAYOUT.addWidget(self.TOP_SETTINGS_FRAME_BUTTON, alignment = core.Qt.AlignmentFlag.AlignLeft)   
+        
+        # В TOP_SETTINGS_FRAME
+        self.TOP_SETTINGS_FRAME_LABEL = widgets.QLabel(parent = self.TOP_SETTINGS_FRAME, text = "Налаштування")
+        self.TOP_SETTINGS_FRAME_LABEL.setFixedSize(98,16)
+        self.TOP_SETTINGS_FRAME_LABEL.setStyleSheet("color: white; font-size: 14px; border-radius: 0px;background-color: transparent; font-family: 'Roboto';font-weight: 500;")
+
+        self.TOP_SETTINGS_FRAME_LAYOUT.addWidget(self.TOP_SETTINGS_FRAME_LABEL, alignment = core.Qt.AlignmentFlag.AlignRight)
+
+        
+        
+        # В TOP_FRAME
+        self.SEARCH_FRAME = SearchFrame(self.TOP_FRAME)
+        self.TOP_FRAME_LAYOUT.addWidget(self.SEARCH_FRAME, alignment = core.Qt.AlignmentFlag.AlignRight)
+        
+        
+        
+        
+        # 🔘 Працюємо над верхньою частиною фрейму з контентом застосунку
+        # 🔘 Додаємо кнопку “Налаштування”
+        # 🔘 Додаємо поле пошуку
+        # 🔘 Отримуємо список міст за допомогою CountriesNow API та зберігаємо у JSON-файлі
+        # 🔘 Створюємо віджет власного випадаючого меню з результатами пошуку
+        # 🔘 Налаштовуємо алгоритм пошуку міст за введеними літерами. Знайдені міста мають відображатись у випадаючому меню
+        # 🔘 Після обрання міста у випадаючому меню відображаємо кнопку “Додати” біля поля пошуку
+        # 🔘 По натисканню кнопки “Додати” додаємо картку з новим містом
+        # 🔘 Додаємо кнопку очищення поля пошуку та налаштовуємо очищення поля після її натискання
+
+        # 📌 В випадаючому меню має відображатись максимум 15 міст
+        # 📌 Після додання міста його картка має автоматично обратись, а дані міста - відображатись в основному контейнері з інформацією
+
+        
+        
+        
         
         # Внутри weather frame
         self.MAIN_FRAME = widgets.QFrame(self)
@@ -136,7 +197,7 @@ class WeatherContainer(widgets.QFrame):
         # Внутри right moment frame
         self.RIGHT_TODAY_FRAME = widgets.QFrame(self.RIGHT_MOMENT_FRAME)
         self.RIGHT_TODAY_FRAME.setFixedSize(358, 27)
-        self.RIGHT_TODAY_FRAME.setStyleSheet("border-radius: 0px;background-color: transparent; border-bottom: 1px solid b4b4b4;")
+        self.RIGHT_TODAY_FRAME.setStyleSheet("border-radius: 0px;background-color: transparent; border-bottom: 1px solid #b4b4b4;")
         self.RIGHT_MOMENT_LAYOUT.addWidget(self.RIGHT_TODAY_FRAME, alignment = core.Qt.AlignmentFlag.AlignCenter)
         
         self.RIGHT_TODAY_LAYOUT = widgets.QHBoxLayout(self.RIGHT_TODAY_FRAME)
@@ -355,7 +416,7 @@ class WeatherContainer(widgets.QFrame):
         
         self.FORECAST_DIAGRAM_ITSELF_FRAME = widgets.QFrame(self.FORECAST_DIAGRAM_AND_TEMPERATURE_FRAME)
         self.FORECAST_DIAGRAM_ITSELF_FRAME.setFixedSize(728, 110)
-        self.FORECAST_DIAGRAM_ITSELF_FRAME.setStyleSheet("background-image: url('media/title_bar/spreadsheet.png');")
+        self.FORECAST_DIAGRAM_ITSELF_FRAME.setStyleSheet("background-image: url('media/title_bar/additional_elements/spreadsheet.png');")
         self.FORECAST_DIAGRAM_AND_TEMPERATURE_FRAME_LAYOUT.addWidget(self.FORECAST_DIAGRAM_ITSELF_FRAME, alignment = core.Qt.AlignmentFlag.AlignCenter)
         
         self.FORECAST_DIAGRAM_ITSELF_LAYOUT = widgets.QHBoxLayout(self.FORECAST_DIAGRAM_ITSELF_FRAME)
@@ -371,24 +432,6 @@ class WeatherContainer(widgets.QFrame):
         self.FORECAST_TEMPERATURE_ITSELF_LABEL.setAlignment(core.Qt.AlignmentFlag.AlignVCenter)
         self.FORECAST_DIAGRAM_AND_TEMPERATURE_FRAME_LAYOUT.addWidget(self.FORECAST_TEMPERATURE_ITSELF_LABEL, alignment = core.Qt.AlignmentFlag.AlignCenter)
 
-        
-        
-
-        
-
-
-
-        
-
-
-
-
-
-
-
-
-        
-        
     def scroll_left(self):
         hbar = self.DAY_WEATHER_SCROLL_AREA.horizontalScrollBar()
         hbar.setValue(hbar.minimum())
@@ -396,6 +439,53 @@ class WeatherContainer(widgets.QFrame):
     def scroll_right(self):
         hbar = self.DAY_WEATHER_SCROLL_AREA.horizontalScrollBar()
         hbar.setValue(hbar.maximum())
+        
+    # def open_modal(self):
+    #     # Получаем главное окно (объект)
+    #     main_window = self.window()
+        
+    #     self.MODAL = widgets.QWidget(main_window)
+    #     self.MODAL.setGeometry(10,10, 790, 688)
+    #     self.MODAL.setStyleSheet("background-color: white")
+    #     modal_layout = widgets.QVBoxLayout()
+    #     modal_layout.setAlignment(core.Qt.AlignmentFlag.AlignTop)
+        
+    #     # Объекты выравнивания
+    #     # core.Qt.AlignmentFlag.AlignTop
+        
+    #     self.MODAL.setLayout(modal_layout)
+        
+    #     header_frame = widgets.QFrame(parent = self.MODAL)
+    #     frame_layout = widgets.QHBoxLayout()
+    #     frame_layout.setAlignment(core.Qt.AlignmentFlag.AlignRight)
+    #     header_frame.setLayout(frame_layout)
+    #     header_frame.setFixedSize(742, 28)
+    #     modal_layout.addWidget(header_frame)
+    #     header_frame.setStyleSheet("background-color: cyan")
+        
+    #     close_button = widgets.QPushButton(parent = header_frame)
+    #     frame_layout.addWidget(close_button)
+    #     close_button.setFixedSize(24, 24)
+        
+    #     icon = QtGui.QIcon("media/close.svg")
+    #     close_button.setIcon(icon)
+    #     close_button.clicked.connect(self.MODAL.hide)
+        
+    #     data = io.BytesIO()
+
+    #     map = folium.Map(location = (50, 50))
+    #     #save() - сохраняет данные карты в дате обьекта
+    #     #close_file - =False(оставляем дата обьекта открытым для будущих обновлений карты)
+    #     map.save(data,close_file = False)
+
+    #     self.MODAL.show()
+    #     web_engine_view = WebEngine.QWebEngineView(parent = self.MODAL)
+    #     web_engine_view.setFixedSize(289,256)
+    #     modal_layout.addWidget(web_engine_view)
+        
+    #     html = data.getvalue().decode()
+        
+    #     web_engine_view.setHtml(html)
 
 
 # 🔘 Створюємо контейнер з прогнозом погоди до кінця дня. Він має бути із можливістю горизонтального скролу

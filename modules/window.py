@@ -11,9 +11,9 @@ class MainWindow(widgets.QMainWindow):
     
     def __init__(self):
         super().__init__()
-
-        self.setWindowFlags(core.Qt.WindowType.FramelessWindowHint)
         
+        self.setWindowFlags(core.Qt.WindowType.FramelessWindowHint)
+
         window_width = 1200
         window_height = 828
 
@@ -73,9 +73,10 @@ class MainWindow(widgets.QMainWindow):
         
         center_widget_layout.addWidget(self.LEFT_CONTAINER)
         center_widget_layout.addWidget(self.WEATHER_CONTAINER)
-    
+
     def mousePressEvent(self, event: gui.QMouseEvent):
         if event.button() == core.Qt.MouseButton.RightButton:
+          
             print("Правая кнопка")
     
     def keyPressEvent(self, event: gui.QKeyEvent):

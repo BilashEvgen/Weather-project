@@ -2,10 +2,10 @@ import PyQt6.QtWidgets as widgets
 import PyQt6.QtGui as gui
 import PyQt6.QtCore as core
 import PyQt6.QtWebEngineWidgets as WebEngine
-from utils import request
 import folium 
 import io
 
+from utils import request
 from .cards import Cards
 
 class LeftContainer(widgets.QFrame):
@@ -78,26 +78,10 @@ class LeftContainer(widgets.QFrame):
         
         
         card1 = Cards(parent = scroll_frame,city_name = "Dnipro")
-        card2 = Cards(parent = scroll_frame,city_name = "Odessa")
-        card3 = Cards(parent = scroll_frame,city_name = "Kyiv")
-        card4 = Cards(parent = scroll_frame,city_name = "Kharkiv")
-        card5 = Cards(parent = scroll_frame,city_name = "Zaporizhzhia")
-        card6 = Cards(parent = scroll_frame,city_name = "Lviv")
-        card7 = Cards(parent = scroll_frame,city_name = "London")
-        card8 = Cards(parent = scroll_frame,city_name = "Paris")
-        card9 = Cards(parent = scroll_frame,city_name = "Toronto")
-        card10 = Cards(parent = scroll_frame,city_name = "Alaska")
+        card10 = Cards(parent = scroll_frame,city_name = "New York")
        
                 
-        scroll_frame_layout.addWidget(card1, alignment = core.Qt.AlignmentFlag.AlignHCenter)
-        scroll_frame_layout.addWidget(card2, alignment = core.Qt.AlignmentFlag.AlignHCenter)
-        scroll_frame_layout.addWidget(card3, alignment = core.Qt.AlignmentFlag.AlignHCenter)
-        scroll_frame_layout.addWidget(card4, alignment = core.Qt.AlignmentFlag.AlignHCenter)
-        scroll_frame_layout.addWidget(card5, alignment = core.Qt.AlignmentFlag.AlignHCenter)
-        scroll_frame_layout.addWidget(card6, alignment = core.Qt.AlignmentFlag.AlignHCenter)
-        scroll_frame_layout.addWidget(card7, alignment = core.Qt.AlignmentFlag.AlignHCenter)
-        scroll_frame_layout.addWidget(card8, alignment = core.Qt.AlignmentFlag.AlignHCenter)        
-        scroll_frame_layout.addWidget(card9, alignment = core.Qt.AlignmentFlag.AlignHCenter)    
+        scroll_frame_layout.addWidget(card1, alignment = core.Qt.AlignmentFlag.AlignHCenter)    
         scroll_frame_layout.addWidget(card10, alignment = core.Qt.AlignmentFlag.AlignHCenter)   
     def change_button(self):
         
