@@ -7,6 +7,7 @@ import io
 
 from utils import request
 from .cards import Cards
+from utils import close_drop_menu
 
 class LeftContainer(widgets.QFrame):
     def __init__(self, parent):
@@ -107,7 +108,7 @@ class LeftContainer(widgets.QFrame):
         """)
             self.CHANGE_THEME_BUTTON.setIcon(icon)
         self.COUNTER += 1
-    
+        close_drop_menu(self.window())
 
         
         

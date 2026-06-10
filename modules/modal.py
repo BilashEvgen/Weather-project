@@ -8,6 +8,8 @@ from .modal_options.search_city_frame import SearchCity
 from .modal_options.app_size_frame import AppSize
 from .modal_options.app_language_frame import AppLanguage
 from .modal_options.app_icons_frame import AppIcons
+from utils import clear_layout
+from utils import close_drop_menu
 
 class ModalWindow(widgets.QWidget):
     def __init__(self, parent):
@@ -15,10 +17,6 @@ class ModalWindow(widgets.QWidget):
         self.hide()
         
         self.setObjectName("MODAL_WINDOW")
-        
-        # Получаем главное окно (объект)
-        main_window = self.window()
-        
         
         self.setGeometry(391, 106,790, 688)
         self.setAttribute(core.Qt.WidgetAttribute.WA_StyledBackground, True)
@@ -85,9 +83,12 @@ class ModalWindow(widgets.QWidget):
         self.SETTINGS_CONTEINER_LEFT_LAYOUT.addWidget(self.SETTINGS_CONTEINER_LEFT_OPTIONS_FRAME)
         
         self.SEARCH_CITY_FRAME = SearchCity(parent = self.SETTINGS_CONTEINER_LEFT_OPTIONS_FRAME)
+        self.SEARCH_CITY_FRAME.setStyleSheet("background-color: rgba(0,0,0,0.2)")
         self.APP_SIZE_FRAME = AppSize(parent = self.SETTINGS_CONTEINER_LEFT_OPTIONS_FRAME)
         self.APP_LANGUAGE_FRAME = AppLanguage(parent = self.SETTINGS_CONTEINER_LEFT_OPTIONS_FRAME)
         self.APP_ICONS_FRAME = AppIcons(parent = self.SETTINGS_CONTEINER_LEFT_OPTIONS_FRAME)
+        
+        self.LIST_OF_OPTIONS_FRAMES = [self.SEARCH_CITY_FRAME,self.APP_SIZE_FRAME,self.APP_LANGUAGE_FRAME,self.APP_ICONS_FRAME]
         
         self.SETTINGS_CONTEINER_LEFT_OPTIONS_LAYOUT = widgets.QVBoxLayout()
         self.SETTINGS_CONTEINER_LEFT_OPTIONS_LAYOUT.setContentsMargins(0,0,0,0)
@@ -96,11 +97,31 @@ class ModalWindow(widgets.QWidget):
         self.SETTINGS_CONTEINER_LEFT_OPTIONS_FRAME.setLayout(self.SETTINGS_CONTEINER_LEFT_OPTIONS_LAYOUT)
         
         self.SETTINGS_CONTEINER_LEFT_OPTIONS_LAYOUT.addWidget(self.SEARCH_CITY_FRAME)
-        self.SEARCH_CITY_FRAME.create_frame()
         self.SETTINGS_CONTEINER_LEFT_OPTIONS_LAYOUT.addWidget(self.APP_SIZE_FRAME)
         self.SETTINGS_CONTEINER_LEFT_OPTIONS_LAYOUT.addWidget(self.APP_LANGUAGE_FRAME)
         self.SETTINGS_CONTEINER_LEFT_OPTIONS_LAYOUT.addWidget(self.APP_ICONS_FRAME)
+        
+
+        self.SETTINGS_CONTEINER_RIGHT = widgets.QFrame(parent = self.SETTINGS_CONTEINER)
+        self.SETTINGS_CONTEINER_RIGHT.setStyleSheet("background-color: transparent")
+        self.SETTINGS_CONTEINER_RIGHT.setFixedSize(544, 578)
+        self.SETTINGS_CONTEINER_LAYOUT.addWidget(self.SETTINGS_CONTEINER_RIGHT)
+        
+        self.SETTINGS_CONTEINER_RIGHT_LAYOUT = widgets.QVBoxLayout()
+        self.SETTINGS_CONTEINER_RIGHT.setLayout(self.SETTINGS_CONTEINER_RIGHT_LAYOUT)
+        self.SETTINGS_CONTEINER_RIGHT_LAYOUT.setAlignment(core.Qt.AlignmentFlag.AlignTop) 
+        
     def hide_function(self) :
+        for option in self.LIST_OF_OPTIONS_FRAMES:
+            option.CHOOSED = False
+            option.setStyleSheet("background-color: transparent; border-radius: 0px")
         self.hide()
-        self.window().findChild(widgets.QFrame,"DROP_CITY_MODAL").DROP_DOWN_FRAME.hide()
-       
+        clear_layout(self.SETTINGS_CONTEINER_RIGHT_LAYOUT)
+        close_drop_menu(self.window())
+    def show_modal(self):
+        close_drop_menu(self.window())
+        if self.SEARCH_CITY_FRAME.CHOOSED == False:
+            self.SEARCH_CITY_FRAME.CHOOSED = True
+            self.SEARCH_CITY_FRAME.setStyleSheet("background-color : rgba(0,0,0,0.2); border-radius : 4px")       
+            self.SEARCH_CITY_FRAME.create_frame()
+        self.show()

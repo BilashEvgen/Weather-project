@@ -6,7 +6,7 @@ from utils import json_write, request, clear_layout
 from datetime import datetime, timezone, timedelta
 from .vertical_card import Vertical_Card
 from .sun_move_card import Sun_Move_Card
-
+from utils import close_drop_menu
 
 class Cards(widgets.QFrame):
    
@@ -273,7 +273,7 @@ class Cards(widgets.QFrame):
             
     def mousePressEvent(self, event: gui.QMouseEvent):
         if event.button() == core.Qt.MouseButton.LeftButton :
-            self.window().findChild(widgets.QLineEdit, "SEARCH_FIELD").DROP_DOWN_FRAME.hide()
+            close_drop_menu(self.window())
         if event.button() == core.Qt.MouseButton.LeftButton and self.SELECTED == False:
     
             self.select()

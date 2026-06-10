@@ -5,6 +5,7 @@ import json
 import os
 from utils import clear_layout
 from .search_field_button import SearchFieldCityButton
+from utils import close_drop_menu
 
 class SearchField(widgets.QLineEdit):
     def __init__(self, parent):
@@ -121,3 +122,7 @@ class SearchField(widgets.QLineEdit):
             self.DROP_DOWN_FRAME.hide()
             if search_frame:
                 search_frame.clear_button.hide()                
+    def mousePressEvent(self, event):
+        if event.button() == core.Qt.MouseButton.LeftButton :
+            self.window().findChild(widgets.QFrame, "DROP_COUNTRY_MODAL").DROP_DOWN_FRAME.hide()
+            self.window().findChild(widgets.QFrame, "DROP_CITY_MODAL").DROP_DOWN_FRAME.hide()

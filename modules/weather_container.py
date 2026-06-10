@@ -49,7 +49,7 @@ class WeatherContainer(widgets.QFrame):
         self.TOP_SETTINGS_FRAME_BUTTON = widgets.QPushButton(parent = self.TOP_SETTINGS_FRAME, icon = gui.QIcon("media/title_bar/additional_elements/settings.png"))
         self.TOP_SETTINGS_FRAME_BUTTON.setFixedSize(36,36)
         self.TOP_SETTINGS_FRAME_BUTTON.setStyleSheet("background-color: rgba(0, 0, 0, 0.2); border-radius: 4px;")
-        self.TOP_SETTINGS_FRAME_BUTTON.clicked.connect(self.MODAL_WINDOW.show)
+        self.TOP_SETTINGS_FRAME_BUTTON.clicked.connect(self.MODAL_WINDOW.show_modal)
         self.TOP_SETTINGS_FRAME_LAYOUT.addWidget(self.TOP_SETTINGS_FRAME_BUTTON, alignment = core.Qt.AlignmentFlag.AlignLeft)   
         
         # В TOP_SETTINGS_FRAME

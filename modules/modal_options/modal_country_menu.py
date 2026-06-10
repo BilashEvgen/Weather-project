@@ -7,11 +7,11 @@ from utils import clear_layout
 from ..search_field_button import SearchFieldCityButton
 from utils import close_drop_menu
 
-class ModalCityMenu(widgets.QFrame):
+class ModalCountryMenu(widgets.QFrame):
     def __init__(self, parent):
         super().__init__(parent)
-        self.DROP_DOWN_FRAME = None
-        self.setObjectName("DROP_CITY_MODAL")
+        self.COUNTRY_LABEL = None
+        self.setObjectName("DROP_COUNTRY_MODAL")
         self.CHOOSED = False
         self.setFixedSize(239, 32)
         
@@ -23,10 +23,10 @@ class ModalCityMenu(widgets.QFrame):
         self.DROP_LAYOUT.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
         self.setLayout(self.DROP_LAYOUT)
         
-        self.CITY_LABEL = widgets.QLabel(parent = self, text = "Виберіть місто")
-        self.CITY_LABEL.setFixedSize(198,16)
-        self.CITY_LABEL.setStyleSheet("background-color: transparent;border-radius: 0px; color: #71717A; font-family: 'Roboto'; font-weight: 400; font-size: 12px;")
-        self.DROP_LAYOUT.addWidget(self.CITY_LABEL)
+        self.COUNTRY_LABEL = widgets.QLabel(parent = self, text = "Виберіть країну")
+        self.COUNTRY_LABEL.setFixedSize(198,16)
+        self.COUNTRY_LABEL.setStyleSheet("background-color: transparent;border-radius: 0px; color: #71717A; font-family: 'Roboto'; font-weight: 400; font-size: 12px;")
+        self.DROP_LAYOUT.addWidget(self.COUNTRY_LABEL)
         
         self.ARROW_LABLE = widgets.QLabel(parent = self)
         self.ARROW_LABLE.setFixedSize(16,16)
@@ -36,10 +36,11 @@ class ModalCityMenu(widgets.QFrame):
             self.ARROW_LABLE.setPixmap(scaled_pixmap)
         
         self.DROP_LAYOUT.addWidget(self.ARROW_LABLE)
-       
+        
         self.DROP_DOWN_FRAME = widgets.QFrame(parent = self.window())   
-        self.DROP_DOWN_FRAME.setGeometry(613, 361, 239, 186)
+        self.DROP_DOWN_FRAME.setGeometry(613, 291, 239, 186)
         self.DROP_DOWN_FRAME.setStyleSheet("background-color: #676767; border-radius: 10px;")
+        self.DROP_DOWN_FRAME.hide()
         
         
         self.DROP_DOWN_SCROLL_AREA= widgets.QScrollArea(parent = self.DROP_DOWN_FRAME)
@@ -62,41 +63,40 @@ class ModalCityMenu(widgets.QFrame):
         self.DROP_DOWN_SCROLL_AREA_FRAME.setLayout(self.DROP_DOWN_LAYOUT)
         self.DROP_DOWN_SCROLL_AREA.setWidget(self.DROP_DOWN_SCROLL_AREA_FRAME)
         
-        self.DROP_DOWN_FRAME.hide()
+       
+    def country_chosen(self, country_name: str):
+        self.window().findChild(widgets.QFrame,"DROP_CITY_MODAL").CITY_LABEL.setText("Виберіть місто")
         
-    def city_chosen(self, city_name: str):
+        self.COUNTRY_LABEL.setText(country_name)
         
-        
-        self.CITY_LABEL.setText(city_name)
+        self.COUNTRY_NAME = country_name
         self.DROP_DOWN_FRAME.hide()
         
     def menu_pressed(self):
+        self.window().findChild(widgets.QFrame,"DROP_CITY_MODAL").DROP_DOWN_FRAME.hide()
         self.window().findChild(widgets.QLineEdit, "SEARCH_FIELD").DROP_DOWN_FRAME.hide()
+        self.DROP_DOWN_FRAME.show()
         
-        if self.window().findChild(widgets.QFrame,"DROP_COUNTRY_MODAL").COUNTRY_LABEL.text() != "Виберіть країну" :
-            country = self.window().findChild(widgets.QFrame,"DROP_COUNTRY_MODAL").COUNTRY_NAME
-          
-            clear_layout(self.DROP_DOWN_LAYOUT)
-
-            try:
-                with open("json/cities.json") as file:
-                    data = json.load(file)
-                    countries = data["data"]
-            except (FileNotFoundError, json.JSONDecodeError):
-                return
+        clear_layout(self.DROP_DOWN_LAYOUT)
+        
+        
+        
+        try:
+            with open("json/cities.json") as file:
+                data = json.load(file)
+                countries = data["data"]
+        except (FileNotFoundError, json.JSONDecodeError):
+            return
+        
+        for country in countries:
             
-            for json_country in countries:
-                if country == json_country["country"]:
-                    for city in json_country["cities"]:
-                        city_name = city
-                        city_button = SearchFieldCityButton(parent=self.DROP_DOWN_SCROLL_AREA_FRAME, text=city_name, width = 231, height = 22)
-                        city_button.clicked.connect(lambda clicked, name=city_name: self.city_chosen(name))
-                        self.DROP_DOWN_LAYOUT.addWidget(city_button)
-            self.DROP_DOWN_FRAME.show()                
-        else:  
-            self.CITY_LABEL.setText("Країна не обрана")
-            self.DROP_DOWN_FRAME.hide()      
-
+            country_name = country["country"]
+            country_button = SearchFieldCityButton(parent=self.DROP_DOWN_SCROLL_AREA_FRAME, text= country_name, width = 231, height = 22)
+            country_button.clicked.connect(lambda clicked, name=country_name: self.country_chosen(name))
+            self.DROP_DOWN_LAYOUT.addWidget(country_button)
+            
+                    
     def mousePressEvent(self, event: gui.QMouseEvent):
         if event.button() == core.Qt.MouseButton.LeftButton:
             self.menu_pressed()
+            self.DROP_DOWN_FRAME.show()

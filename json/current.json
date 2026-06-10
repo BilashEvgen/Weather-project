@@ -1,44 +1,49 @@
 {
     "coord": {
-        "lon": 4.3722,
-        "lat": 36.7447
+        "lon": 17.2537,
+        "lat": 50.273
     },
     "weather": [
         {
-            "id": 802,
-            "main": "Clouds",
-            "description": "уривчасті хмари",
-            "icon": "03d"
+            "id": 501,
+            "main": "Rain",
+            "description": "помірний дощ",
+            "icon": "10d"
         }
     ],
     "base": "stations",
     "main": {
-        "temp": 28.24,
-        "feels_like": 29.24,
-        "temp_min": 28.24,
-        "temp_max": 28.24,
-        "pressure": 1014,
-        "humidity": 55,
-        "sea_level": 1014,
-        "grnd_level": 952
+        "temp": 13.43,
+        "feels_like": 13.23,
+        "temp_min": 13.43,
+        "temp_max": 13.43,
+        "pressure": 1018,
+        "humidity": 92,
+        "sea_level": 1018,
+        "grnd_level": 950
     },
-    "visibility": 10000,
+    "visibility": 5882,
     "wind": {
-        "speed": 2.77,
-        "deg": 359,
-        "gust": 1.96
+        "speed": 1.86,
+        "deg": 345,
+        "gust": 2.79
+    },
+    "rain": {
+        "1h": 2.59
     },
     "clouds": {
-        "all": 42
+        "all": 100
     },
-    "dt": 1781023953,
+    "dt": 1781085770,
     "sys": {
-        "country": "DZ",
-        "sunrise": 1780979008,
-        "sunset": 1781031614
+        "type": 2,
+        "id": 2087246,
+        "country": "CZ",
+        "sunrise": 1781059260,
+        "sunset": 1781118000
     },
-    "timezone": 3600,
-    "id": 2506043,
-    "name": "Azazga",
+    "timezone": 7200,
+    "id": 3068298,
+    "name": "Písečná",
     "cod": 200
 }

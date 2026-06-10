@@ -6,7 +6,7 @@ from .header import Header
 from .app import application
 from .left_container import LeftContainer
 from .weather_container import WeatherContainer
-
+from utils import close_drop_menu
 class MainWindow(widgets.QMainWindow):
     
     def __init__(self):
@@ -77,20 +77,19 @@ class MainWindow(widgets.QMainWindow):
 
     def mousePressEvent(self, event: gui.QMouseEvent):
         if event.button() == core.Qt.MouseButton.LeftButton:
-           self.findChild(widgets.QLineEdit, "SEARCH_FIELD").DROP_DOWN_FRAME.hide()
-
-    def keyPressEvent(self, event: gui.QKeyEvent):
-        if event.key() == core.Qt.Key.Key_K:
-            print(event.text())
-            print(event.key())      
+            close_drop_menu(self)
+    # def keyPressEvent(self, event: gui.QKeyEvent):
+    #     if event.key() == core.Qt.Key.Key_K:
+    #         print(event.text())
+    #         print(event.key())      
     
-    def mouseReleaseEvent(self, event: gui.QMouseEvent):
-        if event.button() == core.Qt.MouseButton.RightButton:
-            print("right: works")
+    # def mouseReleaseEvent(self, event: gui.QMouseEvent):
+    #     if event.button() == core.Qt.MouseButton.RightButton:
+    #         print("right: works")
     
-    def keyReleaseEvent(self, event: gui.QKeyEvent):
-        if event.key() == core.Qt.Key.Key_K:
-            print(f"Key: {event.key()}")
-            print(f"Text: {event.text()}")
+    # def keyReleaseEvent(self, event: gui.QKeyEvent):
+    #     if event.key() == core.Qt.Key.Key_K:
+    #         print(f"Key: {event.key()}")
+    #         print(f"Text: {event.text()}")
         
 main_window = MainWindow()
