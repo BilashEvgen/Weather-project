@@ -6,6 +6,7 @@ from utils import clear_layout
 class AppIcons(widgets.QFrame):
     def __init__(self, parent):
         super().__init__(parent)
+        self.setObjectName("APPICONS")
         self.CHOOSED = False
         self.MODAL_WINDOW = self.window().findChild(widgets.QWidget,"MODAL_WINDOW")
         self.setFixedSize(158,35)
@@ -13,11 +14,12 @@ class AppIcons(widgets.QFrame):
         self.LAYOUT = widgets.QVBoxLayout()
         self.LAYOUT.setContentsMargins(8, 8, 0, 8)
         self.setLayout(self.LAYOUT)
+
+        self.LABEL3 = widgets.QLabel(text = "Списки зображень")
+        self.LABEL3.setFixedWidth(150)
+        self.LABEL3.setStyleSheet("color: white; font-size: 16px; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 500;")
+        self.LAYOUT.addWidget(self.LABEL3)
         
-        self.LABEL = widgets.QLabel(text = "Списки зображень")
-        self.LABEL.setFixedWidth(150)
-        self.LABEL.setStyleSheet("color: white; font-size: 16px; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 500;")
-        self.LAYOUT.addWidget(self.LABEL)
     def mousePressEvent(self, event):
         self.list_of_options_frames = self.MODAL_WINDOW.LIST_OF_OPTIONS_FRAMES
         if event.button() == core.Qt.MouseButton.LeftButton and self.CHOOSED == False:

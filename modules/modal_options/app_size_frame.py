@@ -6,6 +6,7 @@ from utils import clear_layout
 class AppSize(widgets.QFrame):
     def __init__(self, parent):
         super().__init__(parent)
+        self.setObjectName("APPSIZE")
         self.CHOOSED = False
         self.MODAL_WINDOW = self.window().findChild(widgets.QWidget,"MODAL_WINDOW")
         self.setFixedSize(158,35)
@@ -14,10 +15,11 @@ class AppSize(widgets.QFrame):
         self.LAYOUT.setContentsMargins(8, 8, 0, 8)
         self.setLayout(self.LAYOUT)
         
-        self.LABEL = widgets.QLabel(text = "Розмір додатку")
-        self.LABEL.setFixedWidth(150)
-        self.LABEL.setStyleSheet("color: white; font-size: 16px; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 500;")
-        self.LAYOUT.addWidget(self.LABEL)
+
+        self.LABEL1 = widgets.QLabel(text = "Розмір додакту")
+        self.LABEL1.setFixedWidth(150)
+        self.LABEL1.setStyleSheet("color: white; font-size: 16px; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 500;")
+        self.LAYOUT.addWidget(self.LABEL1)
     def mousePressEvent(self, event):
         self.list_of_options_frames = self.MODAL_WINDOW.LIST_OF_OPTIONS_FRAMES
         if event.button() == core.Qt.MouseButton.LeftButton and self.CHOOSED == False:

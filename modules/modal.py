@@ -40,7 +40,7 @@ class ModalWindow(widgets.QWidget):
         self.HEADER_FRAME_LAYOUT.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
         self.HEADER_FRAME.setLayout(self.HEADER_FRAME_LAYOUT)
         
-        self.HEADER_FRAME_LABEL = widgets.QLabel("Налаштування", parent = self.HEADER_FRAME)   
+        self.HEADER_FRAME_LABEL = widgets.QLabel(text = "Налаштування", parent = self.HEADER_FRAME)   
         self.HEADER_FRAME_LABEL.setStyleSheet("color: white; font-size: 24px; border-radius: 0px;background-color: transparent; font-family: 'Roboto';font-weight: 500;")
         self.HEADER_FRAME_LABEL.setFixedSize(168,28)
 
@@ -122,7 +122,7 @@ class ModalWindow(widgets.QWidget):
     def show_modal(self):
         self.WEATHER_CONTAINER = self.window().findChild(widgets.QFrame,"WEATHER_CONTAINER")
         
-       
+        
         close_drop_menu(self.window()) 
         if self.SEARCH_CITY_FRAME.CHOOSED == False:
             self.SEARCH_CITY_FRAME.CHOOSED = True

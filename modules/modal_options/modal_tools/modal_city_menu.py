@@ -6,20 +6,23 @@ import os
 from utils import clear_layout
 from ...search_field_button import SearchFieldCityButton
 from utils import close_drop_menu
+from utils import request
 
 class ModalCityMenu(widgets.QFrame):
     def __init__(self, parent):
         super().__init__(parent)
-        self.CITY_NAME = None  # Инициализируем
-        self.country = None  # Инициализируем
-        self.CITY_TEXT = ""  # Инициализируем
-        self.city_name = ""  # Инициализируем
+        self.setObjectName("CITYMENU")
+        self.CITY_NAME = None  
+        self.country = None  
+        self.CITY_TEXT = ""  
+        self.city_name = ""  
         self.DROP_DOWN_FRAME = None
+        self.ERROR = False
         self.setObjectName("DROP_CITY_MODAL")
         self.CHOOSED = False
         self.DROP_MENU_SHOW = False
         self.setFixedSize(239, 32)
-        
+        self.language_widget = self.window().findChild(widgets.QFrame, "WEATHER_CONTAINER")
         try:
             with open("json/cities.json") as file:
                 data = json.load(file)
@@ -28,7 +31,11 @@ class ModalCityMenu(widgets.QFrame):
             return
         
         self.setStyleSheet("background-color: white")
-        
+        self.language = self.window().findChild(widgets.QFrame,"WEATHER_CONTAINER").LANGUAGE
+        if self.language == "Українська":
+            self.city_lineedit = "Виберіть місто"
+        elif self.language == "English" :
+            self.city_lineedit = "Choose city"
         self.DROP_LAYOUT = widgets.QHBoxLayout()
         self.DROP_LAYOUT.setSpacing(5)
         self.DROP_LAYOUT.setContentsMargins(10, 8, 10, 8)
@@ -36,7 +43,7 @@ class ModalCityMenu(widgets.QFrame):
         self.setLayout(self.DROP_LAYOUT)
         
         self.CITY_LINEEDIT = widgets.QLineEdit(parent = self)
-        self.CITY_LINEEDIT.setPlaceholderText("Виберіть місто")
+        self.CITY_LINEEDIT.setPlaceholderText(self.city_lineedit)
         self.CITY_LINEEDIT.setFixedSize(198,16)
         self.CITY_LINEEDIT.setStyleSheet("background-color: transparent;border-radius: 0px; color: #71717A; font-family: 'Roboto'; font-weight: 400; font-size: 12px;")
         self.DROP_LAYOUT.addWidget(self.CITY_LINEEDIT)
@@ -76,6 +83,8 @@ class ModalCityMenu(widgets.QFrame):
         self.CITY_LINEEDIT.textChanged.connect(self.text_changed)
         
     def city_chosen(self, city_name: str):
+        
+        
         
         self.CITY_NAME = city_name
         
@@ -118,7 +127,18 @@ class ModalCityMenu(widgets.QFrame):
             if self.country == json_country["country"]:
                 for city in json_country["cities"]:
                     if not self.CITY_TEXT.strip() or city.lower().startswith(self.CITY_TEXT.lower()):
-                        self.city_name = city
+                        current_language = self.language_widget.LANGUAGE 
+                        if current_language == "Українська":
+                            try:
+                                self.geocoding_data = request(city, "geocoding")
+                                self.city_name = self.geocoding_data[0]["local_names"]["uk"]
+                                self.ERROR = False
+                            except Exception as e:
+                                
+                                self.ERROR = True
+                        if current_language == "English" or self.ERROR:
+                            self.city_name = city
+                        
                         self.city_button = SearchFieldCityButton(parent=self.DROP_DOWN_SCROLL_AREA_FRAME, text=self.city_name, width = 231, height = 22)
                         self.city_button.clicked.connect(lambda clicked, name=self.city_name: self.city_chosen(name))
                         self.DROP_DOWN_LAYOUT.addWidget(self.city_button)
@@ -157,7 +177,18 @@ class ModalCityMenu(widgets.QFrame):
             for json_country in self.countries:
                 if self.country == json_country["country"]:
                     for city in json_country["cities"]:
-                        self.city_name = city
+                        current_language = self.language_widget.LANGUAGE
+                        if current_language == "Українська":
+                            try:
+                                self.geocoding_data = request(city, "geocoding")
+                                self.city_name = self.geocoding_data[0]["local_names"]["uk"]
+                                self.ERROR = False
+                            except Exception as e:
+                                
+                                self.ERROR = True
+                        if current_language == "English" or self.ERROR:
+                            self.city_name = city
+                        
                         self.city_button = SearchFieldCityButton(parent=self.DROP_DOWN_SCROLL_AREA_FRAME, text=self.city_name, width = 231, height = 22)
                         self.city_button.clicked.connect(lambda clicked, name=self.city_name: self.city_chosen(name))
                         self.DROP_DOWN_LAYOUT.addWidget(self.city_button)

@@ -6,16 +6,17 @@ import os
 from utils import clear_layout
 from .search_field_button import SearchFieldCityButton
 from utils import close_drop_menu
+from utils import request
 
 class SearchField(widgets.QLineEdit):
     def __init__(self, parent):
         super().__init__(parent)
+        self.ERROR = False
         self.CITY_SEARCHED_COUNTER = 0
         self.setObjectName("SEARCH_FIELD")
         self.LINE_CHOOSED = False
         self.setFixedSize(200, 22)
         self.setPlaceholderText("Пошук")
-        
         try:
             with open("json/cities.json") as file:
                 data = json.load(file)
@@ -54,6 +55,7 @@ class SearchField(widgets.QLineEdit):
         
         self.setStyleSheet("background-color: transparent; border-radius: 0px; color: white; font-family: 'Roboto'; font-weight: 400; font-size: 17px;")
         
+        self.language_widget = self.window().findChild(widgets.QFrame, "WEATHER_CONTAINER")
         self.textChanged.connect(self.text_changed)
         
         self.setAlignment(core.Qt.AlignmentFlag.AlignLeft and core.Qt.AlignmentFlag.AlignVCenter)
@@ -90,7 +92,12 @@ class SearchField(widgets.QLineEdit):
                 search_frame.clear_button.show()
             
             clear_layout(self.DROP_DOWN_LAYOUT)
-            self.DROP_DOWN_LABEL = widgets.QLabel(parent = self.DROP_DOWN_FRAME, text = "Результати пошуку")
+            self.language = our_weather_container.LANGUAGE
+            if self.language == "Українська":
+                self.drop_down_label = "Результати пошуку"
+            elif self.language == "English" :
+                self.drop_down_label = "Search result"
+            self.DROP_DOWN_LABEL = widgets.QLabel(parent = self.DROP_DOWN_FRAME, text = self.drop_down_label)
             self.DROP_DOWN_LABEL.setStyleSheet("background-color: transparent; border: none; color: #d2c685; font-family: 'Roboto'; font-weight: 400; font-size: 14px;")
             self.DROP_DOWN_LAYOUT.addWidget(self.DROP_DOWN_LABEL)
             
@@ -108,9 +115,22 @@ class SearchField(widgets.QLineEdit):
                             self.CITY_SEARCHED_COUNTER += 1
                             if self.CITY_SEARCHED_COUNTER > 15:
                                 break
-                            city_name = city
-                            city_button = SearchFieldCityButton(parent=self.DROP_DOWN_SCROLL_AREA_FRAME, text=city_name, width = 261,height = 30)
-                            city_button.clicked.connect(lambda clicked, name=city_name: self.city_chosen(name))
+                            current_language = our_weather_container.LANGUAGE 
+                            if current_language == "Українська":
+                                try:
+                                    self.geocoding_data = request(city, "geocoding")
+                                    self.city_name = self.geocoding_data[0]["local_names"]["uk"]
+                                    self.ERROR = False
+                                except Exception as e:
+                                    
+                                    self.ERROR = True
+                            if current_language == "English" or self.ERROR:
+                                self.city_name = city
+                                self.ERROR = False
+                            if not hasattr(self, "city_name"):
+                                self.city_name = city
+                            city_button = SearchFieldCityButton(parent=self.DROP_DOWN_SCROLL_AREA_FRAME, text=self.city_name, width = 261,height = 30)
+                            city_button.clicked.connect(lambda clicked, name=self.city_name: self.city_chosen(name))
                             self.DROP_DOWN_LAYOUT.addWidget(city_button)
                         if city.lower() == self.LINE_TEXT.lower():
                             our_weather_container.ADD_BUTTON.show()

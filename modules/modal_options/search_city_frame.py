@@ -13,6 +13,7 @@ from .modal_tools.city_lables import CityListLable
 class SearchCity(widgets.QFrame):
     def __init__(self, parent):
         super().__init__(parent)
+        
         self.CHOOSED = False
         self.MODAL_WINDOW = self.window().findChild(widgets.QWidget,"MODAL_WINDOW")
         self.WEATHER_CONTAINER = self.window().findChild(widgets.QFrame,"WEATHER_CONTAINER")
@@ -34,6 +35,24 @@ class SearchCity(widgets.QFrame):
         
         
     def create_frame(self):
+        self.language = self.window().findChild(widgets.QFrame,"WEATHER_CONTAINER").LANGUAGE
+        if self.language == "Українська":
+            self.search_city_label = "Пошук міста"
+            self.country_label = "Країна"
+            self.city_label = "Місто"
+            self.coordinate_label = "Координати"
+            self.save_button_label = "Зберегти"
+            self.bottom_frame_label = "Додані міста"
+            
+        elif self.language == "English" :
+            self.search_city_label = "City searching"
+            self.country_label = "Country"
+            self.city_label = "City"
+            self.coordinate_label = "Coordinates"
+            self.save_button_label = "Save"
+            self.bottom_frame_label = "Added cities"
+            
+            
         self.CHOOSED = True
         self.SETTINGS_LAYOUT = self.MODAL_WINDOW.SETTINGS_CONTEINER_RIGHT_LAYOUT
         self.SETTINGS_FRAME = self.MODAL_WINDOW.SETTINGS_CONTEINER_RIGHT
@@ -66,7 +85,7 @@ class SearchCity(widgets.QFrame):
         self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME.setLayout(self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME_LAYOUT)
         
         
-        self.SEARCH_CITY_LABEL = widgets.QLabel(parent = self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME,text = "Пошук міста")
+        self.SEARCH_CITY_LABEL = widgets.QLabel(parent = self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME,text = self.search_city_label)
         self.SEARCH_CITY_LABEL.setFixedSize(239,21)
         self.SEARCH_CITY_LABEL.setStyleSheet("color: white; font-size: 18px; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 400;")
         self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME_LAYOUT.addWidget(self.SEARCH_CITY_LABEL,alignment= core.Qt.AlignmentFlag.AlignTop)
@@ -95,7 +114,7 @@ class SearchCity(widgets.QFrame):
         self.COUNTRY_CHOOSING_FRAME.setLayout(self.COUNTRY_CHOOSING_LAYOUT)
         
         
-        self.COUNTRY_LABEL = widgets.QLabel(parent = self.SEARCH_CHOOSING,text = "Країна" )
+        self.COUNTRY_LABEL = widgets.QLabel(parent = self.SEARCH_CHOOSING,text = self.country_label )
         self.COUNTRY_LABEL.setStyleSheet("color: white; font-size: 14px; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 500;")
         self.COUNTRY_LABEL.setFixedSize(239,18)
         self.COUNTRY_CHOOSING_LAYOUT.addWidget(self.COUNTRY_LABEL)
@@ -116,7 +135,7 @@ class SearchCity(widgets.QFrame):
         self.CITY_CHOOSING_LAYOUT.setSpacing(4)
         self.CITY_CHOOSING_FRAME.setLayout(self.CITY_CHOOSING_LAYOUT)
         
-        self.CITY_LABEL = widgets.QLabel(parent = self.SEARCH_CHOOSING,text = "Місто" )
+        self.CITY_LABEL = widgets.QLabel(parent = self.SEARCH_CHOOSING,text = self.city_label )
         self.CITY_LABEL.setStyleSheet("color: white; font-size: 14px; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 500;")
         self.CITY_LABEL.setFixedSize(239,18)
         self.CITY_CHOOSING_LAYOUT.addWidget(self.CITY_LABEL)
@@ -135,7 +154,7 @@ class SearchCity(widgets.QFrame):
         self.COORDINATE_LAYOUT.setSpacing(4)
         self.COORDINATE_FRAME.setLayout(self.COORDINATE_LAYOUT)
         
-        self.COORDINATE_LABEL1 = widgets.QLabel(parent = self.COORDINATE_FRAME, text = "Координати")
+        self.COORDINATE_LABEL1 = widgets.QLabel(parent = self.COORDINATE_FRAME, text = self.coordinate_label)
         self.COORDINATE_LABEL1.setStyleSheet("color: white; font-size: 14px; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 500;")
         self.COORDINATE_LABEL1.setFixedSize(239, 18)
         self.COORDINATE_LAYOUT.addWidget(self.COORDINATE_LABEL1)
@@ -158,7 +177,7 @@ class SearchCity(widgets.QFrame):
         
         
       
-        self.SAVE_BUTTON = widgets.QPushButton(self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME, text = "Зберегти")
+        self.SAVE_BUTTON = widgets.QPushButton(self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME, text = self.save_button_label)
         self.SAVE_BUTTON.clicked.connect(lambda clicked: self.WEATHER_CONTAINER.add_city_card(True))
         self.SAVE_BUTTON.setFixedSize(105, 38)
         self.SAVE_BUTTON.setStyleSheet("background-color: rgba(0, 0, 0, 0.2); border-radius: 4px")
@@ -184,9 +203,7 @@ class SearchCity(widgets.QFrame):
         
         self.MAP_WEB_VIEW = WebEngine.QWebEngineView(parent = self.MAP_FRAME)
         self.MAP_WEB_VIEW.setFixedSize(289,256)
-        self.update_map_coordinates(
-            0,0
-        )
+        self.update_map_coordinates(0,0)
         
         
         
@@ -201,7 +218,7 @@ class SearchCity(widgets.QFrame):
         self.SETTINGS_CONTEINER_RIGHT_BOTTOM_FRAME_LAYOUT.setSpacing(16)
         self.SETTINGS_CONTEINER_RIGHT_BOTTOM_FRAME.setLayout(self.SETTINGS_CONTEINER_RIGHT_BOTTOM_FRAME_LAYOUT)
         
-        self.BOTTOM_FRAME_LABEL = widgets.QLabel(text = "Додані міста")
+        self.BOTTOM_FRAME_LABEL = widgets.QLabel(text = self.bottom_frame_label)
         self.BOTTOM_FRAME_LABEL.setFixedSize(544, 21)
         self.BOTTOM_FRAME_LABEL.setStyleSheet("color: white; font-size: 18px; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 400;")
         self.SETTINGS_CONTEINER_RIGHT_BOTTOM_FRAME_LAYOUT.addWidget(self.BOTTOM_FRAME_LABEL)

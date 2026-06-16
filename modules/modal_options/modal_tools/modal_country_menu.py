@@ -10,6 +10,7 @@ from utils import close_drop_menu
 class ModalCountryMenu(widgets.QFrame):
     def __init__(self, parent):
         super().__init__(parent)
+        self.setObjectName("CONTRYMENU")
         self.COUNTRY_LABEL = None
         self.COUNTRY_NAME = None  # Инициализируем
         self.COUNTRY_TEXT = ""  # Инициализируем
@@ -20,14 +21,18 @@ class ModalCountryMenu(widgets.QFrame):
         self.COUNTRY_CHOOSED = False
         self.DROP_MENU_SHOW = False
         self.setFixedSize(239, 32)
-        
+
         try:
             with open("json/cities.json") as file:
                 data = json.load(file)
                 self.countries = data["data"]
         except (FileNotFoundError, json.JSONDecodeError):
             return
-        
+        self.language = self.window().findChild(widgets.QFrame,"WEATHER_CONTAINER").LANGUAGE
+        if self.language == "Українська":
+            self.country_lineedit = "Списки зображень"
+        elif self.language == "English" :
+            self.country_lineedit = "Lists of images"
         self.setStyleSheet("background-color: white")
         
         self.DROP_LAYOUT = widgets.QHBoxLayout()
@@ -37,7 +42,7 @@ class ModalCountryMenu(widgets.QFrame):
         self.setLayout(self.DROP_LAYOUT)
         
         self.COUNTRY_LINEEDIT = widgets.QLineEdit(parent = self)
-        self.COUNTRY_LINEEDIT.setPlaceholderText("Виберіть країну")
+        self.COUNTRY_LINEEDIT.setPlaceholderText(self.country_lineedit)
         self.COUNTRY_LINEEDIT.setFixedSize(198,16)
         self.COUNTRY_LINEEDIT.setStyleSheet("background-color: transparent;border-radius: 0px; color: #71717A; font-family: 'Roboto'; font-weight: 400; font-size: 12px;")
         self.DROP_LAYOUT.addWidget(self.COUNTRY_LINEEDIT)

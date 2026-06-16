@@ -12,10 +12,25 @@ class WeatherContainer(widgets.QFrame):
     def __init__(self, parent):
         super().__init__(parent)
         self.LIST_OF_SETTINGS_CARDS = []
+        self.LANGUAGE = "Українська"
         self.setObjectName("WEATHER_CONTAINER")
         self.MODAL_WINDOW = ModalWindow(parent = self.window())
         self.setFixedSize(828, 800)
         
+        if self.LANGUAGE == "Українська":
+            self.settings_label = "Налаштування"
+            self.add_button_label = "Додати"
+            self.right_today_label = "Сьогодні"
+            self.day_weather_top_label = "Очікуваний прогноз погоди на 5 днів"
+            self.diagram_label = "Прогноз на 36 годин"
+            
+        elif self.LANGUAGE == "English" :
+            self.settings_label = "Settings"
+            self.add_button_label = "Add"
+            self.right_today_label = "Today"
+            self.day_weather_top_label = "Expected weather forecast for 5 days"
+            self.diagram_label = "Forecast for 36 hours"
+            
         self.WEATHER_CONTEINER_LAYOUT = widgets.QVBoxLayout(self)
         self.WEATHER_CONTEINER_LAYOUT.setContentsMargins(0,0,0,0)
         self.WEATHER_CONTEINER_LAYOUT.setSpacing(20)
@@ -55,8 +70,8 @@ class WeatherContainer(widgets.QFrame):
         self.TOP_SETTINGS_FRAME_LAYOUT.addWidget(self.TOP_SETTINGS_FRAME_BUTTON, alignment = core.Qt.AlignmentFlag.AlignLeft)   
         
         # В TOP_SETTINGS_FRAME
-        self.TOP_SETTINGS_FRAME_LABEL = widgets.QLabel(parent = self.TOP_SETTINGS_FRAME, text = "Налаштування")
-        self.TOP_SETTINGS_FRAME_LABEL.setFixedSize(98,16)
+        self.TOP_SETTINGS_FRAME_LABEL = widgets.QLabel(parent = self.TOP_SETTINGS_FRAME, text = self.settings_label)
+        self.TOP_SETTINGS_FRAME_LABEL.setFixedSize(98,20)
         self.TOP_SETTINGS_FRAME_LABEL.setStyleSheet("color: white; font-size: 14px; border-radius: 0px;background-color: transparent; font-family: 'Roboto';font-weight: 500;")
 
         self.TOP_SETTINGS_FRAME_LAYOUT.addWidget(self.TOP_SETTINGS_FRAME_LABEL, alignment = core.Qt.AlignmentFlag.AlignRight)
@@ -106,7 +121,7 @@ class WeatherContainer(widgets.QFrame):
         self.ADD_BUTTON_ICON.setAttribute(core.Qt.WidgetAttribute.WA_TransparentForMouseEvents, True)
         self.ADD_FRAME_LAYOUT.addWidget(self.ADD_BUTTON_ICON, alignment = core.Qt.AlignmentFlag.AlignLeft)
         
-        self.ADD_BUTTON_LABEL = widgets.QLabel(self.ADD_FRAME, text = "Додати")
+        self.ADD_BUTTON_LABEL = widgets.QLabel(self.ADD_FRAME, text = self.add_button_label)
         self.ADD_BUTTON_LABEL.setFixedSize(58, 22)
         self.ADD_BUTTON_LABEL.setStyleSheet("color: white; font-size: 17px; border-radius: 0px;background-color: transparent; font-family: 'Roboto';font-weight: 400;")
         self.ADD_BUTTON_LABEL.setAttribute(core.Qt.WidgetAttribute.WA_TransparentForMouseEvents, True)
@@ -260,7 +275,7 @@ class WeatherContainer(widgets.QFrame):
         self.RIGHT_TODAY_LAYOUT.setAlignment(core.Qt.AlignmentFlag.AlignTop)
         
         # Внутри right moment frame
-        self.RIGHT_TODAY_LABEL = widgets.QLabel(self.RIGHT_MOMENT_FRAME, text = "Сьогодні")
+        self.RIGHT_TODAY_LABEL = widgets.QLabel(self.RIGHT_MOMENT_FRAME, text = self.right_today_label)
         self.RIGHT_TODAY_LABEL.setFixedSize(67, 19)
         self.RIGHT_TODAY_LABEL.setStyleSheet("color: white; font-size: 16px; border-radius: 0px;background-color: transparent; border: none; font-family: 'Roboto';font-weight: 500;")
         self.RIGHT_TODAY_LAYOUT.addWidget(self.RIGHT_TODAY_LABEL, alignment = core.Qt.AlignmentFlag.AlignLeft) 
@@ -319,7 +334,7 @@ class WeatherContainer(widgets.QFrame):
         self.DAY_WEATHER_FRAME_LAYOUT.setContentsMargins(0,16,0,16)
         self.DAY_WEATHER_FRAME_LAYOUT.setSpacing(16)
         
-        self.DAY_WEATHER_TOP_LABEL = widgets.QLabel(self.DAY_WEATHER_FRAME, text = "Очікуваний прогноз погоди на 5 днів")
+        self.DAY_WEATHER_TOP_LABEL = widgets.QLabel(self.DAY_WEATHER_FRAME, text = self.day_weather_top_label)
         self.DAY_WEATHER_TOP_LABEL.setFixedSize(756, 27)
         self.DAY_WEATHER_TOP_LABEL.setAlignment(core.Qt.AlignmentFlag.AlignVCenter and core.Qt.AlignmentFlag.AlignLeft) 
         self.DAY_WEATHER_FRAME_LAYOUT.addWidget(self.DAY_WEATHER_TOP_LABEL, alignment = core.Qt.AlignmentFlag.AlignCenter)
@@ -406,7 +421,7 @@ class WeatherContainer(widgets.QFrame):
         self.MAIN_DIAGRAM_FRAME.setLayout(self.MAIN_DIAGRAM_FRAME_LAYOUT)
         
         # Внутри main diagram frame
-        self.DIAGRAM_LABEL = widgets.QLabel(self.MAIN_DIAGRAM_FRAME, text = "Прогноз на 36 годин")
+        self.DIAGRAM_LABEL = widgets.QLabel(self.MAIN_DIAGRAM_FRAME, text = self.diagram_label)
         self.DIAGRAM_LABEL.setAlignment(core.Qt.AlignmentFlag.AlignVCenter and core.Qt.AlignmentFlag.AlignLeft)
         self.DIAGRAM_LABEL.setFixedSize(756, 27)
         self.DIAGRAM_LABEL.setStyleSheet("border-radius: 0px; background-color: transparent; font-family: 'Roboto'; font-weight: 500; color: #FFFFFF; font-size: 16px; border-bottom: 1px solid #b4b4b4;")

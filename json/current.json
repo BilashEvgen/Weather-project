@@ -1,46 +1,44 @@
 {
     "coord": {
-        "lon": 21.1669,
-        "lat": 42.6727
+        "lon": -58.199,
+        "lat": -35.2784
     },
     "weather": [
         {
-            "id": 804,
-            "main": "Clouds",
-            "description": "хмарно",
-            "icon": "04d"
+            "id": 800,
+            "main": "Clear",
+            "description": "чисте небо",
+            "icon": "01d"
         }
     ],
     "base": "stations",
     "main": {
-        "temp": 16.21,
-        "feels_like": 15.64,
-        "temp_min": 15.34,
-        "temp_max": 16.21,
-        "pressure": 1020,
-        "humidity": 67,
-        "sea_level": 1020,
-        "grnd_level": 947
+        "temp": 15.51,
+        "feels_like": 14.45,
+        "temp_min": 15.51,
+        "temp_max": 15.51,
+        "pressure": 1015,
+        "humidity": 51,
+        "sea_level": 1015,
+        "grnd_level": 1013
     },
     "visibility": 10000,
     "wind": {
-        "speed": 2.68,
-        "deg": 122,
-        "gust": 6.26
+        "speed": 6.77,
+        "deg": 284,
+        "gust": 9.84
     },
     "clouds": {
-        "all": 100
+        "all": 0
     },
-    "dt": 1781258263,
+    "dt": 1781625796,
     "sys": {
-        "type": 2,
-        "id": 2001690,
-        "country": "XK",
-        "sunrise": 1781233022,
-        "sunset": 1781288005
+        "country": "AR",
+        "sunrise": 1781607602,
+        "sunset": 1781642822
     },
-    "timezone": 7200,
-    "id": 786714,
-    "name": "Pristina",
+    "timezone": -10800,
+    "id": 3433340,
+    "name": "Jeppener",
     "cod": 200
 }

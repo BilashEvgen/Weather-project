@@ -17,9 +17,14 @@ class Cards(widgets.QFrame):
         
         self.setObjectName("CARD")
         
+        self.language_widget = self.window().findChild(widgets.QFrame, "WEATHER_CONTAINER")
+        self.current_language = self.language_widget.LANGUAGE
+        
         self.CITY_NAME = city_name
         self.REQUEST_DATA = request(self.CITY_NAME, "current")
+        self.GEOCODING_DATA = request(self.CITY_NAME, "geocoding")
         json_write("current.json",self.REQUEST_DATA)
+        json_write("geocoding.json",self.GEOCODING_DATA)
         
         self.data_time()
         self.SELECTED = False
@@ -38,7 +43,14 @@ class Cards(widgets.QFrame):
         self.FRAME1_LAYOUT = widgets.QVBoxLayout()
         self.FRAME1.setLayout(self.FRAME1_LAYOUT)
         
-        self.FRAME1_LABEL1 = widgets.QLabel(text = self.CITY_NAME, parent = self.FRAME1)
+        if self.current_language == "Українська":
+            try:
+                self.CITY_TEXT = self.GEOCODING_DATA[0]["local_names"]["uk"]  
+            except:
+                self.CITY_TEXT = self.CITY_NAME
+        if self.current_language == "English":
+            self.CITY_TEXT = self.CITY_NAME
+        self.FRAME1_LABEL1 = widgets.QLabel(text = self.CITY_TEXT, parent = self.FRAME1)
         self.FRAME1_LABEL1.setFixedSize(200,28)
         self.FRAME1_LABEL1.setStyleSheet("font-size: 24px; font-family: 'Roboto';font-weight: 500;")
         
@@ -236,8 +248,8 @@ class Cards(widgets.QFrame):
                 
                 self.TEXT_LABEL = None
             
-                
-        weather_container.LEFT_CITY_LABEL.setText(self.CITY_NAME)
+        
+        weather_container.LEFT_CITY_LABEL.setText(self.CITY_TEXT)
             # temperature
         weather_container.LEFT_WEATHER_LABEL.setText(f"{int(self.REQUEST_DATA["main"]["temp"])}")
             
@@ -254,6 +266,7 @@ class Cards(widgets.QFrame):
             scaled = pixmap.scaled(weather_container.LEFT_WEATHER_ICON_SIZE, core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
             weather_container.LEFT_WEATHER_ICON.setPixmap(scaled)
             # Запись в правую часть контейнера погоды данных о погоде с запроса API при каждом клике на карточку
+            
         weather_container.RIGHT_DATA_LABEL1.setText(self.UA_DAY_STR)
             
         weather_container.RIGHT_DATA_LABEL2.setText(self.DATE)

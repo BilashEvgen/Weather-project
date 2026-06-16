@@ -6,23 +6,243 @@ from utils import clear_layout
 class AppLanguage(widgets.QFrame):
     def __init__(self, parent):
         super().__init__(parent)
+        
+        self.setObjectName("APPLANGUAGE")
         self.CHOOSED = False
-        self.MODAL_WINDOW = self.window().findChild(widgets.QWidget,"MODAL_WINDOW")
+        self.WEATHER_CONTAINER = self.window().findChild(widgets.QFrame, "WEATHER_CONTAINER")
+        self.MODAL_WINDOW = self.window().findChild(widgets.QWidget, "MODAL_WINDOW")
         self.setFixedSize(158,35)
         self.setStyleSheet("background-color: transparent")
         self.LAYOUT = widgets.QVBoxLayout()
         self.LAYOUT.setContentsMargins(8, 8, 0, 8)
         self.setLayout(self.LAYOUT)
         
-        self.LABEL = widgets.QLabel(text = "Мова додатку")
-        self.LABEL.setFixedWidth(150)
-        self.LABEL.setStyleSheet("color: white; font-size: 16px; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 500;")
-        self.LAYOUT.addWidget(self.LABEL)
+        self.LABEL2 = widgets.QLabel(text = "Мова додатку")
+        self.LABEL2.setFixedWidth(150)
+        self.LABEL2.setStyleSheet("color: white; font-size: 16px; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 500;")
+        self.LAYOUT.addWidget(self.LABEL2)
+        
+    def create_frame(self):
+        if not self.MODAL_WINDOW or not hasattr(self.MODAL_WINDOW, "SETTINGS_CONTEINER_RIGHT_LAYOUT") or not hasattr(self.MODAL_WINDOW, "SETTINGS_CONTEINER_RIGHT"):
+            return
+        self.language = self.window().findChild(widgets.QFrame,"WEATHER_CONTAINER").LANGUAGE
+        if self.language == "Українська":
+            self.choose_language_label = "Оберіть мову додатку"
+            self.app_language_label = "Мова додатку"
+            self.save_language_button = "Зберегти"
+        elif self.language == "English" :
+            self.choose_language_label = "Select app language"
+            self.app_language_label = "App language"
+            self.save_language_button = "Save"
+        self.CHOOSED = True
+
+        self.SETTINGS_LAYOUT = self.MODAL_WINDOW.SETTINGS_CONTEINER_RIGHT_LAYOUT
+        self.SETTINGS_FRAME = self.MODAL_WINDOW.SETTINGS_CONTEINER_RIGHT
+        
+        self.SETTINGS_LAYOUT.setContentsMargins(0,0,305,417)
+        
+        self.CHOOSE_LANGUAGE_FRAME = widgets.QFrame()
+        self.CHOOSE_LANGUAGE_FRAME.setFixedSize(239, 161)
+        self.CHOOSE_LANGUAGE_FRAME.setStyleSheet("background-color: transparent; border-radius: 0px;")
+        self.SETTINGS_LAYOUT.addWidget(self.CHOOSE_LANGUAGE_FRAME)
+
+        self.CHOOSE_LANGUAGE_LAYOUT = widgets.QVBoxLayout()
+        self.CHOOSE_LANGUAGE_LAYOUT.setContentsMargins(0, 0, 0, 0)
+        self.CHOOSE_LANGUAGE_LAYOUT.setSpacing(24)
+        self.CHOOSE_LANGUAGE_LAYOUT.setAlignment(core.Qt.AlignmentFlag.AlignTop)
+
+        self.CHOOSE_LANGUAGE_FRAME.setLayout(self.CHOOSE_LANGUAGE_LAYOUT)
+        
+        self.CHOOSE_LANGUAGE_LABEL = widgets.QLabel(text = self.choose_language_label)
+        self.CHOOSE_LANGUAGE_LABEL.setStyleSheet("color: white; font-size: 18px; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 400;")
+        self.CHOOSE_LANGUAGE_LABEL.setFixedSize(239, 21)
+
+        self.CHOOSE_LANGUAGE_LAYOUT.addWidget(self.CHOOSE_LANGUAGE_LABEL, alignment = core.Qt.AlignmentFlag.AlignLeft)
+        
+        self.APP_LANGUAGE_FRAME = widgets.QFrame()
+        self.APP_LANGUAGE_FRAME.setFixedSize(239, 54)
+        self.APP_LANGUAGE_FRAME.setStyleSheet("background-color: transparent; border-radius: 0px;")
+
+        self.APP_LANGUAGE_LAYOUT = widgets.QVBoxLayout()
+        self.APP_LANGUAGE_LAYOUT.setContentsMargins(0, 0, 0, 0)
+        self.APP_LANGUAGE_LAYOUT.setSpacing(0)
+        self.APP_LANGUAGE_FRAME.setLayout(self.APP_LANGUAGE_LAYOUT)
+
+        self.CHOOSE_LANGUAGE_LAYOUT.addWidget(self.APP_LANGUAGE_FRAME, alignment = core.Qt.AlignmentFlag.AlignCenter)
+
+        self.APP_LANGUAGE_LABEL = widgets.QLabel(text = self.app_language_label )
+        self.APP_LANGUAGE_LABEL.setFixedSize(93, 22)
+        self.APP_LANGUAGE_LABEL.setStyleSheet("color: white; font-size: 14px; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 500;")
+        self.APP_LANGUAGE_LAYOUT.addWidget(self.APP_LANGUAGE_LABEL, alignment = core.Qt.AlignmentFlag.AlignLeft)
+
+        self.APP_LANGUAGE_DROP_DOWN_MENU = widgets.QComboBox(self.APP_LANGUAGE_FRAME)
+        self.APP_LANGUAGE_DROP_DOWN_MENU.setFixedSize(239, 32)
+        self.APP_LANGUAGE_DROP_DOWN_MENU.setStyleSheet("background-color: white; color: black; border-radius: 4px; padding-left: 8px;")
+        
+        if self.WEATHER_CONTAINER.LANGUAGE == "Українська":
+            self.APP_LANGUAGE_DROP_DOWN_MENU.addItem("Українська")
+            self.APP_LANGUAGE_DROP_DOWN_MENU.addItem("English")
+        elif self.WEATHER_CONTAINER.LANGUAGE == "English":
+            self.APP_LANGUAGE_DROP_DOWN_MENU.addItem("English")
+            self.APP_LANGUAGE_DROP_DOWN_MENU.addItem("Українська")    
+        
+        self.APP_LANGUAGE_LAYOUT.addWidget(self.APP_LANGUAGE_DROP_DOWN_MENU)
+
+        
+        self.SAVE_LANGUAGE_BUTTON = widgets.QPushButton(text = self.save_language_button)
+        self.SAVE_LANGUAGE_BUTTON.setFixedSize(105, 38)
+        self.SAVE_LANGUAGE_BUTTON.setStyleSheet("background-color: rgba(0,0,0,0.1); border-radius: 4px; color: white; font-size: 14px; font-family: Roboto; font-weight: 400;")
+        self.SAVE_LANGUAGE_BUTTON.clicked.connect(self.change_language)
+        
+        self.CHOOSE_LANGUAGE_LAYOUT.addWidget(self.SAVE_LANGUAGE_BUTTON, alignment = core.Qt.AlignmentFlag.AlignLeft)
+        
+    def change_language(self):
+        if self.WEATHER_CONTAINER and hasattr(self.WEATHER_CONTAINER, 'LANGUAGE'):
+            self.WEATHER_CONTAINER.LANGUAGE = self.APP_LANGUAGE_DROP_DOWN_MENU.currentText()
+            language = self.WEATHER_CONTAINER.LANGUAGE
+        else:
+            language = self.APP_LANGUAGE_DROP_DOWN_MENU.currentText()
+
+        main_window = self.window()
+        weather_container = main_window.findChild(widgets.QFrame, "WEATHER_CONTAINER")
+        search_field = main_window.findChild(widgets.QLineEdit, "SEARCH_FIELD")
+        search_city = main_window.findChild(widgets.QFrame, "SEARCHCITY")
+        app_size = main_window.findChild(widgets.QFrame, "APPSIZE")
+        app_icons = main_window.findChild(widgets.QFrame, "APPICONS")
+        country_menu = main_window.findChild(widgets.QFrame, "CONTRYMENU")
+        city_menu = main_window.findChild(widgets.QFrame, "CITYMENU")
+        modal_window = main_window.findChild(widgets.QWidget, "MODAL_WINDOW")
+        
+        def safe_set_text(widget, text):
+                try:
+                    widget.setText(text)
+                except RuntimeError:
+                    pass
+        
+        if language == "English":
+            # def safe_set_text(widget, text):
+            #     try:
+            #         widget.setText(text)
+            #     except RuntimeError:
+            #         pass
+            
+            if weather_container and hasattr(weather_container, 'TOP_SETTINGS_FRAME_LABEL'):
+                safe_set_text(weather_container.TOP_SETTINGS_FRAME_LABEL, "Settings")
+            if weather_container and hasattr(weather_container, 'RIGHT_TODAY_LABEL'):
+                safe_set_text(weather_container.RIGHT_TODAY_LABEL, "Today")
+            if weather_container and hasattr(weather_container, 'ADD_BUTTON_LABEL'):
+                safe_set_text(weather_container.ADD_BUTTON_LABEL, "Add")
+            if weather_container and hasattr(weather_container, 'DAY_WEATHER_TOP_LABEL'):
+                safe_set_text(weather_container.DAY_WEATHER_TOP_LABEL, "Expected weather forecast for 5 days")
+            if weather_container and hasattr(weather_container, 'DIAGRAM_LABEL'):
+                safe_set_text(weather_container.DIAGRAM_LABEL, "Forecast for 36 hours")
+            if search_field and hasattr(search_field, 'DROP_DOWN_LABEL'):
+                safe_set_text(search_field.DROP_DOWN_LABEL, "Search results")
+            if search_field:
+                try:
+                    search_field.setPlaceholderText("Search")
+                except RuntimeError:
+                    pass
+            if search_city and hasattr(search_city, 'LABEL'):
+                safe_set_text(search_city.LABEL, "City search")
+            if search_city and hasattr(search_city, 'SEARCH_CITY_LABEL'):
+                safe_set_text(search_city.SEARCH_CITY_LABEL, "City search")
+            if search_city and hasattr(search_city, 'COUNTRY_LABEL'):
+                safe_set_text(search_city.COUNTRY_LABEL, "Country")
+            if search_city and hasattr(search_city, 'CITY_LABEL'):
+                safe_set_text(search_city.CITY_LABEL, "City")
+            if search_city and hasattr(search_city, 'COORDINATE_LABEL1'):
+                safe_set_text(search_city.COORDINATE_LABEL1, "Coordinates")
+            if search_city and hasattr(search_city, 'SAVE_BUTTON'):
+                safe_set_text(search_city.SAVE_BUTTON, "Save")
+            if search_city and hasattr(search_city, 'BOTTOM_FRAME_LABEL'):
+                safe_set_text(search_city.BOTTOM_FRAME_LABEL, "Added cities")
+            if hasattr(self, 'LABEL2'):
+                safe_set_text(self.LABEL2, "App language")
+            if app_size and hasattr(app_size, 'LABEL1'):
+                safe_set_text(app_size.LABEL1, "App size")
+            if app_icons and hasattr(app_icons, 'LABEL3'):
+                safe_set_text(app_icons.LABEL3, "Lists of images")
+            safe_set_text(self.CHOOSE_LANGUAGE_LABEL, "Select app language")
+            safe_set_text(self.APP_LANGUAGE_LABEL, "App language")
+            safe_set_text(self.SAVE_LANGUAGE_BUTTON, "Save")
+            if country_menu and hasattr(country_menu, 'COUNTRY_LINEEDIT'):
+                try:
+                    country_menu.COUNTRY_LINEEDIT.setPlaceholderText("Select coutry")
+                except RuntimeError:
+                    pass
+            if city_menu and hasattr(city_menu, 'CITY_LINEEDIT'):
+                try:
+                    city_menu.CITY_LINEEDIT.setPlaceholderText("Select city")
+                except RuntimeError:
+                    pass
+            if modal_window and hasattr(modal_window, 'HEADER_FRAME_LABEL'):
+                safe_set_text(modal_window.HEADER_FRAME_LABEL, "Settings")
+                
+        elif language == "Українська":
+            # def safe_set_text(widget, text):
+            #     try:
+            #         widget.setText(text)
+            #     except RuntimeError:
+            #         pass
+            
+            if weather_container and hasattr(weather_container, 'TOP_SETTINGS_FRAME_LABEL'):
+                safe_set_text(weather_container.TOP_SETTINGS_FRAME_LABEL, "Налаштування")
+            if weather_container and hasattr(weather_container, 'RIGHT_TODAY_LABEL'):
+                safe_set_text(weather_container.RIGHT_TODAY_LABEL, "Сьогодні")
+            if weather_container and hasattr(weather_container, 'ADD_BUTTON_LABEL'):
+                safe_set_text(weather_container.ADD_BUTTON_LABEL, "Додати")
+            if weather_container and hasattr(weather_container, 'DAY_WEATHER_TOP_LABEL'):
+                safe_set_text(weather_container.DAY_WEATHER_TOP_LABEL, "Очікуваний прогноз погоди на 5 днів")
+            if weather_container and hasattr(weather_container, 'DIAGRAM_LABEL'):
+                safe_set_text(weather_container.DIAGRAM_LABEL, "Прогноз на 36 годин")
+            if search_field and hasattr(search_field, 'DROP_DOWN_LABEL'):
+                safe_set_text(search_field.DROP_DOWN_LABEL, "Результати пошуку")
+            if search_field:
+                try:
+                    search_field.setPlaceholderText("Пошук")
+                except RuntimeError:
+                    pass
+            if search_city and hasattr(search_city, 'LABEL'):
+                safe_set_text(search_city.LABEL, "Пошук міста")
+            if search_city and hasattr(search_city, 'SEARCH_CITY_LABEL'):
+                safe_set_text(search_city.SEARCH_CITY_LABEL, "Пошук міста")
+            if search_city and hasattr(search_city, 'COUNTRY_LABEL'):
+                safe_set_text(search_city.COUNTRY_LABEL, "Кріїна")
+            if search_city and hasattr(search_city, 'CITY_LABEL'):
+                safe_set_text(search_city.CITY_LABEL, "Місто")
+            if search_city and hasattr(search_city, 'COORDINATE_LABEL1'):
+                safe_set_text(search_city.COORDINATE_LABEL1, "Координати")
+            if search_city and hasattr(search_city, 'SAVE_BUTTON'):
+                safe_set_text(search_city.SAVE_BUTTON, "Зберегти")
+            if search_city and hasattr(search_city, 'BOTTOM_FRAME_LABEL'):
+                safe_set_text(search_city.BOTTOM_FRAME_LABEL, "Додані міста")
+            if hasattr(self, 'LABEL2'):
+                safe_set_text(self.LABEL2, "Мова додатку")
+            if app_size and hasattr(app_size, 'LABEL1'):
+                safe_set_text(app_size.LABEL1, "Розмір додатку")
+            if app_icons and hasattr(app_icons, 'LABEL3'):
+                safe_set_text(app_icons.LABEL3, "Списки зображень")
+            safe_set_text(self.CHOOSE_LANGUAGE_LABEL, "Оберіть мову додатку")
+            safe_set_text(self.APP_LANGUAGE_LABEL, "Мова додатку")
+            safe_set_text(self.SAVE_LANGUAGE_BUTTON, "Зберегти")
+            if country_menu and hasattr(country_menu, 'COUNTRY_LINEEDIT'):
+                try:
+                    country_menu.COUNTRY_LINEEDIT.setPlaceholderText("Виберіть країну")
+                except RuntimeError:
+                    pass
+            if city_menu and hasattr(city_menu, 'CITY_LINEEDIT'):
+                try:
+                    city_menu.CITY_LINEEDIT.setPlaceholderText("Виберіть місто")
+                except RuntimeError:
+                    pass
+            if modal_window and hasattr(modal_window, 'HEADER_FRAME_LABEL'):
+                safe_set_text(modal_window.HEADER_FRAME_LABEL, "Налаштування")
     def mousePressEvent(self, event):
         self.list_of_options_frames = self.MODAL_WINDOW.LIST_OF_OPTIONS_FRAMES
         if event.button() == core.Qt.MouseButton.LeftButton and self.CHOOSED == False:
             clear_layout(self.MODAL_WINDOW.SETTINGS_CONTEINER_RIGHT_LAYOUT)
-            # self.create_frame()
+            self.create_frame()
             for option in self.list_of_options_frames :
                 if option.CHOOSED:
                     option.setStyleSheet("background-color: transparent; border-radius: 0px")
