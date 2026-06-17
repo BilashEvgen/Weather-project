@@ -1,6 +1,7 @@
 import PyQt6.QtCore as core
 import PyQt6.QtWidgets as widgets
 import PyQt6.QtGui as gui
+from PyQt6.QtWidgets import QSizePolicy
 from utils import request,json_write, close_drop_menu
 from .horizontal_scroll import Horizontal_Scroll
 from .search_frame import SearchFrame
@@ -189,23 +190,23 @@ class WeatherContainer(widgets.QFrame):
 
         self.LEFT_WEATHER_LAYOUT = widgets.QHBoxLayout(self.LEFT_WEATHER_FRAME)
         self.LEFT_WEATHER_FRAME.setLayout(self.LEFT_WEATHER_LAYOUT)
-        self.LEFT_WEATHER_LAYOUT.setSpacing(0)
+        self.LEFT_WEATHER_LAYOUT.setSpacing(8)
         self.LEFT_WEATHER_LAYOUT.setContentsMargins(0,0,0,0)
         self.LEFT_WEATHER_LAYOUT.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
         # Внутри left weather frame
         self.LEFT_WEATHER_ICON = widgets.QLabel(self.LEFT_WEATHER_FRAME)
-        self.LEFT_WEATHER_ICON.setFixedSize(84, 87)
+        self.LEFT_WEATHER_ICON.setFixedSize(76, 87)
         self.LEFT_WEATHER_ICON_SIZE = core.QSize(76, 76)
         self.LEFT_WEATHER_ICON.setStyleSheet("border-radius: 0px; background-color: transparent;")
         
         self.LEFT_WEATHER_ICON.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
         self.LEFT_WEATHER_ICON.setScaledContents(False)
-        self.LEFT_WEATHER_LAYOUT.addWidget(self.LEFT_WEATHER_ICON)
+        self.LEFT_WEATHER_LAYOUT.addWidget(self.LEFT_WEATHER_ICON,alignment = core.Qt.AlignmentFlag.AlignLeft)
         # Внутри left weather frame
         
         self.LEFT_WEATHER_LABLE_FRAME = widgets.QFrame(self.LEFT_WEATHER_FRAME)
-        self.LEFT_WEATHER_LABLE_FRAME.setFixedSize(113, 87)
-        self.LEFT_WEATHER_LAYOUT.addWidget(self.LEFT_WEATHER_LABLE_FRAME)
+        self.LEFT_WEATHER_LABLE_FRAME.setSizePolicy(QSizePolicy.Policy.Maximum,QSizePolicy.Policy.Preferred)
+        self.LEFT_WEATHER_LAYOUT.addWidget(self.LEFT_WEATHER_LABLE_FRAME,alignment = core.Qt.AlignmentFlag.AlignLeft )
         
         self.LEFT_WEATHER_LABLE_LAYOUT = widgets.QHBoxLayout()
         self.LEFT_WEATHER_LABLE_LAYOUT.setContentsMargins(0,0,0,0)
@@ -215,15 +216,15 @@ class WeatherContainer(widgets.QFrame):
         
         self.LEFT_WEATHER_LABEL = widgets.QLabel(self.LEFT_WEATHER_LABLE_FRAME)
         self.LEFT_WEATHER_LABEL.setStyleSheet("color: white; font-size: 74px;border-radius: 0px;background-color: transparent;font-family: 'Roboto';font-weight: 500;")
-        self.LEFT_WEATHER_LABEL.setFixedSize(80, 87)
-        self.LEFT_WEATHER_LABEL.setAlignment(core.Qt.AlignmentFlag.AlignRight | core.Qt.AlignmentFlag.AlignTop)
-        self.LEFT_WEATHER_LABLE_LAYOUT.addWidget(self.LEFT_WEATHER_LABEL)
+        self.LEFT_WEATHER_LABEL.setSizePolicy(QSizePolicy.Policy.Maximum,QSizePolicy.Policy.Preferred)
+        self.LEFT_WEATHER_LABEL.setAlignment(core.Qt.AlignmentFlag.AlignLeft | core.Qt.AlignmentFlag.AlignTop)
+        self.LEFT_WEATHER_LABLE_LAYOUT.addWidget(self.LEFT_WEATHER_LABEL, alignment= core.Qt.AlignmentFlag.AlignLeft)
 
         self.LEFT_WEATHER_LABEL11 = widgets.QLabel(self.LEFT_WEATHER_LABLE_FRAME)
         self.LEFT_WEATHER_LABEL11.setFixedSize(25, 65)
         self.LEFT_WEATHER_LABEL11.setStyleSheet("color: white; font-size: 60px;border-radius: 0px;background-color: transparent;font-family: 'Roboto';font-weight: 500;")
         self.LEFT_WEATHER_LABEL11.setAlignment(core.Qt.AlignmentFlag.AlignBottom)
-        self.LEFT_WEATHER_LABLE_LAYOUT.addWidget(self.LEFT_WEATHER_LABEL11)
+        self.LEFT_WEATHER_LABLE_LAYOUT.addWidget(self.LEFT_WEATHER_LABEL11, alignment= core.Qt.AlignmentFlag.AlignLeft)
 
         # Внутри left moment weather frame
         self.LEFT_DESCRIPTION_FRAME = widgets.QFrame(self.LEFT_MOMENT_FRAME)
@@ -522,9 +523,9 @@ class WeatherContainer(widgets.QFrame):
                 city_card = Cards(parent = our_left_container.scroll_frame, city_name = our_search_field.text())
                 city_name = our_search_field.text()
                 if city_name and city_name not in self.LIST_OF_SETTINGS_CARDS:
-                    self.LIST_OF_SETTINGS_CARDS.append(city_name)
+                    self.LIST_OF_SETTINGS_CARDS.append(city_card)
                 if hasattr(search_city, 'CITY_LIST_SCROLL_AREA_FRAME') and search_city.CHOOSED:
-                    settings_city_card = CityListLable(parent= search_city.CITY_LIST_SCROLL_AREA_FRAME,city_name = city_name)
+                    settings_city_card = CityListLable(parent= search_city.CITY_LIST_SCROLL_AREA_FRAME,city_name = city_card.FRAME1_LABEL1.text())
                     search_city.update_map_coordinates(
                         city_card.REQUEST_DATA["coord"]["lat"],
                         city_card.REQUEST_DATA["coord"]["lon"]
@@ -540,9 +541,9 @@ class WeatherContainer(widgets.QFrame):
                     city_card = Cards(parent = our_left_container.scroll_frame, city_name = modal_city_menu.CITY_NAME)
                     city_name = modal_city_menu.CITY_NAME
                     if city_name and city_name not in self.LIST_OF_SETTINGS_CARDS:
-                        self.LIST_OF_SETTINGS_CARDS.append(city_name)
+                        self.LIST_OF_SETTINGS_CARDS.append(city_card)
                     if hasattr(search_city, 'CITY_LIST_SCROLL_AREA_FRAME') and search_city.CHOOSED:
-                        settings_city_card = CityListLable(parent= search_city.CITY_LIST_SCROLL_AREA_FRAME,city_name = city_name)
+                        settings_city_card = CityListLable(parent= search_city.CITY_LIST_SCROLL_AREA_FRAME,city_name = city_card.FRAME1_LABEL1.text())
                         search_city.update_map_coordinates(
                             city_card.REQUEST_DATA["coord"]["lat"],
                             city_card.REQUEST_DATA["coord"]["lon"]

@@ -115,20 +115,7 @@ class SearchField(widgets.QLineEdit):
                             self.CITY_SEARCHED_COUNTER += 1
                             if self.CITY_SEARCHED_COUNTER > 15:
                                 break
-                            current_language = our_weather_container.LANGUAGE 
-                            if current_language == "Українська":
-                                try:
-                                    self.geocoding_data = request(city, "geocoding")
-                                    self.city_name = self.geocoding_data[0]["local_names"]["uk"]
-                                    self.ERROR = False
-                                except Exception as e:
-                                    
-                                    self.ERROR = True
-                            if current_language == "English" or self.ERROR:
-                                self.city_name = city
-                                self.ERROR = False
-                            if not hasattr(self, "city_name"):
-                                self.city_name = city
+                            self.city_name = city
                             city_button = SearchFieldCityButton(parent=self.DROP_DOWN_SCROLL_AREA_FRAME, text=self.city_name, width = 261,height = 30)
                             city_button.clicked.connect(lambda clicked, name=self.city_name: self.city_chosen(name))
                             self.DROP_DOWN_LAYOUT.addWidget(city_button)

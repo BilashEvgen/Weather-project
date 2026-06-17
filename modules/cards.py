@@ -9,17 +9,13 @@ from .sun_move_card import Sun_Move_Card
 from utils import close_drop_menu
 
 class Cards(widgets.QFrame):
-   
+    
     CARDS_LIST = []
     def __init__(self, parent, city_name):
         
         super().__init__(parent)
         
         self.setObjectName("CARD")
-        
-        self.language_widget = self.window().findChild(widgets.QFrame, "WEATHER_CONTAINER")
-        self.current_language = self.language_widget.LANGUAGE
-        
         self.CITY_NAME = city_name
         self.REQUEST_DATA = request(self.CITY_NAME, "current")
         self.GEOCODING_DATA = request(self.CITY_NAME, "geocoding")
@@ -27,6 +23,25 @@ class Cards(widgets.QFrame):
         json_write("geocoding.json",self.GEOCODING_DATA)
         
         self.data_time()
+        self.language_widget = self.window().findChild(widgets.QFrame, "WEATHER_CONTAINER")
+        self.current_language = self.language_widget.LANGUAGE
+        self.language = self.language_widget.LANGUAGE
+        if self.language == "Українська":
+            
+            self.frame1_label3 = self.REQUEST_DATA["weather"][0]["description"].capitalize()
+            self.max_min_temp = f"Макс.:{int(self.REQUEST_DATA["main"]["temp_max"])}°, Мін.:{int(self.REQUEST_DATA["main"]["temp_min"])}°"
+            try:
+                self.CITY_TEXT = self.GEOCODING_DATA[0]["local_names"]["uk"]  
+            except:
+                self.CITY_TEXT = self.CITY_NAME
+        elif self.language == "English" :
+            
+            self.frame1_label3 = self.REQUEST_DATA["weather"][0]["main"].capitalize()
+            self.max_min_temp = f"Max.:{int(self.REQUEST_DATA["main"]["temp_max"])}°, Min.:{int(self.REQUEST_DATA["main"]["temp_min"])}°"
+            self.CITY_TEXT = self.CITY_NAME
+        
+        
+        
         self.SELECTED = False
         
         self.setStyleSheet("border-bottom: 1px solid #859892;")
@@ -43,13 +58,7 @@ class Cards(widgets.QFrame):
         self.FRAME1_LAYOUT = widgets.QVBoxLayout()
         self.FRAME1.setLayout(self.FRAME1_LAYOUT)
         
-        if self.current_language == "Українська":
-            try:
-                self.CITY_TEXT = self.GEOCODING_DATA[0]["local_names"]["uk"]  
-            except:
-                self.CITY_TEXT = self.CITY_NAME
-        if self.current_language == "English":
-            self.CITY_TEXT = self.CITY_NAME
+       
         self.FRAME1_LABEL1 = widgets.QLabel(text = self.CITY_TEXT, parent = self.FRAME1)
         self.FRAME1_LABEL1.setFixedSize(200,28)
         self.FRAME1_LABEL1.setStyleSheet("font-size: 24px; font-family: 'Roboto';font-weight: 500;")
@@ -58,7 +67,7 @@ class Cards(widgets.QFrame):
         self.FRAME1_LABEL2.setStyleSheet("font-size: 12px; font-family: 'Roboto'; font-weight: 500; color: rgba(255, 255, 255, 0.8);")
         self.FRAME1_LABEL2.setFixedSize(105,14)
         
-        self.FRAME1_LABEL3 = widgets.QLabel(text = self.REQUEST_DATA["weather"][0]["description"].capitalize(), parent = self.FRAME1)
+        self.FRAME1_LABEL3 = widgets.QLabel(text = self.frame1_label3, parent = self.FRAME1)
         self.FRAME1_LABEL3.setStyleSheet("font-size: 12px; font-family: 'Roboto'; font-weight: 500; color: rgba(255, 255, 255, 0.8);")
         self.FRAME1_LABEL3.setFixedSize(105,14)
         
@@ -96,7 +105,7 @@ class Cards(widgets.QFrame):
         self.FRAME2_LABEL11.setAlignment(core.Qt.AlignmentFlag.AlignBottom)
         self.FRAME22_LAYOUT.addWidget(self.FRAME2_LABEL11, alignment= core.Qt.AlignmentFlag.AlignLeft )
         
-        self.FRAME2_LABEL2 = widgets.QLabel(text = f"Макс.:{int(self.REQUEST_DATA["main"]["temp_max"])}°, Мін.:{int(self.REQUEST_DATA["main"]["temp_min"])}°", parent = self.FRAME2)
+        self.FRAME2_LABEL2 = widgets.QLabel(text = self.max_min_temp, parent = self.FRAME2)
         self.FRAME2_LABEL2.setStyleSheet("font-size: 12px; font-family: 'Roboto'; font-weight: 500; color: rgba(255, 255, 255, 0.8);")
         self.FRAME2_LABEL2.setFixedSize(110,14)
         self.FRAME2_LABEL2.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
@@ -134,13 +143,31 @@ class Cards(widgets.QFrame):
                 self.UA_DAY_STR = day[1].capitalize()
         return self.UA_DAY_STR
     def select(self):
-        
+        self.SUNMOVE_CARDS_LIST = []
+        self.language = self.language_widget.LANGUAGE
         self.REQUEST_DATA = request(self.CITY_NAME, "current")
         self.day_request_data = request(self.CITY_NAME, "daily")
         self.data_time()
         self.week_day_translate()
-        
-        
+        if self.language == "Українська":
+            try:
+                self.CITY_TEXT =  self.GEOCODING_DATA[0]["local_names"]["uk"]  
+            except:
+                self.CITY_TEXT = self.CITY_NAME
+            self.frame1_label3 = self.REQUEST_DATA["weather"][0]["description"].capitalize()
+            self.max_min_temp = f"Макс.:{int(self.REQUEST_DATA["main"]["temp_max"])}°, Мін.:{int(self.REQUEST_DATA["main"]["temp_min"])}°"
+            self.now_text_label = "Зараз"
+            self.sunrise_card_label = "Схід сонця"
+            self.sunset_card_label = "Захід сонця"
+            self.day_str = self.UA_DAY_STR
+        elif self.language == "English" :
+            self.CITY_TEXT = self.CITY_NAME
+            self.frame1_label3 = self.REQUEST_DATA["weather"][0]["main"].capitalize()
+            self.max_min_temp = f"Max.:{int(self.REQUEST_DATA["main"]["temp_max"])}°, Min.:{int(self.REQUEST_DATA["main"]["temp_min"])}°"
+            self.now_text_label = "Now"
+            self.sunrise_card_label = "Sunrise"
+            self.sunset_card_label = "Sunset"
+            self.day_str = self.DAY_STR
         
         weather_container = self.window().findChild(widgets.QFrame,"WEATHER_CONTAINER")
         
@@ -148,12 +175,12 @@ class Cards(widgets.QFrame):
         clear_layout(weather_container.FORECAST_DIAGRAM_ICON_FRAME_LAYOUT)
         clear_layout(weather_container.FORECAST_DIAGRAM_ITSELF_LAYOUT)
         # Цикл для получения данных о погоде в течение дня и отображения их в виде диаграммы и скролла с часами, температурой и иконкой погоды
-        for index in range(len(self.day_request_data["list"])):
-                hour_data = self.day_request_data["list"][index]
+        for self.INDEX in range(len(self.day_request_data["list"])):
+                hour_data = self.day_request_data["list"][self.INDEX]
                 hour_temp = hour_data["main"]["temp"]
                 
                 hour_time = datetime.fromtimestamp(hour_data["dt"]+ self.day_request_data["city"]["timezone"], timezone.utc).hour 
-                if index <= 21:
+                if self.INDEX <= 21:
                     weather_forecast_icon = widgets.QLabel(parent = weather_container.FORECAST_DIAGRAM_AND_TEMPERATURE_FRAME)
                     weather_forecast_icon.setFixedSize(16,16)
                     forecast_icon = gui.QPixmap(f"media/title_bar/scrollbar_weather_icons/{hour_data["weather"][0]["icon"]}.png")
@@ -176,8 +203,8 @@ class Cards(widgets.QFrame):
                         
                         weather_container.FORECAST_DIAGRAM_ITSELF_LAYOUT.addWidget(diagramma, alignment = core.Qt.AlignmentFlag.AlignBottom)
                 
-                if index == 0:
-                    self.TEXT_LABEL = "Зараз"
+                if self.INDEX == 0:
+                    self.TEXT_LABEL = self.now_text_label
                 
                 
                 
@@ -187,8 +214,8 @@ class Cards(widgets.QFrame):
                     hour_time +=24
                 
 
-                if index + 1 < len(self.day_request_data["list"]):
-                    next_hour = datetime.fromtimestamp(self.day_request_data["list"][index + 1]["dt"] + self.day_request_data["city"]["timezone"], timezone.utc).hour
+                if self.INDEX + 1 < len(self.day_request_data["list"]):
+                    next_hour = datetime.fromtimestamp(self.day_request_data["list"][self.INDEX + 1]["dt"] + self.day_request_data["city"]["timezone"], timezone.utc).hour
                     
                     if next_hour > 24:
                         next_hour -=24
@@ -201,6 +228,8 @@ class Cards(widgets.QFrame):
                 vertical_card = Vertical_Card(parent = weather_container.DAY_WEATHER_SCROLL_FRAME)
                 if self.TEXT_LABEL:
                     vertical_card.TIME_LABEL.setText(f"{self.TEXT_LABEL}")
+                    if self.TEXT_LABEL == self.now_text_label:
+                        self.FIRST_VERTICAL_CARD = vertical_card
                     self.TEXT_LABEL = None
                 else:
                     vertical_card.TIME_LABEL.setText(f"{hour_time}")
@@ -215,6 +244,7 @@ class Cards(widgets.QFrame):
                 
                 if next_hour is not None and self.SUNRISE_TIME.hour >= hour_time and self.SUNRISE_TIME.hour < next_hour:
                     sunrise_card = Sun_Move_Card(parent = weather_container.DAY_WEATHER_SCROLL_FRAME)
+                    self.SUNMOVE_CARDS_LIST.append(sunrise_card)
                     if self.TEXT_LABEL:
                         sunrise_card.TIME_LABEL.setText(f"{self.TEXT_LABEL}") 
                         self.TEXT_LABEL = None
@@ -226,11 +256,12 @@ class Cards(widgets.QFrame):
                         scaled_pixmap = sunrise_pixmap.scaled(sunrise_card.ICON_LABEL.size(), core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
                         sunrise_card.ICON_LABEL.setPixmap(scaled_pixmap)
                     
-                    sunrise_card.TEXT_LABEL.setText("Схід сонця")
+                    sunrise_card.TEXT_LABEL.setText(self.sunrise_card_label)
                     weather_container.DAY_WEATHER_SCROLL_FRAME_LAYOUT.addWidget(sunrise_card)
                 
                 elif next_hour is not None and self.SUNSET_TIME.hour >= hour_time and self.SUNSET_TIME.hour < next_hour:
                     sunset_card = Sun_Move_Card(parent = weather_container.DAY_WEATHER_SCROLL_FRAME)
+                    self.SUNMOVE_CARDS_LIST.append(sunset_card)
                     if self.TEXT_LABEL:
                         sunset_card.TIME_LABEL.setText(f"{self.TEXT_LABEL}")
                         self.TEXT_LABEL = None
@@ -243,7 +274,7 @@ class Cards(widgets.QFrame):
                         scaled_pixmap = sunset_pixmap.scaled(24,24, core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
                         sunset_card.ICON_LABEL.setPixmap(scaled_pixmap)
                         
-                    sunset_card.TEXT_LABEL.setText("Захід сонця")    
+                    sunset_card.TEXT_LABEL.setText(self.sunset_card_label)    
                     weather_container.DAY_WEATHER_SCROLL_FRAME_LAYOUT.addWidget(sunset_card) 
                 
                 self.TEXT_LABEL = None
@@ -251,13 +282,17 @@ class Cards(widgets.QFrame):
         
         weather_container.LEFT_CITY_LABEL.setText(self.CITY_TEXT)
             # temperature
+        # if len(weather_container.LEFT_WEATHER_LABEL.text()) > 1 :
+        #     weather_container.LEFT_WEATHER_LAYOUT.setSpacing(7)
+        # else:
+        #     weather_container.LEFT_WEATHER_LAYOUT.setFixedSize(0)
         weather_container.LEFT_WEATHER_LABEL.setText(f"{int(self.REQUEST_DATA["main"]["temp"])}")
             
         weather_container.LEFT_WEATHER_LABEL11.setText("°")
             # description
-        weather_container.LEFT_DESCRIPTION_LABEL1.setText(self.REQUEST_DATA["weather"][0]["description"].capitalize())
+        weather_container.LEFT_DESCRIPTION_LABEL1.setText(self.frame1_label3)
             # max min temp
-        weather_container.LEFT_DESCRIPTION_LABEL2.setText(f"Макс.:{int(self.REQUEST_DATA["main"]["temp_max"])}°, Мін.:{int(self.REQUEST_DATA["main"]["temp_min"])}°")
+        weather_container.LEFT_DESCRIPTION_LABEL2.setText(self.max_min_temp)
             
             
         pixmap = gui.QPixmap(f"media/title_bar/weather_icons/{self.REQUEST_DATA["weather"][0]["icon"]}.png")
@@ -267,7 +302,7 @@ class Cards(widgets.QFrame):
             weather_container.LEFT_WEATHER_ICON.setPixmap(scaled)
             # Запись в правую часть контейнера погоды данных о погоде с запроса API при каждом клике на карточку
             
-        weather_container.RIGHT_DATA_LABEL1.setText(self.UA_DAY_STR)
+        weather_container.RIGHT_DATA_LABEL1.setText(self.day_str)
             
         weather_container.RIGHT_DATA_LABEL2.setText(self.DATE)
             
@@ -278,9 +313,9 @@ class Cards(widgets.QFrame):
             
             # Обновление данных на карточке, которая была выбрана
         self.FRAME1_LABEL2.setText(self.TIME_STR)
-        self.FRAME1_LABEL3.setText(self.REQUEST_DATA["weather"][0]["description"].capitalize())
+        self.FRAME1_LABEL3.setText(self.frame1_label3)
         self.FRAME2_LABEL1.setText(f"{int(self.REQUEST_DATA["main"]["temp"])}")
-        self.FRAME2_LABEL2.setText(f"Макс.:{int(self.REQUEST_DATA["main"]["temp_max"])}°, Мін.:{int(self.REQUEST_DATA["main"]["temp_min"])}°")
+        self.FRAME2_LABEL2.setText(self.max_min_temp)
             
         for card in Cards.CARDS_LIST:
             if card.SELECTED:

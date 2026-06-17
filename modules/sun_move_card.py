@@ -5,6 +5,7 @@ class Sun_Move_Card(widgets.QFrame):
     def __init__(self, parent):
         super().__init__(parent)
 
+        self.setObjectName("SUNMOVE")
         self.setStyleSheet("background-color: transparent;")
         self.setFixedSize(90, 82)           
 

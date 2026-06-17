@@ -1,44 +1,47 @@
 {
     "coord": {
-        "lon": -58.199,
-        "lat": -35.2784
+        "lon": -61.3,
+        "lat": 15.2833
     },
     "weather": [
         {
-            "id": 800,
-            "main": "Clear",
-            "description": "чисте небо",
-            "icon": "01d"
+            "id": 500,
+            "main": "Rain",
+            "description": "легкий дощ",
+            "icon": "10d"
         }
     ],
     "base": "stations",
     "main": {
-        "temp": 15.51,
-        "feels_like": 14.45,
-        "temp_min": 15.51,
-        "temp_max": 15.51,
-        "pressure": 1015,
-        "humidity": 51,
-        "sea_level": 1015,
-        "grnd_level": 1013
+        "temp": 24.18,
+        "feels_like": 24.74,
+        "temp_min": 24.18,
+        "temp_max": 24.18,
+        "pressure": 1019,
+        "humidity": 80,
+        "sea_level": 1019,
+        "grnd_level": 1003
     },
     "visibility": 10000,
     "wind": {
-        "speed": 6.77,
-        "deg": 284,
-        "gust": 9.84
+        "speed": 6.27,
+        "deg": 81,
+        "gust": 8.35
+    },
+    "rain": {
+        "1h": 0.25
     },
     "clouds": {
-        "all": 0
+        "all": 74
     },
-    "dt": 1781625796,
+    "dt": 1781706435,
     "sys": {
-        "country": "AR",
-        "sunrise": 1781607602,
-        "sunset": 1781642822
+        "country": "DM",
+        "sunrise": 1781688913,
+        "sunset": 1781735824
     },
-    "timezone": -10800,
-    "id": 3433340,
-    "name": "Jeppener",
+    "timezone": -14400,
+    "id": 3575620,
+    "name": "Saint Patrick",
     "cod": 200
 }

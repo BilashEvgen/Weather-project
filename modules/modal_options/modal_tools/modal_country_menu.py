@@ -30,9 +30,9 @@ class ModalCountryMenu(widgets.QFrame):
             return
         self.language = self.window().findChild(widgets.QFrame,"WEATHER_CONTAINER").LANGUAGE
         if self.language == "Українська":
-            self.country_lineedit = "Списки зображень"
+            self.country_lineedit = "Виберіть країну"
         elif self.language == "English" :
-            self.country_lineedit = "Lists of images"
+            self.country_lineedit = "Choose country"
         self.setStyleSheet("background-color: white")
         
         self.DROP_LAYOUT = widgets.QHBoxLayout()
@@ -148,7 +148,10 @@ class ModalCountryMenu(widgets.QFrame):
         if self.DROP_MENU_SHOW == False:
             if not self.DROP_DOWN_FRAME:
                 return  # Если DROP_DOWN_FRAME не инициализирован, выходим
-            
+            main_window = self.window()
+            city_modal = main_window.findChild(widgets.QFrame, "DROP_CITY_MODAL")
+            if city_modal and hasattr(city_modal, 'DROP_DOWN_FRAME') and isinstance(city_modal.DROP_DOWN_FRAME, widgets.QFrame):
+                city_modal.DROP_DOWN_FRAME.hide()
             clear_layout(self.DROP_DOWN_LAYOUT)  # Очистить layout перед показом
             try:
                 for country in self.countries:

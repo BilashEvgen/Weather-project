@@ -1,9 +1,48 @@
 [
     {
-        "name": "Jeppener",
-        "lat": -35.277518,
-        "lon": -58.2016886,
-        "country": "AR",
-        "state": "Buenos Aires"
+        "name": "Dicks Island",
+        "local_names": {
+            "fr": "Saint Patrick"
+        },
+        "lat": 45.140328999999994,
+        "lon": -66.99725289846927,
+        "country": "CA",
+        "state": "New Brunswick"
+    },
+    {
+        "name": "Dicks Island",
+        "local_names": {
+            "fr": "Saint Patrick"
+        },
+        "lat": 45.140328999999994,
+        "lon": -66.99725289846927,
+        "country": "CA",
+        "state": "New Brunswick"
+    },
+    {
+        "name": "Hospital Island",
+        "local_names": {
+            "fr": "Saint Patrick"
+        },
+        "lat": 45.12088435,
+        "lon": -67.01150318008555,
+        "country": "CA",
+        "state": "New Brunswick"
+    },
+    {
+        "name": "Hospital Island",
+        "local_names": {
+            "fr": "Saint Patrick"
+        },
+        "lat": 45.12088435,
+        "lon": -67.01150318008555,
+        "country": "CA",
+        "state": "New Brunswick"
+    },
+    {
+        "name": "Saint Patrick",
+        "lat": 12.2102986,
+        "lon": -61.6350539,
+        "country": "GD"
     }
 ]

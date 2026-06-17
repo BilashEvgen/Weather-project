@@ -258,8 +258,17 @@ class SearchCity(widgets.QFrame):
         self.CITY_LIST_SCROLL_AREA_FRAME.setLayout(self.CITY_LIST_SCROLL_AREA_FRAME_LAYOUT)
 
         # Заполняем список городов из сохранённой коллекции
+        self.language_widget = self.window().findChild(widgets.QFrame, "WEATHER_CONTAINER")
         for setting_card in self.WEATHER_CONTAINER.LIST_OF_SETTINGS_CARDS:
-            CityListLable(parent=self.CITY_LIST_SCROLL_AREA_FRAME, city_name=setting_card)
+            self.language = self.language_widget.LANGUAGE
+            if self.language == "Українська":
+                try:
+                    self.CITY_TEXT = setting_card.GEOCODING_DATA[0]["local_names"]["uk"]  
+                except:
+                    self.CITY_TEXT = setting_card.CITY_NAME
+            elif self.language == "English" :
+                self.CITY_TEXT = setting_card.CITY_NAME
+            CityListLable(parent = self.CITY_LIST_SCROLL_AREA_FRAME, city_name = self.CITY_TEXT)
         
         
         

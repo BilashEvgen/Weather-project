@@ -127,18 +127,7 @@ class ModalCityMenu(widgets.QFrame):
             if self.country == json_country["country"]:
                 for city in json_country["cities"]:
                     if not self.CITY_TEXT.strip() or city.lower().startswith(self.CITY_TEXT.lower()):
-                        current_language = self.language_widget.LANGUAGE 
-                        if current_language == "Українська":
-                            try:
-                                self.geocoding_data = request(city, "geocoding")
-                                self.city_name = self.geocoding_data[0]["local_names"]["uk"]
-                                self.ERROR = False
-                            except Exception as e:
-                                
-                                self.ERROR = True
-                        if current_language == "English" or self.ERROR:
-                            self.city_name = city
-                        
+                        self.city_name = city
                         self.city_button = SearchFieldCityButton(parent=self.DROP_DOWN_SCROLL_AREA_FRAME, text=self.city_name, width = 231, height = 22)
                         self.city_button.clicked.connect(lambda clicked, name=self.city_name: self.city_chosen(name))
                         self.DROP_DOWN_LAYOUT.addWidget(self.city_button)
@@ -177,17 +166,8 @@ class ModalCityMenu(widgets.QFrame):
             for json_country in self.countries:
                 if self.country == json_country["country"]:
                     for city in json_country["cities"]:
-                        current_language = self.language_widget.LANGUAGE
-                        if current_language == "Українська":
-                            try:
-                                self.geocoding_data = request(city, "geocoding")
-                                self.city_name = self.geocoding_data[0]["local_names"]["uk"]
-                                self.ERROR = False
-                            except Exception as e:
-                                
-                                self.ERROR = True
-                        if current_language == "English" or self.ERROR:
-                            self.city_name = city
+                        
+                        self.city_name = city
                         
                         self.city_button = SearchFieldCityButton(parent=self.DROP_DOWN_SCROLL_AREA_FRAME, text=self.city_name, width = 231, height = 22)
                         self.city_button.clicked.connect(lambda clicked, name=self.city_name: self.city_chosen(name))

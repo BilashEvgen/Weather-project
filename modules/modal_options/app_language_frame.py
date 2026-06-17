@@ -2,6 +2,7 @@ import PyQt6.QtWidgets as widgets
 import PyQt6.QtGui as gui
 import PyQt6.QtCore as core
 from utils import clear_layout
+from ..cards import Cards
 
 class AppLanguage(widgets.QFrame):
     def __init__(self, parent):
@@ -112,19 +113,52 @@ class AppLanguage(widgets.QFrame):
         country_menu = main_window.findChild(widgets.QFrame, "CONTRYMENU")
         city_menu = main_window.findChild(widgets.QFrame, "CITYMENU")
         modal_window = main_window.findChild(widgets.QWidget, "MODAL_WINDOW")
+
         
         def safe_set_text(widget, text):
-                try:
-                    widget.setText(text)
-                except RuntimeError:
-                    pass
+            try:
+                widget.setText(text)
+            except RuntimeError:
+                pass
         
         if language == "English":
-            # def safe_set_text(widget, text):
-            #     try:
-            #         widget.setText(text)
-            #     except RuntimeError:
-            #         pass
+            
+            for cardd in Cards.CARDS_LIST:
+                if cardd and hasattr(cardd, "REQUEST_DATA") :
+                    self.REQUEST_DATA = cardd.REQUEST_DATA
+                    self.GEOCODING_DATA = cardd.GEOCODING_DATA
+                    weather_eng = self.REQUEST_DATA["weather"][0]["main"].capitalize()
+                    city_name = cardd.CITY_NAME
+                    if cardd.SELECTED:
+                        if cardd and hasattr(cardd, "FIRST_VERTICAL_CARD"):
+                            safe_set_text(cardd.FIRST_VERTICAL_CARD.TIME_LABEL, "Now")
+                        if cardd and hasattr(cardd, "SUNMOVE_CARDS_LIST"):
+                            for sun_card in cardd.SUNMOVE_CARDS_LIST:
+                                if sun_card and hasattr(sun_card, "TEXT_LABEL"):
+                                    try:
+                                        text = sun_card.TEXT_LABEL.text()
+                                        if text == "Захід сонця":
+                                            safe_set_text(sun_card.TEXT_LABEL, "Sunset")
+                                        elif text == "Схід сонця":
+                                            safe_set_text(sun_card.TEXT_LABEL, "Sunrise")
+                                    except RuntimeError:
+                                        pass
+                        if weather_container and hasattr(weather_container, 'LEFT_CITY_LABEL'):
+                            safe_set_text(weather_container.LEFT_CITY_LABEL, city_name)
+                        if weather_container and hasattr(weather_container, 'LEFT_DESCRIPTION_LABEL1') and self.REQUEST_DATA:
+                            safe_set_text(weather_container.LEFT_DESCRIPTION_LABEL1, weather_eng)
+                        if weather_container and hasattr(weather_container, 'RIGHT_DATA_LABEL1'):
+                            safe_set_text(weather_container.RIGHT_DATA_LABEL1, cardd.DAY_STR)
+                        if weather_container and hasattr(weather_container, 'LEFT_DESCRIPTION_LABEL2') and self.REQUEST_DATA:
+                            safe_set_text(weather_container.LEFT_DESCRIPTION_LABEL2, f"Max.:{int(self.REQUEST_DATA["main"]["temp_max"])}°, Min.:{int(self.REQUEST_DATA["main"]["temp_min"])}°")
+                    if cardd and hasattr(cardd, "FRAME1_LABEL1"):
+                        safe_set_text(cardd.FRAME1_LABEL1, city_name)
+                    if cardd and hasattr(cardd, "FRAME2_LABEL2") and self.REQUEST_DATA:
+                        safe_set_text(cardd.FRAME2_LABEL2, f"Max.:{int(self.REQUEST_DATA["main"]["temp_max"])}°, Min.:{int(self.REQUEST_DATA["main"]["temp_min"])}°")
+                    if cardd and hasattr(cardd, "FRAME1_LABEL3") and self.REQUEST_DATA:
+                        safe_set_text(cardd.FRAME1_LABEL3, weather_eng)
+                
+            
             
             if weather_container and hasattr(weather_container, 'TOP_SETTINGS_FRAME_LABEL'):
                 safe_set_text(weather_container.TOP_SETTINGS_FRAME_LABEL, "Settings")
@@ -180,11 +214,46 @@ class AppLanguage(widgets.QFrame):
                 safe_set_text(modal_window.HEADER_FRAME_LABEL, "Settings")
                 
         elif language == "Українська":
-            # def safe_set_text(widget, text):
-            #     try:
-            #         widget.setText(text)
-            #     except RuntimeError:
-            #         pass
+            
+            
+            for cardd in Cards.CARDS_LIST:
+                if cardd and hasattr(cardd, "REQUEST_DATA") and hasattr(cardd, "GEOCODING_DATA"):
+                    self.REQUEST_DATA = cardd.REQUEST_DATA
+                    self.GEOCODING_DATA = cardd.GEOCODING_DATA
+                    weather_ua = self.REQUEST_DATA["weather"][0]["description"].capitalize()
+                    try:
+                        city_name_ua = self.GEOCODING_DATA[0]["local_names"]["uk"]  
+                    except:
+                        city_name_ua = cardd.CITY_NAME
+                    if cardd.SELECTED:
+                        if cardd and hasattr(cardd, "FIRST_VERTICAL_CARD"):
+                            safe_set_text(cardd.FIRST_VERTICAL_CARD.TIME_LABEL, "Зараз")
+                        if cardd and hasattr(cardd, "SUNMOVE_CARDS_LIST"):
+                            for sun_card in cardd.SUNMOVE_CARDS_LIST:
+                                if sun_card and hasattr(sun_card, "TEXT_LABEL"):
+                                    try:
+                                        text = sun_card.TEXT_LABEL.text()
+                                        if text == "Sunset":
+                                            safe_set_text(sun_card.TEXT_LABEL, "Захід сонця")
+                                        elif text == "Sunrise":
+                                            safe_set_text(sun_card.TEXT_LABEL, "Схід сонця")
+                                    except RuntimeError:
+                                        pass
+                        if weather_container and hasattr(weather_container, 'LEFT_CITY_LABEL'):
+                            safe_set_text(weather_container.LEFT_CITY_LABEL, city_name_ua)
+                        if weather_container and hasattr(weather_container, 'LEFT_DESCRIPTION_LABEL1') and self.REQUEST_DATA:
+                            safe_set_text(weather_container.LEFT_DESCRIPTION_LABEL1, weather_ua)
+                        if weather_container and hasattr(weather_container, 'RIGHT_DATA_LABEL1'):
+                            safe_set_text(weather_container.RIGHT_DATA_LABEL1, cardd.UA_DAY_STR)
+                        if weather_container and hasattr(weather_container, 'LEFT_DESCRIPTION_LABEL2') and self.REQUEST_DATA:
+                            safe_set_text(weather_container.LEFT_DESCRIPTION_LABEL2, f"Макс.:{int(self.REQUEST_DATA["main"]["temp_max"])}°, Мін.:{int(self.REQUEST_DATA["main"]["temp_min"])}°")
+                    if cardd and hasattr(cardd, "FRAME1_LABEL1"):
+                        safe_set_text(cardd.FRAME1_LABEL1, city_name_ua)
+                    if cardd and hasattr(cardd, "FRAME2_LABEL2") and self.REQUEST_DATA:
+                        safe_set_text(cardd.FRAME2_LABEL2, f"Макс.:{int(self.REQUEST_DATA["main"]["temp_max"])}°, Мін.:{int(self.REQUEST_DATA["main"]["temp_min"])}°")
+                    if cardd and hasattr(cardd, "FRAME1_LABEL3") and self.REQUEST_DATA:
+                        safe_set_text(cardd.FRAME1_LABEL3, weather_ua)
+            
             
             if weather_container and hasattr(weather_container, 'TOP_SETTINGS_FRAME_LABEL'):
                 safe_set_text(weather_container.TOP_SETTINGS_FRAME_LABEL, "Налаштування")
