@@ -143,6 +143,7 @@ class Cards(widgets.QFrame):
                 self.UA_DAY_STR = day[1].capitalize()
         return self.UA_DAY_STR
     def select(self):
+        
         self.SUNMOVE_CARDS_LIST = []
         self.language = self.language_widget.LANGUAGE
         self.REQUEST_DATA = request(self.CITY_NAME, "current")
@@ -294,8 +295,9 @@ class Cards(widgets.QFrame):
             # max min temp
         weather_container.LEFT_DESCRIPTION_LABEL2.setText(self.max_min_temp)
             
-            
-        pixmap = gui.QPixmap(f"media/title_bar/weather_icons/{self.REQUEST_DATA["weather"][0]["icon"]}.png")
+        weather_icons_pack = self.window().findChild(widgets.QFrame, "APPICONS").WEATHER_ICONS_PACK
+        
+        pixmap = gui.QPixmap(f"media/title_bar/weather_icons/weather_icons_{weather_icons_pack}/{self.REQUEST_DATA["weather"][0]["icon"]}.png")
 
         if not pixmap.isNull():
             scaled = pixmap.scaled(weather_container.LEFT_WEATHER_ICON_SIZE, core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
