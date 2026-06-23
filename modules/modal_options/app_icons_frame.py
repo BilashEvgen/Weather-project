@@ -4,7 +4,7 @@ import PyQt6.QtCore as core
 from utils import clear_layout
 from .modal_tools import IconPackFrame
 from ..cards import Cards
-
+from utils import scale
 class AppIcons(widgets.QFrame):
     def __init__(self, parent):
         super().__init__(parent)
@@ -21,7 +21,8 @@ class AppIcons(widgets.QFrame):
 
         self.LABEL3 = widgets.QLabel(text = "Списки зображень")
         self.LABEL3.setFixedWidth(150)
-        self.LABEL3.setStyleSheet("color: white; font-size: 16px; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 500;")
+        self.LABEL3.setStyleSheet("color: white;border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 500;")
+        scale.setFontSize(self.LABEL3,16)
         self.LAYOUT.addWidget(self.LABEL3)
     
     def create_frame(self):
@@ -44,13 +45,14 @@ class AppIcons(widgets.QFrame):
         self.SETTINGS_LAYOUT.setSpacing(24)
         
         self.IMAGES_LIST = widgets.QLabel(parent = self.SETTINGS_FRAME, text = self.images_list_label)
-        self.IMAGES_LIST.setFixedSize(490, 21)
-        self.IMAGES_LIST.setStyleSheet("color: white; font-size: 18px; border-radius: 0px; background-color: transparent; font-family: Regular; font-weight: 400;")
+        self.IMAGES_LIST.setFixedSize(scale.scale_x(490), scale.scale_y(21))
+        self.IMAGES_LIST.setStyleSheet("color: white;border-radius: 0px; background-color: transparent; font-family: Regular; font-weight: 400;")
+        scale.setFontSize(self.IMAGES_LIST,18)
         self.SETTINGS_LAYOUT.addWidget(self.IMAGES_LIST)
         
         self.ADD_FRAME = widgets.QFrame(self.SETTINGS_FRAME)
         self.ADD_FRAME.setStyleSheet("background-color: transparent; border-radius: 4px;")
-        self.ADD_FRAME.setFixedSize(105, 38)
+        self.ADD_FRAME.setFixedSize(scale.scale_x(105), scale.scale_y(38))
         self.SETTINGS_LAYOUT.addWidget(self.ADD_FRAME)
         
         self.ADD_FRAME_LAYOUT = widgets.QHBoxLayout(self.ADD_FRAME)
@@ -62,14 +64,14 @@ class AppIcons(widgets.QFrame):
         
         self.ADD_BUTTON = widgets.QPushButton(self.ADD_FRAME)
         self.ADD_BUTTON.setStyleSheet("background-color: rgba(0, 0, 0, 0.2);")
-        self.ADD_BUTTON.setFixedSize(105, 38)
+        self.ADD_BUTTON.setFixedSize(scale.scale_x(105), scale.scale_y(38))
 
         self.ADD_BUTTON_ICON = widgets.QLabel(self.ADD_FRAME)
-        self.ADD_BUTTON_ICON.setFixedSize(16,22)
+        self.ADD_BUTTON_ICON.setFixedSize(scale.scale_x(16), scale.scale_y(22))
         
         add_pixmap = gui.QPixmap(f"media/title_bar/additional_elements/plus_circle.png")
         if not add_pixmap.isNull():
-            scaled_pixmap = add_pixmap.scaled(16, 16, core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
+            scaled_pixmap = add_pixmap.scaled(scale.scale_x(16), scale.scale_y(16), core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
             self.ADD_BUTTON_ICON.setPixmap(scaled_pixmap)
         
         self.ADD_BUTTON_ICON.setStyleSheet("background-color: transparent; border-radius: 0px;")
@@ -77,13 +79,14 @@ class AppIcons(widgets.QFrame):
         self.ADD_FRAME_LAYOUT.addWidget(self.ADD_BUTTON_ICON, alignment = core.Qt.AlignmentFlag.AlignLeft)
         
         self.ADD_BUTTON_LABEL = widgets.QLabel(self.ADD_FRAME, text = self.add_button_label)
-        self.ADD_BUTTON_LABEL.setFixedSize(58, 22)
-        self.ADD_BUTTON_LABEL.setStyleSheet("color: white; font-size: 17px; border-radius: 0px;background-color: transparent; font-family: 'Roboto';font-weight: 400;")
+        self.ADD_BUTTON_LABEL.setFixedSize(scale.scale_x(58), scale.scale_y(22))
+        self.ADD_BUTTON_LABEL.setStyleSheet("color: white;border-radius: 0px;background-color: transparent; font-family: 'Roboto';font-weight: 400;")
+        scale.setFontSize(self.ADD_BUTTON_LABEL,17)
         self.ADD_BUTTON_LABEL.setAttribute(core.Qt.WidgetAttribute.WA_TransparentForMouseEvents, True)
         self.ADD_FRAME_LAYOUT.addWidget(self.ADD_BUTTON_LABEL, alignment = core.Qt.AlignmentFlag.AlignRight)
         
         self.IMAGES_PACK_CHOOSE_FRAME = widgets.QFrame(self.SETTINGS_FRAME)
-        self.IMAGES_PACK_CHOOSE_FRAME.setFixedSize(490, 282)
+        self.IMAGES_PACK_CHOOSE_FRAME.setFixedSize(scale.scale_x(490), scale.scale_y(282))
         self.IMAGES_PACK_CHOOSE_FRAME.setStyleSheet("background-color: transparent")
         self.SETTINGS_LAYOUT.addWidget(self.IMAGES_PACK_CHOOSE_FRAME)
         
@@ -104,7 +107,7 @@ class AppIcons(widgets.QFrame):
         
         self.SAVE_BUTTON = widgets.QPushButton(self.SETTINGS_FRAME, text = self.save_button_label)
         self.SAVE_BUTTON.clicked.connect(self.icon_change)
-        self.SAVE_BUTTON.setFixedSize(105, 38)
+        self.SAVE_BUTTON.setFixedSize(scale.scale_x(105), scale.scale_y(38))
         self.SAVE_BUTTON.setStyleSheet("background-color: rgba(0, 0, 0, 0.2); border-radius: 4px")
         self.SETTINGS_LAYOUT.addWidget(self.SAVE_BUTTON)
         
@@ -131,5 +134,11 @@ class AppIcons(widgets.QFrame):
                     if card.SELECTED:
                         pixmap = gui.QPixmap(f"media/title_bar/weather_icons/weather_icons_{self.WEATHER_ICONS_PACK}/{card.REQUEST_DATA["weather"][0]["icon"]}.png")
                         if not pixmap.isNull():
+                            
+                            
+                            
+                            
+                            
+                            
                             scaled = pixmap.scaled(weather_container.LEFT_WEATHER_ICON_SIZE, core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
                             weather_container.LEFT_WEATHER_ICON.setPixmap(scaled)

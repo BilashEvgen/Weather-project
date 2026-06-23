@@ -3,7 +3,7 @@ import PyQt6.QtGui as gui
 import PyQt6.QtCore as core
 from utils import clear_layout
 from ..cards import Cards
-
+from utils import scale
 class AppLanguage(widgets.QFrame):
     def __init__(self, parent):
         super().__init__(parent)
@@ -20,7 +20,8 @@ class AppLanguage(widgets.QFrame):
         
         self.LABEL2 = widgets.QLabel(text = "Мова додатку")
         self.LABEL2.setFixedWidth(150)
-        self.LABEL2.setStyleSheet("color: white; font-size: 16px; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 500;")
+        self.LABEL2.setStyleSheet("color: white;border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 500;")
+        scale.setFontSize(self.LABEL2,16)
         self.LAYOUT.addWidget(self.LABEL2)
         
     def create_frame(self):
@@ -43,7 +44,7 @@ class AppLanguage(widgets.QFrame):
         self.SETTINGS_LAYOUT.setContentsMargins(0,0,305,417)
         
         self.CHOOSE_LANGUAGE_FRAME = widgets.QFrame()
-        self.CHOOSE_LANGUAGE_FRAME.setFixedSize(239, 161)
+        self.CHOOSE_LANGUAGE_FRAME.setFixedSize(scale.scale_x(239), scale.scale_y(161))
         self.CHOOSE_LANGUAGE_FRAME.setStyleSheet("background-color: transparent; border-radius: 0px;")
         self.SETTINGS_LAYOUT.addWidget(self.CHOOSE_LANGUAGE_FRAME)
 
@@ -55,13 +56,14 @@ class AppLanguage(widgets.QFrame):
         self.CHOOSE_LANGUAGE_FRAME.setLayout(self.CHOOSE_LANGUAGE_LAYOUT)
         
         self.CHOOSE_LANGUAGE_LABEL = widgets.QLabel(text = self.choose_language_label)
-        self.CHOOSE_LANGUAGE_LABEL.setStyleSheet("color: white; font-size: 18px; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 400;")
-        self.CHOOSE_LANGUAGE_LABEL.setFixedSize(239, 21)
+        self.CHOOSE_LANGUAGE_LABEL.setStyleSheet("color: white; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 400;")
+        scale.setFontSize(self.CHOOSE_LANGUAGE_LABEL,18)
+        self.CHOOSE_LANGUAGE_LABEL.setFixedSize(scale.scale_x(239), scale.scale_y(21))
 
         self.CHOOSE_LANGUAGE_LAYOUT.addWidget(self.CHOOSE_LANGUAGE_LABEL, alignment = core.Qt.AlignmentFlag.AlignLeft)
         
         self.APP_LANGUAGE_FRAME = widgets.QFrame()
-        self.APP_LANGUAGE_FRAME.setFixedSize(239, 54)
+        self.APP_LANGUAGE_FRAME.setFixedSize(scale.scale_x(239), scale.scale_y(54))
         self.APP_LANGUAGE_FRAME.setStyleSheet("background-color: transparent; border-radius: 0px;")
 
         self.APP_LANGUAGE_LAYOUT = widgets.QVBoxLayout()
@@ -72,12 +74,13 @@ class AppLanguage(widgets.QFrame):
         self.CHOOSE_LANGUAGE_LAYOUT.addWidget(self.APP_LANGUAGE_FRAME, alignment = core.Qt.AlignmentFlag.AlignCenter)
 
         self.APP_LANGUAGE_LABEL = widgets.QLabel(text = self.app_language_label )
-        self.APP_LANGUAGE_LABEL.setFixedSize(93, 22)
-        self.APP_LANGUAGE_LABEL.setStyleSheet("color: white; font-size: 14px; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 500;")
+        self.APP_LANGUAGE_LABEL.setFixedSize(scale.scale_x(93), scale.scale_y(22))
+        self.APP_LANGUAGE_LABEL.setStyleSheet("color: white; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 500;")
+        scale.setFontSize(self.APP_LANGUAGE_LABEL,14)
         self.APP_LANGUAGE_LAYOUT.addWidget(self.APP_LANGUAGE_LABEL, alignment = core.Qt.AlignmentFlag.AlignLeft)
 
         self.APP_LANGUAGE_DROP_DOWN_MENU = widgets.QComboBox(self.APP_LANGUAGE_FRAME)
-        self.APP_LANGUAGE_DROP_DOWN_MENU.setFixedSize(239, 32)
+        self.APP_LANGUAGE_DROP_DOWN_MENU.setFixedSize(scale.scale_x(239), scale.scale_y(32))
         self.APP_LANGUAGE_DROP_DOWN_MENU.setStyleSheet("background-color: white; color: black; border-radius: 4px; padding-left: 8px;")
         
         if self.WEATHER_CONTAINER.LANGUAGE == "Українська":
@@ -91,8 +94,9 @@ class AppLanguage(widgets.QFrame):
 
         
         self.SAVE_LANGUAGE_BUTTON = widgets.QPushButton(text = self.save_language_button)
-        self.SAVE_LANGUAGE_BUTTON.setFixedSize(105, 38)
-        self.SAVE_LANGUAGE_BUTTON.setStyleSheet("background-color: rgba(0,0,0,0.1); border-radius: 4px; color: white; font-size: 14px; font-family: Roboto; font-weight: 400;")
+        self.SAVE_LANGUAGE_BUTTON.setFixedSize(scale.scale_x(105), scale.scale_y(38))
+        self.SAVE_LANGUAGE_BUTTON.setStyleSheet("background-color: rgba(0,0,0,0.1); border-radius: 4px; color: white; font-family: Roboto; font-weight: 400;")
+        scale.setFontSize(self.SAVE_LANGUAGE_BUTTON,14)
         self.SAVE_LANGUAGE_BUTTON.clicked.connect(self.change_language)
         
         self.CHOOSE_LANGUAGE_LAYOUT.addWidget(self.SAVE_LANGUAGE_BUTTON, alignment = core.Qt.AlignmentFlag.AlignLeft)

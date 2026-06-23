@@ -1,46 +1,44 @@
 {
     "coord": {
-        "lon": -114.9819,
-        "lat": 36.0397
+        "lon": -58.199,
+        "lat": -35.2784
     },
     "weather": [
         {
-            "id": 800,
-            "main": "Clear",
-            "description": "чисте небо",
-            "icon": "01d"
+            "id": 801,
+            "main": "Clouds",
+            "description": "кілька хмар",
+            "icon": "02d"
         }
     ],
     "base": "stations",
     "main": {
-        "temp": 37.92,
-        "feels_like": 34.91,
-        "temp_min": 37.04,
-        "temp_max": 37.96,
-        "pressure": 1010,
-        "humidity": 9,
-        "sea_level": 1010,
-        "grnd_level": 937
+        "temp": 10.17,
+        "feels_like": 8.63,
+        "temp_min": 10.17,
+        "temp_max": 10.17,
+        "pressure": 1016,
+        "humidity": 53,
+        "sea_level": 1016,
+        "grnd_level": 1014
     },
     "visibility": 10000,
     "wind": {
-        "speed": 3.58,
-        "deg": 187,
-        "gust": 4.47
+        "speed": 5.7,
+        "deg": 254,
+        "gust": 6.91
     },
     "clouds": {
-        "all": 0
+        "all": 16
     },
-    "dt": 1782150762,
+    "dt": 1782234862,
     "sys": {
-        "type": 2,
-        "id": 2111633,
-        "country": "US",
-        "sunrise": 1782131018,
-        "sunset": 1782183611
+        "country": "AR",
+        "sunrise": 1782212503,
+        "sunset": 1782247691
     },
-    "timezone": -25200,
-    "id": 5505411,
-    "name": "Henderson",
+    "timezone": -10800,
+    "id": 3433340,
+    "name": "Jeppener",
     "cod": 200
 }

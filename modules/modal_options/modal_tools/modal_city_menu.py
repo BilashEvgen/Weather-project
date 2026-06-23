@@ -7,7 +7,7 @@ from utils import clear_layout
 from ...search_field_button import SearchFieldCityButton
 from utils import close_drop_menu
 from utils import request
-
+from utils import scale
 class ModalCityMenu(widgets.QFrame):
     def __init__(self, parent):
         super().__init__(parent)
@@ -21,7 +21,7 @@ class ModalCityMenu(widgets.QFrame):
         self.setObjectName("DROP_CITY_MODAL")
         self.CHOOSED = False
         self.DROP_MENU_SHOW = False
-        self.setFixedSize(239, 32)
+        self.setFixedSize(scale.scale_x(239), scale.scale_y(32))
         self.language_widget = self.window().findChild(widgets.QFrame, "WEATHER_CONTAINER")
         try:
             with open("json/cities.json") as file:
@@ -44,25 +44,26 @@ class ModalCityMenu(widgets.QFrame):
         
         self.CITY_LINEEDIT = widgets.QLineEdit(parent = self)
         self.CITY_LINEEDIT.setPlaceholderText(self.city_lineedit)
-        self.CITY_LINEEDIT.setFixedSize(198,16)
-        self.CITY_LINEEDIT.setStyleSheet("background-color: transparent;border-radius: 0px; color: #71717A; font-family: 'Roboto'; font-weight: 400; font-size: 12px;")
+        self.CITY_LINEEDIT.setFixedSize(scale.scale_x(198), scale.scale_y(16))
+        self.CITY_LINEEDIT.setStyleSheet("background-color: transparent;border-radius: 0px; color: #71717A; font-family: 'Roboto'; font-weight: 400;")
+        scale.setFontSize(self.CITY_LINEEDIT,12)
         self.DROP_LAYOUT.addWidget(self.CITY_LINEEDIT)
         self.CITY_LINEEDIT.setReadOnly(True)
         
         self.ARROW_BUTTON = widgets.QPushButton(parent = self, icon = gui.QIcon("media/title_bar/additional_elements/arrowdown.png"))
-        self.ARROW_BUTTON.setFixedSize(16,16)
+        self.ARROW_BUTTON.setFixedSize(scale.scale_x(16), scale.scale_y(16))
         self.ARROW_BUTTON.clicked.connect(self.arrow_clicked)
         self.DROP_LAYOUT.addWidget(self.ARROW_BUTTON)
        
         self.DROP_DOWN_FRAME = widgets.QFrame(parent = self.window())   
-        self.DROP_DOWN_FRAME.setGeometry(613, 361, 239, 186)
+        self.DROP_DOWN_FRAME.setGeometry(scale.scale_x(613), scale.scale_y(321), scale.scale_x(239), scale.scale_y(186))
         self.DROP_DOWN_FRAME.setStyleSheet("background-color: #676767; border-radius: 10px;")
         self.DROP_DOWN_FRAME.hide()
         
         
         self.DROP_DOWN_SCROLL_AREA= widgets.QScrollArea(parent = self.DROP_DOWN_FRAME)
         self.DROP_DOWN_SCROLL_AREA.setStyleSheet("background-color: transparent; border: none;")
-        self.DROP_DOWN_SCROLL_AREA.setFixedSize(239, 186)
+        self.DROP_DOWN_SCROLL_AREA.setFixedSize(scale.scale_x(239), scale.scale_y(186))
         self.DROP_DOWN_SCROLL_AREA.setWidgetResizable(True)
         
         self.DROP_DOWN_SCROLL_AREA.setVerticalScrollBarPolicy(core.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)

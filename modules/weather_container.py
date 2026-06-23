@@ -8,6 +8,7 @@ from .search_frame import SearchFrame
 from .cards import Cards
 from .modal import ModalWindow
 from .modal_options.modal_tools.city_lables import CityListLable
+from utils import scale
 
 class WeatherContainer(widgets.QFrame):
     def __init__(self, parent):
@@ -16,7 +17,7 @@ class WeatherContainer(widgets.QFrame):
         self.LANGUAGE = "Українська"
         self.setObjectName("WEATHER_CONTAINER")
         self.MODAL_WINDOW = ModalWindow(parent = self.window())
-        self.setFixedSize(828, 800)
+        self.setFixedSize(828, 760)
         
         if self.LANGUAGE == "Українська":
             self.settings_label = "Налаштування"
@@ -73,8 +74,8 @@ class WeatherContainer(widgets.QFrame):
         # В TOP_SETTINGS_FRAME
         self.TOP_SETTINGS_FRAME_LABEL = widgets.QLabel(parent = self.TOP_SETTINGS_FRAME, text = self.settings_label)
         self.TOP_SETTINGS_FRAME_LABEL.setFixedSize(98,20)
-        self.TOP_SETTINGS_FRAME_LABEL.setStyleSheet("color: white; font-size: 14px; border-radius: 0px;background-color: transparent; font-family: 'Roboto';font-weight: 500;")
-
+        self.TOP_SETTINGS_FRAME_LABEL.setStyleSheet("color: white;  border-radius: 0px;background-color: transparent; font-family: 'Roboto';font-weight: 500;")
+        scale.setFontSize(self.TOP_SETTINGS_FRAME_LABEL, 14)
         self.TOP_SETTINGS_FRAME_LAYOUT.addWidget(self.TOP_SETTINGS_FRAME_LABEL, alignment = core.Qt.AlignmentFlag.AlignRight)
 
         
@@ -124,7 +125,8 @@ class WeatherContainer(widgets.QFrame):
         
         self.ADD_BUTTON_LABEL = widgets.QLabel(self.ADD_FRAME, text = self.add_button_label)
         self.ADD_BUTTON_LABEL.setFixedSize(58, 22)
-        self.ADD_BUTTON_LABEL.setStyleSheet("color: white; font-size: 17px; border-radius: 0px;background-color: transparent; font-family: 'Roboto';font-weight: 400;")
+        self.ADD_BUTTON_LABEL.setStyleSheet("color: white;  border-radius: 0px;background-color: transparent; font-family: 'Roboto';font-weight: 400;")
+        scale.setFontSize(self.ADD_BUTTON_LABEL,17)
         self.ADD_BUTTON_LABEL.setAttribute(core.Qt.WidgetAttribute.WA_TransparentForMouseEvents, True)
         self.ADD_FRAME_LAYOUT.addWidget(self.ADD_BUTTON_LABEL, alignment = core.Qt.AlignmentFlag.AlignRight)
         
@@ -177,7 +179,8 @@ class WeatherContainer(widgets.QFrame):
         self.LEFT_MOMENT_LAYOUT.addWidget(self.LEFT_MOMENT_TOP_FRAME,alignment = core.Qt.AlignmentFlag.AlignCenter)
         # Внутри left moment weather frame
         self.LEFT_CITY_LABEL = widgets.QLabel(self.LEFT_MOMENT_FRAME)
-        self.LEFT_CITY_LABEL.setStyleSheet("font-family: 'Roboto';font-weight: 500; color: white; font-size: 44px; border-radius: 0px; background-color: transparent;")
+        self.LEFT_CITY_LABEL.setStyleSheet("font-family: 'Roboto';font-weight: 500; color: white; border-radius: 0px; background-color: transparent;")
+        scale.setFontSize(self.LEFT_CITY_LABEL,44)
         self.LEFT_CITY_LABEL.setFixedSize(390, 52)
         self.LEFT_CITY_LABEL.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
         self.LEFT_MOMENT_LAYOUT.addWidget(self.LEFT_CITY_LABEL, alignment = core.Qt.AlignmentFlag.AlignCenter)
@@ -215,14 +218,16 @@ class WeatherContainer(widgets.QFrame):
         self.LEFT_WEATHER_LABLE_FRAME.setLayout(self.LEFT_WEATHER_LABLE_LAYOUT)
         
         self.LEFT_WEATHER_LABEL = widgets.QLabel(self.LEFT_WEATHER_LABLE_FRAME)
-        self.LEFT_WEATHER_LABEL.setStyleSheet("color: white; font-size: 74px;border-radius: 0px;background-color: transparent;font-family: 'Roboto';font-weight: 500;")
+        self.LEFT_WEATHER_LABEL.setStyleSheet("color: white;border-radius: 0px;background-color: transparent;font-family: 'Roboto';font-weight: 500;")
+        scale.setFontSize(self.LEFT_WEATHER_LABEL,74)
         self.LEFT_WEATHER_LABEL.setSizePolicy(QSizePolicy.Policy.Maximum,QSizePolicy.Policy.Preferred)
         self.LEFT_WEATHER_LABEL.setAlignment(core.Qt.AlignmentFlag.AlignLeft | core.Qt.AlignmentFlag.AlignTop)
         self.LEFT_WEATHER_LABLE_LAYOUT.addWidget(self.LEFT_WEATHER_LABEL, alignment= core.Qt.AlignmentFlag.AlignLeft)
 
         self.LEFT_WEATHER_LABEL11 = widgets.QLabel(self.LEFT_WEATHER_LABLE_FRAME)
         self.LEFT_WEATHER_LABEL11.setFixedSize(25, 65)
-        self.LEFT_WEATHER_LABEL11.setStyleSheet("color: white; font-size: 60px;border-radius: 0px;background-color: transparent;font-family: 'Roboto';font-weight: 500;")
+        self.LEFT_WEATHER_LABEL11.setStyleSheet("color: white;border-radius: 0px;background-color: transparent;font-family: 'Roboto';font-weight: 500;")
+        scale.setFontSize(self.LEFT_WEATHER_LABEL11,60)
         self.LEFT_WEATHER_LABEL11.setAlignment(core.Qt.AlignmentFlag.AlignBottom)
         self.LEFT_WEATHER_LABLE_LAYOUT.addWidget(self.LEFT_WEATHER_LABEL11, alignment= core.Qt.AlignmentFlag.AlignLeft)
 
@@ -240,14 +245,16 @@ class WeatherContainer(widgets.QFrame):
         # Внутри left description frame
         self.LEFT_DESCRIPTION_LABEL1 = widgets.QLabel(self.LEFT_DESCRIPTION_FRAME)
         self.LEFT_DESCRIPTION_LABEL1.setFixedSize(259, 28)
-        self.LEFT_DESCRIPTION_LABEL1.setStyleSheet("color: white; font-size: 24px; border-radius: 0px;background-color: transparent; font-family: 'Roboto';font-weight: 500;")
+        self.LEFT_DESCRIPTION_LABEL1.setStyleSheet("color: white; border-radius: 0px;background-color: transparent; font-family: 'Roboto';font-weight: 500;")
+        scale.setFontSize(self.LEFT_DESCRIPTION_LABEL1,24)
         self.LEFT_DESCRIPTION_LABEL1.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
         self.LEFT_DESCRIPTION_LAYOUT.addWidget(self.LEFT_DESCRIPTION_LABEL1, alignment = core.Qt.AlignmentFlag.AlignVCenter)
 
         # Внутри left description frame
         self.LEFT_DESCRIPTION_LABEL2 = widgets.QLabel(self.LEFT_DESCRIPTION_FRAME)
         self.LEFT_DESCRIPTION_LABEL2.setFixedSize(259, 19)
-        self.LEFT_DESCRIPTION_LABEL2.setStyleSheet("color: rgba(255, 255, 255, 0.8); font-size: 16px; border-radius: 0px;background-color: transparent; font-family: 'Roboto';font-weight: 500;")
+        self.LEFT_DESCRIPTION_LABEL2.setStyleSheet("color: rgba(255, 255, 255, 0.8); border-radius: 0px;background-color: transparent; font-family: 'Roboto';font-weight: 500;")
+        scale.setFontSize(self.LEFT_DESCRIPTION_LABEL2,16)
         self.LEFT_DESCRIPTION_LABEL2.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
         self.LEFT_DESCRIPTION_LAYOUT.addWidget(self.LEFT_DESCRIPTION_LABEL2, alignment = core.Qt.AlignmentFlag.AlignVCenter)
 
@@ -278,7 +285,8 @@ class WeatherContainer(widgets.QFrame):
         # Внутри right moment frame
         self.RIGHT_TODAY_LABEL = widgets.QLabel(self.RIGHT_MOMENT_FRAME, text = self.right_today_label)
         self.RIGHT_TODAY_LABEL.setFixedSize(67, 19)
-        self.RIGHT_TODAY_LABEL.setStyleSheet("color: white; font-size: 16px; border-radius: 0px;background-color: transparent; border: none; font-family: 'Roboto';font-weight: 500;")
+        self.RIGHT_TODAY_LABEL.setStyleSheet("color: white; border-radius: 0px;background-color: transparent; border: none; font-family: 'Roboto';font-weight: 500;")
+        scale.setFontSize(self.RIGHT_TODAY_LABEL,16)
         self.RIGHT_TODAY_LAYOUT.addWidget(self.RIGHT_TODAY_LABEL, alignment = core.Qt.AlignmentFlag.AlignLeft) 
         
         self.RIGHT_DATA_FRAME = widgets.QFrame(self.RIGHT_MOMENT_FRAME)
@@ -295,13 +303,15 @@ class WeatherContainer(widgets.QFrame):
         # Внутри right data frame
         self.RIGHT_DATA_LABEL1 = widgets.QLabel(self.RIGHT_DATA_FRAME)
         self.RIGHT_DATA_LABEL1.setFixedSize(123, 28)
-        self.RIGHT_DATA_LABEL1.setStyleSheet("color: white; font-size: 24px; border-radius: 0px;background-color: transparent; font-family: 'Roboto';font-weight: 500;")
+        self.RIGHT_DATA_LABEL1.setStyleSheet("color: white; border-radius: 0px;background-color: transparent; font-family: 'Roboto';font-weight: 500;")
+        scale.setFontSize(self.RIGHT_DATA_LABEL1,24)
         self.RIGHT_DATA_LAYOUT.addWidget(self.RIGHT_DATA_LABEL1, alignment = core.Qt.AlignmentFlag.AlignLeft)
         
         # Внутри right data frame
         self.RIGHT_DATA_LABEL2 = widgets.QLabel(self.RIGHT_DATA_FRAME)
         self.RIGHT_DATA_LABEL2.setFixedSize(123, 28)
-        self.RIGHT_DATA_LABEL2.setStyleSheet("color: white; font-size: 24px; border-radius: 0px;background-color: transparent; font-family: 'Roboto';font-weight: 500;")
+        self.RIGHT_DATA_LABEL2.setStyleSheet("color: white; border-radius: 0px;background-color: transparent; font-family: 'Roboto';font-weight: 500;")
+        scale.setFontSize(self.RIGHT_DATA_LABEL2,24)
         self.RIGHT_DATA_LAYOUT.addWidget(self.RIGHT_DATA_LABEL2, alignment = core.Qt.AlignmentFlag.AlignRight)
         
         # Внутри right moment frame
@@ -319,7 +329,8 @@ class WeatherContainer(widgets.QFrame):
         # Внутри right clock frame
         self.RIGHT_CLOCK_LABEL = widgets.QLabel(self.RIGHT_CLOCK_FRAME)
         self.RIGHT_CLOCK_LABEL.setFixedSize(74,34)
-        self.RIGHT_CLOCK_LABEL.setStyleSheet("color: white; font-size: 29px; border-radius: 0px;background-color: transparent; font-family: 'Roboto';font-weight: 500;")
+        self.RIGHT_CLOCK_LABEL.setStyleSheet("color: white; border-radius: 0px;background-color: transparent; font-family: 'Roboto';font-weight: 500;")
+        scale.setFontSize(self.RIGHT_CLOCK_LABEL,29)
         self.RIGHT_CLOCK_LAYOUT.addWidget(self.RIGHT_CLOCK_LABEL)
         
         # weather scroll bar
@@ -339,8 +350,8 @@ class WeatherContainer(widgets.QFrame):
         self.DAY_WEATHER_TOP_LABEL.setFixedSize(756, 27)
         self.DAY_WEATHER_TOP_LABEL.setAlignment(core.Qt.AlignmentFlag.AlignVCenter and core.Qt.AlignmentFlag.AlignLeft) 
         self.DAY_WEATHER_FRAME_LAYOUT.addWidget(self.DAY_WEATHER_TOP_LABEL, alignment = core.Qt.AlignmentFlag.AlignCenter)
-        self.DAY_WEATHER_TOP_LABEL.setStyleSheet("border-radius: 0px; background-color: transparent; font-family: 'Roboto'; font-weight: 500; color: #FFFFFF; font-size: 16px; border-bottom: 1px solid #b4b4b4;")
-        
+        self.DAY_WEATHER_TOP_LABEL.setStyleSheet("border-radius: 0px; background-color: transparent; font-family: 'Roboto'; font-weight: 500; color: #FFFFFF; border-bottom: 1px solid #b4b4b4;")
+        scale.setFontSize(self.DAY_WEATHER_TOP_LABEL,16)
         self.DAY_WEATHER_MAIN_SCROLL_FRAME = widgets.QFrame(self.DAY_WEATHER_FRAME)
         self.DAY_WEATHER_MAIN_SCROLL_FRAME.setFixedSize(756, 82)
         self.DAY_WEATHER_MAIN_SCROLL_FRAME.setStyleSheet("background-color: transparent; border-radius: 0px;")
@@ -425,7 +436,8 @@ class WeatherContainer(widgets.QFrame):
         self.DIAGRAM_LABEL = widgets.QLabel(self.MAIN_DIAGRAM_FRAME, text = self.diagram_label)
         self.DIAGRAM_LABEL.setAlignment(core.Qt.AlignmentFlag.AlignVCenter and core.Qt.AlignmentFlag.AlignLeft)
         self.DIAGRAM_LABEL.setFixedSize(756, 27)
-        self.DIAGRAM_LABEL.setStyleSheet("border-radius: 0px; background-color: transparent; font-family: 'Roboto'; font-weight: 500; color: #FFFFFF; font-size: 16px; border-bottom: 1px solid #b4b4b4;")
+        self.DIAGRAM_LABEL.setStyleSheet("border-radius: 0px; background-color: transparent; font-family: 'Roboto'; font-weight: 500; color: #FFFFFF; border-bottom: 1px solid #b4b4b4;")
+        scale.setFontSize(self.DIAGRAM_LABEL,16)
         self.MAIN_DIAGRAM_FRAME_LAYOUT.addWidget(self.DIAGRAM_LABEL, alignment = core.Qt.AlignmentFlag.AlignCenter)
         
         # Внутри main diagram frame
@@ -496,7 +508,8 @@ class WeatherContainer(widgets.QFrame):
         # Внутри forecast diagram and temperature frame
         
         self.FORECAST_TEMPERATURE_ITSELF_LABEL = widgets.QLabel(parent = self.FORECAST_DIAGRAM_AND_TEMPERATURE_FRAME,text ="25°\n20°\n15°\n10°\n5°\n0°\n-5°\n-10°")
-        self.FORECAST_TEMPERATURE_ITSELF_LABEL.setStyleSheet(f"border-radius: 0px; background-color: transparent; font-family: 'Roboto'; font-weight: 400; color: #FFFFFF; font-size: 12px;")
+        self.FORECAST_TEMPERATURE_ITSELF_LABEL.setStyleSheet(f"border-radius: 0px; background-color: transparent; font-family: 'Roboto'; font-weight: 400; color: #FFFFFF;")
+        scale.setFontSize(self.FORECAST_TEMPERATURE_ITSELF_LABEL,12)
         self.FORECAST_TEMPERATURE_ITSELF_LABEL.setFixedSize(30, 110)
         self.FORECAST_TEMPERATURE_ITSELF_LABEL.setAlignment(core.Qt.AlignmentFlag.AlignVCenter)
         self.FORECAST_DIAGRAM_AND_TEMPERATURE_FRAME_LAYOUT.addWidget(self.FORECAST_TEMPERATURE_ITSELF_LABEL, alignment = core.Qt.AlignmentFlag.AlignCenter)

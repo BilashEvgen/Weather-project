@@ -7,7 +7,7 @@ from datetime import datetime, timezone, timedelta
 from .vertical_card import Vertical_Card
 from .sun_move_card import Sun_Move_Card
 from utils import close_drop_menu
-
+from utils import scale
 class Cards(widgets.QFrame):
     
     CARDS_LIST = []
@@ -45,7 +45,7 @@ class Cards(widgets.QFrame):
         self.SELECTED = False
         
         self.setStyleSheet("border-bottom: 1px solid #859892;")
-        self.setFixedSize(330, 98)
+        self.setFixedSize(scale.scale_x(330), scale.scale_y(98))
         
         self.CARD_LAYOUT = widgets.QHBoxLayout()
         self.CARD_LAYOUT.setContentsMargins(8,8,8,8)
@@ -53,30 +53,33 @@ class Cards(widgets.QFrame):
         self.setLayout(self.CARD_LAYOUT)
         
         self.FRAME1 = widgets.QFrame(parent = self)
-        self.FRAME1.setFixedSize(200, 82)
+        self.FRAME1.setFixedSize(scale.scale_x(200), scale.scale_y(82))
         self.FRAME1.setStyleSheet("border: none; background-color: transparent;")
         self.FRAME1_LAYOUT = widgets.QVBoxLayout()
         self.FRAME1.setLayout(self.FRAME1_LAYOUT)
         
        
         self.FRAME1_LABEL1 = widgets.QLabel(text = self.CITY_TEXT, parent = self.FRAME1)
-        self.FRAME1_LABEL1.setFixedSize(200,28)
-        self.FRAME1_LABEL1.setStyleSheet("font-size: 24px; font-family: 'Roboto';font-weight: 500;")
+        self.FRAME1_LABEL1.setFixedSize(scale.scale_x(200), scale.scale_y(28))
+        self.FRAME1_LABEL1.setStyleSheet("font-family: 'Roboto';font-weight: 500;")
+        scale.setFontSize(self.FRAME1_LABEL1,24)
         
         self.FRAME1_LABEL2 = widgets.QLabel(text = self.TIME_STR, parent = self.FRAME1)
-        self.FRAME1_LABEL2.setStyleSheet("font-size: 12px; font-family: 'Roboto'; font-weight: 500; color: rgba(255, 255, 255, 0.8);")
-        self.FRAME1_LABEL2.setFixedSize(105,14)
+        self.FRAME1_LABEL2.setStyleSheet(" font-family: 'Roboto'; font-weight: 500; color: rgba(255, 255, 255, 0.8);")
+        self.FRAME1_LABEL2.setFixedSize(scale.scale_x(105), scale.scale_y(14))
+        scale.setFontSize(self.FRAME1_LABEL2,12)
         
         self.FRAME1_LABEL3 = widgets.QLabel(text = self.frame1_label3, parent = self.FRAME1)
-        self.FRAME1_LABEL3.setStyleSheet("font-size: 12px; font-family: 'Roboto'; font-weight: 500; color: rgba(255, 255, 255, 0.8);")
-        self.FRAME1_LABEL3.setFixedSize(105,14)
+        self.FRAME1_LABEL3.setStyleSheet(" font-family: 'Roboto'; font-weight: 500; color: rgba(255, 255, 255, 0.8);")
+        self.FRAME1_LABEL3.setFixedSize(scale.scale_x(105), scale.scale_y(14))
+        scale.setFontSize(self.FRAME1_LABEL3,12)
         
         self.FRAME1_LAYOUT.addWidget(self.FRAME1_LABEL1)
         self.FRAME1_LAYOUT.addWidget(self.FRAME1_LABEL2)
         self.FRAME1_LAYOUT.addWidget(self.FRAME1_LABEL3)
 
         self.FRAME2 = widgets.QFrame(parent = self)
-        self.FRAME2.setFixedSize(110, 82)
+        self.FRAME2.setFixedSize(scale.scale_x(110), scale.scale_y(82))
         self.FRAME2.setStyleSheet("border: none; background-color: transparent;")
         
         self.FRAME2_LAYOUT = widgets.QVBoxLayout()
@@ -85,7 +88,7 @@ class Cards(widgets.QFrame):
         self.FRAME2.setLayout(self.FRAME2_LAYOUT)
         
         self.FRAME22 = widgets.QFrame(parent = self.FRAME2)
-        self.FRAME22.setFixedSize(85,52)
+        self.FRAME22.setFixedSize(scale.scale_x(85), scale.scale_y(52))
         self.FRAME22.setStyleSheet("border: none; background-color: transparent;")
         
         self.FRAME22_LAYOUT = widgets.QHBoxLayout()
@@ -95,19 +98,22 @@ class Cards(widgets.QFrame):
         self.FRAME22.setLayout(self.FRAME22_LAYOUT)
         
         self.FRAME2_LABEL1 = widgets.QLabel(text = f"{int(self.REQUEST_DATA["main"]["temp"])}", parent = self.FRAME22)
-        self.FRAME2_LABEL1.setStyleSheet("font-size: 44px; font-family: 'Roboto'; font-weight: 500; color: rgba(255, 255, 255, 0.8);")
-        self.FRAME2_LABEL1.setFixedHeight(52)
+        self.FRAME2_LABEL1.setStyleSheet("font-family: 'Roboto'; font-weight: 500; color: rgba(255, 255, 255, 0.8);")
+        scale.setFontSize(self.FRAME2_LABEL1,44)
+        self.FRAME2_LABEL1.setFixedHeight(scale.scale_y(52))
         self.FRAME22_LAYOUT.addWidget(self.FRAME2_LABEL1, alignment= core.Qt.AlignmentFlag.AlignRight and core.Qt.AlignmentFlag.AlignTop)
         
         self.FRAME2_LABEL11 = widgets.QLabel(text = "°", parent = self.FRAME22)
-        self.FRAME2_LABEL11.setStyleSheet("font-size: 39px; font-family: 'Roboto'; font-weight: 500; color: rgba(255, 255, 255, 0.8);")
-        self.FRAME2_LABEL11.setFixedHeight(44)
+        self.FRAME2_LABEL11.setStyleSheet(" font-family: 'Roboto'; font-weight: 500; color: rgba(255, 255, 255, 0.8);")
+        scale.setFontSize(self.FRAME2_LABEL11,39)
+        self.FRAME2_LABEL11.setFixedHeight(scale.scale_y(44))
         self.FRAME2_LABEL11.setAlignment(core.Qt.AlignmentFlag.AlignBottom)
         self.FRAME22_LAYOUT.addWidget(self.FRAME2_LABEL11, alignment= core.Qt.AlignmentFlag.AlignLeft )
         
         self.FRAME2_LABEL2 = widgets.QLabel(text = self.max_min_temp, parent = self.FRAME2)
-        self.FRAME2_LABEL2.setStyleSheet("font-size: 12px; font-family: 'Roboto'; font-weight: 500; color: rgba(255, 255, 255, 0.8);")
-        self.FRAME2_LABEL2.setFixedSize(110,14)
+        self.FRAME2_LABEL2.setStyleSheet("font-family: 'Roboto'; font-weight: 500; color: rgba(255, 255, 255, 0.8);")
+        scale.setFontSize(self.FRAME2_LABEL2,12)
+        self.FRAME2_LABEL2.setFixedSize(scale.scale_x(110), scale.scale_y(14))
         self.FRAME2_LABEL2.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
         
         self.FRAME2_LAYOUT.addWidget(self.FRAME22, alignment = core.Qt.AlignmentFlag.AlignRight)
@@ -143,7 +149,8 @@ class Cards(widgets.QFrame):
                 self.UA_DAY_STR = day[1].capitalize()
         return self.UA_DAY_STR
     def select(self):
-        
+        self.DIAGRAMM_LIST = []
+        self.VERTICAL_CARD_LIST = []
         self.SUNMOVE_CARDS_LIST = []
         self.language = self.language_widget.LANGUAGE
         self.REQUEST_DATA = request(self.CITY_NAME, "current")
@@ -182,27 +189,28 @@ class Cards(widgets.QFrame):
                 
                 hour_time = datetime.fromtimestamp(hour_data["dt"]+ self.day_request_data["city"]["timezone"], timezone.utc).hour 
                 if self.INDEX <= 21:
-                    weather_forecast_icon = widgets.QLabel(parent = weather_container.FORECAST_DIAGRAM_AND_TEMPERATURE_FRAME)
-                    weather_forecast_icon.setFixedSize(16,16)
+                    self.weather_forecast_icon = widgets.QLabel(parent = weather_container.FORECAST_DIAGRAM_AND_TEMPERATURE_FRAME)
+                    self.weather_forecast_icon.setFixedSize(scale.scale_x(16), scale.scale_y(16))
                     forecast_icon = gui.QPixmap(f"media/title_bar/scrollbar_weather_icons/{hour_data["weather"][0]["icon"]}.png")
                     
                     if not forecast_icon.isNull():
-                        scaled_pixmap = forecast_icon.scaled(16,16, core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
-                        weather_forecast_icon.setPixmap(scaled_pixmap)
-                    weather_container.FORECAST_DIAGRAM_ICON_FRAME_LAYOUT.addWidget(weather_forecast_icon, alignment = core.Qt.AlignmentFlag.AlignCenter)
+                        scaled_pixmap = forecast_icon.scaled(scale.scale_x(16), scale.scale_y(16), core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
+                        self.weather_forecast_icon.setPixmap(scaled_pixmap)
+                    weather_container.FORECAST_DIAGRAM_ICON_FRAME_LAYOUT.addWidget(self.weather_forecast_icon, alignment = core.Qt.AlignmentFlag.AlignCenter)
                     
                     for i in range(3):
                         if hour_temp <= -10:
-                            height = 0
+                            self.heightt = 0
                         else:  
-                            height = 3 * int(hour_temp +10)
-                        diagramma = widgets.QFrame(parent = weather_container.FORECAST_DIAGRAM_ITSELF_FRAME)
-                        diagramma.setFixedWidth(8)
-                        diagramma.setFixedHeight(height)
+                            self.heightt = 3 * int(hour_temp +10)
+                        self.diagramma = widgets.QFrame(parent = weather_container.FORECAST_DIAGRAM_ITSELF_FRAME)
+                        self.diagramma.setFixedWidth(scale.scale_x(8))
+                        self.diagramma.setFixedHeight(scale.scale_y(self.heightt))
+                        self.DIAGRAMM_LIST.append(self.diagramma)
                         
-                        diagramma.setStyleSheet("""background: qlineargradient(y1:0, y2:1, stop:0 #FFDF56 stop:1 #87CEFA);""")
+                        self.diagramma.setStyleSheet("""background: qlineargradient(y1:0, y2:1, stop:0 #FFDF56 stop:1 #87CEFA);""")
                         
-                        weather_container.FORECAST_DIAGRAM_ITSELF_LAYOUT.addWidget(diagramma, alignment = core.Qt.AlignmentFlag.AlignBottom)
+                        weather_container.FORECAST_DIAGRAM_ITSELF_LAYOUT.addWidget(self.diagramma, alignment = core.Qt.AlignmentFlag.AlignBottom)
                 
                 if self.INDEX == 0:
                     self.TEXT_LABEL = self.now_text_label
@@ -227,6 +235,7 @@ class Cards(widgets.QFrame):
               
                 
                 vertical_card = Vertical_Card(parent = weather_container.DAY_WEATHER_SCROLL_FRAME)
+                self.VERTICAL_CARD_LIST.append(vertical_card)
                 if self.TEXT_LABEL:
                     vertical_card.TIME_LABEL.setText(f"{self.TEXT_LABEL}")
                     if self.TEXT_LABEL == self.now_text_label:
@@ -237,7 +246,7 @@ class Cards(widgets.QFrame):
                 pixmap_scroll_card = gui.QPixmap(f"media/title_bar/scrollbar_weather_icons/{hour_data["weather"][0]["icon"]}.png")
                
                 if not pixmap_scroll_card.isNull():
-                    scaled_pixmap = pixmap_scroll_card.scaled(24,24, core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
+                    scaled_pixmap = pixmap_scroll_card.scaled(scale.scale_x(24),scale.scale_y(24), core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
                     vertical_card.WEATHER_LABEL.setPixmap(scaled_pixmap)
                     
                 vertical_card.TEMPERATURE_LABEL.setText(f"{int(hour_temp)}°")
@@ -272,7 +281,7 @@ class Cards(widgets.QFrame):
                     
                     sunset_pixmap = gui.QPixmap(f"media/title_bar/sunmove_icons/sunset.png")
                     if not sunset_pixmap.isNull():
-                        scaled_pixmap = sunset_pixmap.scaled(24,24, core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
+                        scaled_pixmap = sunset_pixmap.scaled(scale.scale_x(24), scale.scale_y(24), core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
                         sunset_card.ICON_LABEL.setPixmap(scaled_pixmap)
                         
                     sunset_card.TEXT_LABEL.setText(self.sunset_card_label)    
@@ -300,7 +309,7 @@ class Cards(widgets.QFrame):
         pixmap = gui.QPixmap(f"media/title_bar/weather_icons/weather_icons_{weather_icons_pack}/{self.REQUEST_DATA["weather"][0]["icon"]}.png")
 
         if not pixmap.isNull():
-            scaled = pixmap.scaled(weather_container.LEFT_WEATHER_ICON_SIZE, core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
+            scaled = pixmap.scaled(scale.scale_x(76), scale.scale_y(76), core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
             weather_container.LEFT_WEATHER_ICON.setPixmap(scaled)
             # Запись в правую часть контейнера погоды данных о погоде с запроса API при каждом клике на карточку
             
@@ -310,7 +319,12 @@ class Cards(widgets.QFrame):
             
         weather_container.RIGHT_CLOCK_LABEL.setText(self.TIME_STR)
             
-        weather_container.RIGHT_CLOCK_FRAME.setPixmap(gui.QPixmap(f"media/title_bar/clock.svg"))
+            
+        self.CLOCK = gui.QPixmap(f"media/title_bar/clock.svg")
+        if not self.CLOCK.isNull():
+            scaled_pixmap = self.CLOCK.scaled(scale.scale_x(168), scale.scale_y(168), core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
+            
+            weather_container.RIGHT_CLOCK_FRAME.setPixmap(scaled_pixmap)
             
             
             # Обновление данных на карточке, которая была выбрана

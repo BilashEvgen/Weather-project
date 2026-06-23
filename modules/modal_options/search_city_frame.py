@@ -9,7 +9,7 @@ from utils import clear_layout
 from .modal_tools.modal_city_menu import ModalCityMenu
 from .modal_tools.modal_country_menu import ModalCountryMenu
 from .modal_tools.city_lables import CityListLable
-
+from utils import scale
 class SearchCity(widgets.QFrame):
     def __init__(self, parent):
         super().__init__(parent)
@@ -28,7 +28,8 @@ class SearchCity(widgets.QFrame):
         
         self.LABEL = widgets.QLabel(text = "Пошук міста")
         self.LABEL.setFixedWidth(150)
-        self.LABEL.setStyleSheet("color: white; font-size: 16px; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 500;")
+        self.LABEL.setStyleSheet("color: white;border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 500;")
+        scale.setFontSize(self.LABEL,16)
         self.LAYOUT.addWidget(self.LABEL)
         
         
@@ -62,7 +63,7 @@ class SearchCity(widgets.QFrame):
         
         self.SETTINGS_CONTEINER_RIGHT_TOP_FRAME = widgets.QFrame(parent = self.SETTINGS_FRAME)
         self.SETTINGS_CONTEINER_RIGHT_TOP_FRAME.setStyleSheet("background-color: transparent")
-        self.SETTINGS_CONTEINER_RIGHT_TOP_FRAME.setFixedSize(544, 301)
+        self.SETTINGS_CONTEINER_RIGHT_TOP_FRAME.setFixedSize(scale.scale_x(544), scale.scale_y(301))
         self.SETTINGS_LAYOUT.addWidget(self.SETTINGS_CONTEINER_RIGHT_TOP_FRAME)
         
         
@@ -75,7 +76,7 @@ class SearchCity(widgets.QFrame):
         
         self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME = widgets.QFrame(parent = self.SETTINGS_CONTEINER_RIGHT_TOP_FRAME)
         self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME.setStyleSheet("background-color: transparent")
-        self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME.setFixedSize(239, 301)
+        self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME.setFixedSize(scale.scale_x(239), scale.scale_y(301))
         self.SETTINGS_CONTEINER_RIGHT_TOP_FRAME_LAYOUT.addWidget(self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME)
         
         self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME_LAYOUT = widgets.QVBoxLayout()
@@ -86,13 +87,14 @@ class SearchCity(widgets.QFrame):
         
         
         self.SEARCH_CITY_LABEL = widgets.QLabel(parent = self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME,text = self.search_city_label)
-        self.SEARCH_CITY_LABEL.setFixedSize(239,21)
-        self.SEARCH_CITY_LABEL.setStyleSheet("color: white; font-size: 18px; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 400;")
+        self.SEARCH_CITY_LABEL.setFixedSize(scale.scale_x(239), scale.scale_y(21))
+        self.SEARCH_CITY_LABEL.setStyleSheet("color: white;border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 400;")
+        scale.setFontSize(self.SEARCH_CITY_LABEL,18)
         self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME_LAYOUT.addWidget(self.SEARCH_CITY_LABEL,alignment= core.Qt.AlignmentFlag.AlignTop)
         
         
         self.SEARCH_CHOOSING = widgets.QFrame(parent = self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME)
-        self.SEARCH_CHOOSING.setFixedSize(239, 194)
+        self.SEARCH_CHOOSING.setFixedSize(scale.scale_x(239), scale.scale_y(194))
         self.SEARCH_CHOOSING.setStyleSheet("background-color: transparent")
         self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME_LAYOUT.addWidget(self.SEARCH_CHOOSING)
         
@@ -104,7 +106,7 @@ class SearchCity(widgets.QFrame):
         
         
         self.COUNTRY_CHOOSING_FRAME = widgets.QFrame(parent = self.SEARCH_CHOOSING)
-        self.COUNTRY_CHOOSING_FRAME.setFixedSize(239,54)
+        self.COUNTRY_CHOOSING_FRAME.setFixedSize(scale.scale_x(239), scale.scale_y(54))
         self.COUNTRY_CHOOSING_FRAME.setStyleSheet("background-color: transparent")
         self.SEARCH_CHOOSING_LAYOUT.addWidget(self.COUNTRY_CHOOSING_FRAME)
         
@@ -115,8 +117,9 @@ class SearchCity(widgets.QFrame):
         
         
         self.COUNTRY_LABEL = widgets.QLabel(parent = self.SEARCH_CHOOSING,text = self.country_label )
-        self.COUNTRY_LABEL.setStyleSheet("color: white; font-size: 14px; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 500;")
-        self.COUNTRY_LABEL.setFixedSize(239,18)
+        self.COUNTRY_LABEL.setStyleSheet("color: white;border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 500;")
+        scale.setFontSize(self.COUNTRY_LABEL,14)
+        self.COUNTRY_LABEL.setFixedSize(scale.scale_x(239), scale.scale_y(18))
         self.COUNTRY_CHOOSING_LAYOUT.addWidget(self.COUNTRY_LABEL)
        
         # country_drop_down_menu
@@ -126,7 +129,7 @@ class SearchCity(widgets.QFrame):
         
         
         self.CITY_CHOOSING_FRAME = widgets.QFrame(parent = self.SEARCH_CHOOSING)
-        self.CITY_CHOOSING_FRAME.setFixedSize(239,54)
+        self.CITY_CHOOSING_FRAME.setFixedSize(scale.scale_x(239), scale.scale_y(54))
         self.CITY_CHOOSING_FRAME.setStyleSheet("background-color: transparent")
         self.SEARCH_CHOOSING_LAYOUT.addWidget(self.CITY_CHOOSING_FRAME)
         
@@ -136,8 +139,9 @@ class SearchCity(widgets.QFrame):
         self.CITY_CHOOSING_FRAME.setLayout(self.CITY_CHOOSING_LAYOUT)
         
         self.CITY_LABEL = widgets.QLabel(parent = self.SEARCH_CHOOSING,text = self.city_label )
-        self.CITY_LABEL.setStyleSheet("color: white; font-size: 14px; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 500;")
-        self.CITY_LABEL.setFixedSize(239,18)
+        self.CITY_LABEL.setStyleSheet("color: white;border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 500;")
+        scale.setFontSize(self.CITY_LABEL,14)
+        self.CITY_LABEL.setFixedSize(scale.scale_x(239), scale.scale_y(18))
         self.CITY_CHOOSING_LAYOUT.addWidget(self.CITY_LABEL)
         
         self.city_drop_down_menu = ModalCityMenu(self.CITY_CHOOSING_FRAME)
@@ -145,7 +149,7 @@ class SearchCity(widgets.QFrame):
         
         
         self.COORDINATE_FRAME = widgets.QFrame(parent = self.SEARCH_CHOOSING)
-        self.COORDINATE_FRAME.setFixedSize(239,54)
+        self.COORDINATE_FRAME.setFixedSize(scale.scale_x(239), scale.scale_y(54))
         self.COORDINATE_FRAME.setStyleSheet("background-color: transparent")
         self.SEARCH_CHOOSING_LAYOUT.addWidget(self.COORDINATE_FRAME)
         
@@ -155,12 +159,13 @@ class SearchCity(widgets.QFrame):
         self.COORDINATE_FRAME.setLayout(self.COORDINATE_LAYOUT)
         
         self.COORDINATE_LABEL1 = widgets.QLabel(parent = self.COORDINATE_FRAME, text = self.coordinate_label)
-        self.COORDINATE_LABEL1.setStyleSheet("color: white; font-size: 14px; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 500;")
-        self.COORDINATE_LABEL1.setFixedSize(239, 18)
+        self.COORDINATE_LABEL1.setStyleSheet("color: white;border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 500;")
+        scale.setFontSize(self.COORDINATE_LABEL1,14)
+        self.COORDINATE_LABEL1.setFixedSize(scale.scale_x(239), scale.scale_y(18))
         self.COORDINATE_LAYOUT.addWidget(self.COORDINATE_LABEL1)
         
         self.COORDINATE_LABEL2_FRAME = widgets.QFrame(self.COORDINATE_FRAME)
-        self.COORDINATE_LABEL2_FRAME.setFixedSize(239, 32)
+        self.COORDINATE_LABEL2_FRAME.setFixedSize(scale.scale_x(239), scale.scale_y(32))
         self.COORDINATE_LABEL2_FRAME.setStyleSheet("background-color: white; border-radius: 4px;")
         self.COORDINATE_LAYOUT.addWidget(self.COORDINATE_LABEL2_FRAME)
         
@@ -170,8 +175,9 @@ class SearchCity(widgets.QFrame):
         self.COORDINATE_LABEL2_FRAME.setLayout(self.COORDINATE_LABEL2_FRAME_LAYOUT)
         
         self.COORDINATE_LABEL2 = widgets.QLabel(parent = self.COORDINATE_FRAME, text = "(WGS 84,UTM,MGRS)")
-        self.COORDINATE_LABEL2.setStyleSheet("color: #71717A; font-size: 12px;")
-        self.COORDINATE_LABEL2.setFixedSize(219, 16)
+        self.COORDINATE_LABEL2.setStyleSheet("color: #71717A;")
+        scale.setFontSize(self.COORDINATE_LABEL2,12)
+        self.COORDINATE_LABEL2.setFixedSize(scale.scale_x(219), scale.scale_y(16))
         self.COORDINATE_LABEL2_FRAME_LAYOUT.addWidget(self.COORDINATE_LABEL2)
         
         
@@ -179,7 +185,7 @@ class SearchCity(widgets.QFrame):
       
         self.SAVE_BUTTON = widgets.QPushButton(self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME, text = self.save_button_label)
         self.SAVE_BUTTON.clicked.connect(lambda clicked: self.WEATHER_CONTAINER.add_city_card(True))
-        self.SAVE_BUTTON.setFixedSize(105, 38)
+        self.SAVE_BUTTON.setFixedSize(scale.scale_x(105), scale.scale_y(38))
         self.SAVE_BUTTON.setStyleSheet("background-color: rgba(0, 0, 0, 0.2); border-radius: 4px")
         self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME_LAYOUT.addWidget(self.SAVE_BUTTON)
         
@@ -188,7 +194,7 @@ class SearchCity(widgets.QFrame):
         
         
         self.MAP_CONTAINER_FRAME = widgets.QFrame(parent = self.SETTINGS_CONTEINER_RIGHT_TOP_FRAME)
-        self.MAP_CONTAINER_FRAME.setFixedSize(305, 301)
+        self.MAP_CONTAINER_FRAME.setFixedSize(scale.scale_x(305), scale.scale_y(301))
         self.MAP_CONTAINER_FRAME.setStyleSheet("background-color: transparent;")
         self.SETTINGS_CONTEINER_RIGHT_TOP_FRAME_LAYOUT.addWidget(self.MAP_CONTAINER_FRAME, core.Qt.AlignmentFlag.AlignBottom)
         
@@ -198,11 +204,11 @@ class SearchCity(widgets.QFrame):
         self.MAP_CONTAINER_FRAME.setLayout(self.MAP_CONTAINER_FRAME_LAYOUT)
         
         self.MAP_FRAME = widgets.QFrame(self.MAP_CONTAINER_FRAME)
-        self.MAP_FRAME.setFixedSize(289,256)
+        self.MAP_FRAME.setFixedSize(scale.scale_x(289), scale.scale_y(256))
         self.MAP_CONTAINER_FRAME_LAYOUT.addWidget( self.MAP_FRAME)
         
         self.MAP_WEB_VIEW = WebEngine.QWebEngineView(parent = self.MAP_FRAME)
-        self.MAP_WEB_VIEW.setFixedSize(289,256)
+        self.MAP_WEB_VIEW.setFixedSize(scale.scale_x(289), scale.scale_y(256))
         self.update_map_coordinates(0,0)
         
         
@@ -210,7 +216,7 @@ class SearchCity(widgets.QFrame):
         
         self.SETTINGS_CONTEINER_RIGHT_BOTTOM_FRAME = widgets.QFrame(parent = self.SETTINGS_FRAME)
         self.SETTINGS_CONTEINER_RIGHT_BOTTOM_FRAME.setStyleSheet("background-color: transparent;")
-        self.SETTINGS_CONTEINER_RIGHT_BOTTOM_FRAME.setFixedSize(544, 197)
+        self.SETTINGS_CONTEINER_RIGHT_BOTTOM_FRAME.setFixedSize(scale.scale_x(544), scale.scale_y(197))
         self.SETTINGS_LAYOUT.addWidget(self.SETTINGS_CONTEINER_RIGHT_BOTTOM_FRAME)
         
         self.SETTINGS_CONTEINER_RIGHT_BOTTOM_FRAME_LAYOUT = widgets.QVBoxLayout()
@@ -219,12 +225,13 @@ class SearchCity(widgets.QFrame):
         self.SETTINGS_CONTEINER_RIGHT_BOTTOM_FRAME.setLayout(self.SETTINGS_CONTEINER_RIGHT_BOTTOM_FRAME_LAYOUT)
         
         self.BOTTOM_FRAME_LABEL = widgets.QLabel(text = self.bottom_frame_label)
-        self.BOTTOM_FRAME_LABEL.setFixedSize(544, 21)
-        self.BOTTOM_FRAME_LABEL.setStyleSheet("color: white; font-size: 18px; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 400;")
+        self.BOTTOM_FRAME_LABEL.setFixedSize(scale.scale_x(544), scale.scale_y(21))
+        self.BOTTOM_FRAME_LABEL.setStyleSheet("color: white;border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 400;")
+        scale.setFontSize(self.BOTTOM_FRAME_LABEL,18)
         self.SETTINGS_CONTEINER_RIGHT_BOTTOM_FRAME_LAYOUT.addWidget(self.BOTTOM_FRAME_LABEL)
         
         self.CITY_LIST = widgets.QFrame(parent = self.SETTINGS_CONTEINER_RIGHT_BOTTOM_FRAME)
-        self.CITY_LIST.setFixedSize(544, 160)
+        self.CITY_LIST.setFixedSize(scale.scale_x(544), scale.scale_y(160))
         self.CITY_LIST.setStyleSheet("background-color: rgba(0, 0, 0, 0.2); border-radius: 8px;")
         self.SETTINGS_CONTEINER_RIGHT_BOTTOM_FRAME_LAYOUT.addWidget(self.CITY_LIST)
         
@@ -233,13 +240,13 @@ class SearchCity(widgets.QFrame):
         self.CITY_LIST.setLayout(self.CITY_LIST_LAYOUT)
         
         self.CITY_LIST_SCROLL_PARENT = widgets.QFrame(self.CITY_LIST)
-        self.CITY_LIST_SCROLL_PARENT.setFixedSize(512, 128)
+        self.CITY_LIST_SCROLL_PARENT.setFixedSize(scale.scale_x(544), scale.scale_y(128))
         self.CITY_LIST_SCROLL_PARENT.setStyleSheet("background-color: transparent; border: none;")
         self.CITY_LIST_LAYOUT.addWidget(self.CITY_LIST_SCROLL_PARENT)
         
         self.CITY_LIST_SCROLL_AREA = widgets.QScrollArea(parent = self.CITY_LIST_SCROLL_PARENT)
         self.CITY_LIST_SCROLL_AREA.setStyleSheet("background-color: transparent; border: none;")
-        self.CITY_LIST_SCROLL_AREA.setFixedSize(512, 128)
+        self.CITY_LIST_SCROLL_AREA.setFixedSize(scale.scale_x(544), scale.scale_y(128))
         self.CITY_LIST_SCROLL_AREA.setWidgetResizable(True)
         
         self.CITY_LIST_SCROLL_AREA.setVerticalScrollBarPolicy(core.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)

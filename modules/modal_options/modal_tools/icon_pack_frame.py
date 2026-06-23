@@ -1,6 +1,7 @@
 import PyQt6.QtWidgets as widgets
 import PyQt6.QtGui as gui
 import PyQt6.QtCore as core
+from utils import scale
 class IconPackFrame(widgets.QFrame) :
     def __init__(self, parent, icon_pack,pack_number):
         
@@ -8,7 +9,7 @@ class IconPackFrame(widgets.QFrame) :
         
         self.PACK_SELECTED = True
         self.WEATHER_ICONS_PACK = icon_pack
-        self.setFixedSize(490,136)  
+        self.setFixedSize(scale.scale_x(490), scale.scale_y(136)) 
         if pack_number == 1 and not self.window().findChild(widgets.QFrame, "APPICONS").PACK_CHOOSED:
             self.setStyleSheet("background-color: rgba(0, 0, 0, 0.3); border-radius: 8px;")
         else:
@@ -27,13 +28,14 @@ class IconPackFrame(widgets.QFrame) :
             self.icons_list_label = f"List of images №{pack_number}"
             
         self.ICONS_LIST_LABEL = widgets.QLabel(parent = self, text = self.icons_list_label)
-        self.ICONS_LIST_LABEL.setFixedSize(151,17)
-        self.ICONS_LIST_LABEL.setStyleSheet("color: white; font-size: 14px; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 500;")
+        self.ICONS_LIST_LABEL.setFixedSize(scale.scale_x(151), scale.scale_y(17))
+        self.ICONS_LIST_LABEL.setStyleSheet("color: white;border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 500;")
+        scale.setFontSize(self.ICONS_LIST_LABEL,14)
         self.ICON_PACK_LAYOUT.addWidget(self.ICONS_LIST_LABEL, alignment = core.Qt.AlignmentFlag.AlignTop | core.Qt.AlignmentFlag.AlignLeft)
         self.ICONS_LIST_LABEL.setAttribute(core.Qt.WidgetAttribute.WA_TransparentForMouseEvents, True)
         
         self.PACK_FRAME = widgets.QFrame(parent = self)
-        self.PACK_FRAME.setFixedSize(458,74)   
+        self.PACK_FRAME.setFixedSize(scale.scale_x(458), scale.scale_y(74))   
         self.PACK_FRAME.setStyleSheet("background-color : transparent")
         self.ICON_PACK_LAYOUT.addWidget(self.PACK_FRAME, alignment= core.Qt.AlignmentFlag.AlignCenter)
         self.PACK_FRAME.setAttribute(core.Qt.WidgetAttribute.WA_TransparentForMouseEvents, True)
@@ -47,7 +49,7 @@ class IconPackFrame(widgets.QFrame) :
         while i < 4:
             self.ICON_FRAME = widgets.QFrame(self.PACK_FRAME)
             self.ICON_FRAME.setStyleSheet("background-color: #6d6c67;")
-            self.ICON_FRAME.setFixedSize(74, 74)
+            self.ICON_FRAME.setFixedSize(scale.scale_x(74), scale.scale_y(74))
             self.PACK_FRAME_LAYOUT.addWidget(self.ICON_FRAME)
             
             self.ICON_FRAME_LAYOUT = widgets.QHBoxLayout()
@@ -61,12 +63,12 @@ class IconPackFrame(widgets.QFrame) :
             self.ICON_FRAME.setLayout(self.ICON_FRAME_LAYOUT)
             
             self.SETTINGS_WEATHER_ICON = widgets.QLabel(self.ICON_FRAME)
-            self.SETTINGS_WEATHER_ICON.setFixedSize(61, 61)
+            self.SETTINGS_WEATHER_ICON.setFixedSize(scale.scale_x(61), scale.scale_y(61))
             self.SETTINGS_WEATHER_ICON.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
             
             pixmap = gui.QPixmap(f"media/title_bar/weather_icons/weather_icons_{icon_pack}/0{i}d.png")
             if not pixmap.isNull():
-                scaled_pixmap = pixmap.scaled(61, 61, core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
+                scaled_pixmap = pixmap.scaled(scale.scale_x(61), scale.scale_y(61), core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
                 self.SETTINGS_WEATHER_ICON.setPixmap(scaled_pixmap)
             self.ICON_FRAME_LAYOUT.addWidget(self.SETTINGS_WEATHER_ICON)
             self.SETTINGS_WEATHER_ICON.setAttribute(core.Qt.WidgetAttribute.WA_TransparentForMouseEvents, True)
@@ -76,7 +78,7 @@ class IconPackFrame(widgets.QFrame) :
         while i < 3:
             self.ICON_FRAME = widgets.QFrame(self.PACK_FRAME)
             self.ICON_FRAME.setStyleSheet("background-color: #6d6c67;")
-            self.ICON_FRAME.setFixedSize(74, 74)
+            self.ICON_FRAME.setFixedSize(scale.scale_x(74), scale.scale_y(74))
             self.PACK_FRAME_LAYOUT.addWidget(self.ICON_FRAME)
             
             self.ICON_FRAME_LAYOUT = widgets.QHBoxLayout()
@@ -93,12 +95,12 @@ class IconPackFrame(widgets.QFrame) :
             self.ICON_FRAME.setLayout(self.ICON_FRAME_LAYOUT)
             
             self.SETTINGS_WEATHER_ICON = widgets.QLabel(self.ICON_FRAME)
-            self.SETTINGS_WEATHER_ICON.setFixedSize(61, 61)
+            self.SETTINGS_WEATHER_ICON.setFixedSize(scale.scale_x(61), scale.scale_y(61))
             self.SETTINGS_WEATHER_ICON.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
             
             pixmap = gui.QPixmap(f"media/title_bar/weather_icons/weather_icons_{icon_pack}/0{i}n.png")
             if not pixmap.isNull():
-                scaled_pixmap = pixmap.scaled(61, 61, core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
+                scaled_pixmap = pixmap.scaled(scale.scale_x(61), scale.scale_y(61), core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
                 self.SETTINGS_WEATHER_ICON.setPixmap(scaled_pixmap)
             
             self.ICON_FRAME_LAYOUT.addWidget(self.SETTINGS_WEATHER_ICON)

@@ -5,7 +5,7 @@ import PyQt6.QtCore as core
 from utils.clear_layout  import clear_layout
 from modules.cards import Cards
 from utils.clear_weather_frame import clear_weather_frame
-
+from utils import scale
 class CityListLable(widgets.QFrame):
     def __init__(self, parent, city_name):
         super().__init__(parent)
@@ -15,7 +15,7 @@ class CityListLable(widgets.QFrame):
         
         
         
-        self.setFixedSize(512, 32)
+        self.setFixedSize(scale.scale_x(512), scale.scale_y(32))
         self.setStyleSheet("background-color: transparent; border: none;")
         self.CITY_LIST_LAYOUT.CITY_LIST_SCROLL_AREA_FRAME_LAYOUT.addWidget(self)
         
@@ -25,12 +25,13 @@ class CityListLable(widgets.QFrame):
         self.setLayout(self.CITY_LAYOUT)
         
         self.CITY_LABEL = widgets.QLabel(parent = self, text = city_name)
-        self.CITY_LABEL.setFixedSize(496, 20)
-        self.CITY_LABEL.setStyleSheet("color: white; font-size: 14px; border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 400;")
+        self.CITY_LABEL.setFixedSize(scale.scale_x(496), scale.scale_y(20))
+        self.CITY_LABEL.setStyleSheet("color: white;border-radius: 0px; background-color: transparent; font-family: Roboto; font-weight: 400;")
+        scale.setFontSize(self.CITY_LABEL,14)
         self.CITY_LAYOUT.addWidget(self.CITY_LABEL)
         
         self.DELETE_BUTTON = widgets.QPushButton(self)
-        self.DELETE_BUTTON.setFixedSize(16, 16)
+        self.DELETE_BUTTON.setFixedSize(scale.scale_x(16), scale.scale_y(16))
         self.DELETE_BUTTON.setStyleSheet("background-color: transparent; border: none;")
         
         self.DELETE_ICON = gui.QIcon("media/title_bar/additional_elements/trash.png")

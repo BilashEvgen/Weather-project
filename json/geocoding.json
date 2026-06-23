@@ -1,42 +1,9 @@
 [
     {
-        "name": "Henderson",
-        "local_names": {
-            "en": "Henderson",
-            "ru": "Хендерсон",
-            "uk": "Гендерсон"
-        },
-        "lat": 36.0301134,
-        "lon": -114.9826194,
-        "country": "US",
-        "state": "Nevada"
-    },
-    {
-        "name": "Henderson",
-        "lat": 37.8367513,
-        "lon": -87.5907631,
-        "country": "US",
-        "state": "Kentucky"
-    },
-    {
-        "name": "Henderson",
-        "lat": 36.3295905,
-        "lon": -78.3991638,
-        "country": "US",
-        "state": "North Carolina"
-    },
-    {
-        "name": "Henderson",
-        "lat": 32.1532157,
-        "lon": -94.7993802,
-        "country": "US",
-        "state": "Texas"
-    },
-    {
-        "name": "Henderson",
-        "lat": 41.1405507,
-        "lon": -95.43111,
-        "country": "US",
-        "state": "Iowa"
+        "name": "Jeppener",
+        "lat": -35.277518,
+        "lon": -58.2016886,
+        "country": "AR",
+        "state": "Buenos Aires"
     }
 ]

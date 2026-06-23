@@ -1,58 +1,60 @@
 import PyQt6.QtCore as core
 import PyQt6.QtWidgets as widgets
 import PyQt6.QtGui as gui
-from .header import Header
+
 
 from .app import application
 from .left_container import LeftContainer
 from .weather_container import WeatherContainer
 from utils import close_drop_menu
+
 class MainWindow(widgets.QMainWindow):
     
     def __init__(self):
         super().__init__()
         
+        self.setObjectName("Window")
+        
         self.setWindowFlags(core.Qt.WindowType.FramelessWindowHint)
         self.COUNTER = 0
-        window_width = 1200
-        window_height = 828
+        self.window_width = 1200
+        self.window_height = 800
 
-        screen = application.primaryScreen()
-        screen_size = screen.size()
+        self.screen = application.primaryScreen()
+        self.screen_size = self.screen.size()
 
-        screen_width = screen_size.width()
-        screen_height = screen_size.height()
+        self.screen_width = self.screen_size.width()
+        self.screen_height = self.screen_size.height()
 
-        center_x = (screen_width // 2) - (window_width // 2)
-        center_y = (screen_height // 2) - (window_height // 2)
+        self.center_x = (self.screen_width // 2) - (self.window_width // 2)
+        self.center_y = (self.screen_height // 2) - (self.window_height // 2)
 
-        self.setGeometry(center_x, center_y, window_width, window_height)
+        self.setGeometry(self.center_x, self.center_y, self.window_width, self.window_height)
         self.setWindowTitle("Project")
         
-        content_container = widgets.QFrame(parent = self)
-        content_container.setSizePolicy(widgets.QSizePolicy.Policy.Expanding, widgets.QSizePolicy.Policy.Expanding)
-        content_container.setObjectName("Content_container")
-        content_layout = widgets.QVBoxLayout()
+        self.content_container = widgets.QFrame(parent = self)
         
-        content_layout.setSpacing(0)
+        # content_container.setSizePolicy(widgets.QSizePolicy.Policy.Expanding, widgets.QSizePolicy.Policy.Expanding)
         
-        content_layout.setContentsMargins(0,0,0,0)
-
-        content_container.setLayout(content_layout)
+        self.content_layout = widgets.QVBoxLayout()
+        self.content_layout.setSpacing(0)
+        self.content_layout.setContentsMargins(0,0,0,0)
+        self.content_container.setLayout(self.content_layout)
         
-        content_container.setFixedSize(window_width, window_height)
+        self.content_container.setFixedSize(self.window_width, self.window_height)
+        self.setCentralWidget(self.content_container)
         
-        header = Header(parent = content_container)
         
-        content_layout.addWidget(header)
         
-        central_widget = widgets.QWidget(content_container)
-        central_widget.setFixedSize(1200,828)
-        content_layout.addWidget(central_widget)
         
-        content_container.setObjectName("Content_container")
         
-        content_container.setStyleSheet("""
+        self.central_widget = widgets.QWidget(self.content_container)
+        self.central_widget.setFixedSize(1200,800)
+        self.content_layout.addWidget(self.central_widget)
+        
+        self.content_container.setObjectName("Content_container")
+        
+        self.content_container.setStyleSheet("""
             #Content_container {
                 background: qlineargradient(
                     x1:0 y1:1,
@@ -62,18 +64,18 @@ class MainWindow(widgets.QMainWindow):
             }
         """)
         
-        center_widget_layout = widgets.QHBoxLayout()
-        center_widget_layout.setSpacing(0)
-        center_widget_layout.setContentsMargins(0, 0, 0, 0)
+        self.center_widget_layout = widgets.QHBoxLayout()
+        self.center_widget_layout.setSpacing(0)
+        self.center_widget_layout.setContentsMargins(0, 0, 0, 0)
         
         
-        central_widget.setLayout(center_widget_layout)
+        self.central_widget.setLayout(self.center_widget_layout)
         
-        self.LEFT_CONTAINER = LeftContainer(parent = central_widget)
-        self.WEATHER_CONTAINER = WeatherContainer(parent = central_widget)
+        self.LEFT_CONTAINER = LeftContainer(parent = self.central_widget)
+        self.WEATHER_CONTAINER = WeatherContainer(parent = self.central_widget)
         # self.WEATHER_CONTAINER.creating_weather_container()
-        center_widget_layout.addWidget(self.LEFT_CONTAINER)
-        center_widget_layout.addWidget(self.WEATHER_CONTAINER)
+        self.center_widget_layout.addWidget(self.LEFT_CONTAINER)
+        self.center_widget_layout.addWidget(self.WEATHER_CONTAINER)
 
     def mousePressEvent(self, event: gui.QMouseEvent):
         if event.button() == core.Qt.MouseButton.LeftButton:

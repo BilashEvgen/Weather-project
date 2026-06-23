@@ -11,6 +11,7 @@ from .modal_options.app_icons_frame import AppIcons
 from utils import clear_layout
 from utils import close_drop_menu
 from .modal_options.modal_tools.city_lables import CityListLable
+from utils import scale
 
 class ModalWindow(widgets.QWidget):
     def __init__(self, parent):
@@ -19,7 +20,7 @@ class ModalWindow(widgets.QWidget):
         
         self.setObjectName("MODAL_WINDOW")
         self.SEARCH_CITY = self.window().findChild(widgets.QFrame,"SEARCHCITY")
-        self.setGeometry(391, 106,790, 688)
+        self.setGeometry(391, 66,790, 688)
         self.setAttribute(core.Qt.WidgetAttribute.WA_StyledBackground, True)
         self.setStyleSheet("background-color: rgb(54, 54, 54); border-radius: 10px;")
 
@@ -41,7 +42,8 @@ class ModalWindow(widgets.QWidget):
         self.HEADER_FRAME.setLayout(self.HEADER_FRAME_LAYOUT)
         
         self.HEADER_FRAME_LABEL = widgets.QLabel(text = "Налаштування", parent = self.HEADER_FRAME)   
-        self.HEADER_FRAME_LABEL.setStyleSheet("color: white; font-size: 24px; border-radius: 0px;background-color: transparent; font-family: 'Roboto';font-weight: 500;")
+        self.HEADER_FRAME_LABEL.setStyleSheet("color: white; border-radius: 0px;background-color: transparent; font-family: 'Roboto';font-weight: 500;")
+        scale.setFontSize(self.HEADER_FRAME_LABEL,24)
         self.HEADER_FRAME_LABEL.setFixedSize(168,28)
 
         self.HEADER_FRAME_LAYOUT.addWidget(self.HEADER_FRAME_LABEL, alignment = core.Qt.AlignmentFlag.AlignRight)

@@ -7,7 +7,7 @@ from utils import clear_layout
 from .search_field_button import SearchFieldCityButton
 from utils import close_drop_menu
 from utils import request
-
+from utils import scale
 class SearchField(widgets.QLineEdit):
     def __init__(self, parent):
         super().__init__(parent)
@@ -25,14 +25,14 @@ class SearchField(widgets.QLineEdit):
             return
         
         self.DROP_DOWN_FRAME = widgets.QFrame(parent = self.window())
-        self.DROP_DOWN_FRAME.setGeometry(917,92,261,200)
+        self.DROP_DOWN_FRAME.setGeometry(scale.scale_x(918), scale.scale_y(55), scale.scale_x(261), scale.scale_y(200))
         self.DROP_DOWN_FRAME.setStyleSheet("background-color: #9d8b38; border-radius: 10px;")
         self.DROP_DOWN_FRAME.hide()
         
         
         
         self.DROP_DOWN_SCROLL_AREA= widgets.QScrollArea(parent = self.DROP_DOWN_FRAME)
-        self.DROP_DOWN_SCROLL_AREA.setFixedSize(261, 200)
+        self.DROP_DOWN_SCROLL_AREA.setFixedSize(scale.scale_x(261), scale.scale_y(200))
         self.DROP_DOWN_SCROLL_AREA.setWidgetResizable(True)
         self.DROP_DOWN_SCROLL_AREA.setVerticalScrollBarPolicy(core.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.DROP_DOWN_SCROLL_AREA.setHorizontalScrollBarPolicy(core.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
@@ -53,8 +53,8 @@ class SearchField(widgets.QLineEdit):
                         
         self.DROP_DOWN_SCROLL_AREA_FRAME.setLayout(self.DROP_DOWN_LAYOUT)
         
-        self.setStyleSheet("background-color: transparent; border-radius: 0px; color: white; font-family: 'Roboto'; font-weight: 400; font-size: 17px;")
-        
+        self.setStyleSheet("background-color: transparent; border-radius: 0px; color: white; font-family: 'Roboto'; font-weight: 400; ")
+        scale.setFontSize(self,17)
         self.language_widget = self.window().findChild(widgets.QFrame, "WEATHER_CONTAINER")
         self.textChanged.connect(self.text_changed)
         
@@ -98,7 +98,8 @@ class SearchField(widgets.QLineEdit):
             elif self.language == "English" :
                 self.drop_down_label = "Search result"
             self.DROP_DOWN_LABEL = widgets.QLabel(parent = self.DROP_DOWN_FRAME, text = self.drop_down_label)
-            self.DROP_DOWN_LABEL.setStyleSheet("background-color: transparent; border: none; color: #d2c685; font-family: 'Roboto'; font-weight: 400; font-size: 14px;")
+            self.DROP_DOWN_LABEL.setStyleSheet("background-color: transparent; border: none; color: #d2c685; font-family: 'Roboto'; font-weight: 400;")
+            scale.setFontSize(self.DROP_DOWN_LABEL,14)
             self.DROP_DOWN_LAYOUT.addWidget(self.DROP_DOWN_LABEL)
             
             self.CITY_SEARCHED_COUNTER = 0
@@ -115,10 +116,10 @@ class SearchField(widgets.QLineEdit):
                             self.CITY_SEARCHED_COUNTER += 1
                             if self.CITY_SEARCHED_COUNTER > 15:
                                 break
-                            self.city_name = city
-                            city_button = SearchFieldCityButton(parent=self.DROP_DOWN_SCROLL_AREA_FRAME, text=self.city_name, width = 261,height = 30)
-                            city_button.clicked.connect(lambda clicked, name=self.city_name: self.city_chosen(name))
-                            self.DROP_DOWN_LAYOUT.addWidget(city_button)
+                            self.city_name = city                           
+                            self.city_button = SearchFieldCityButton(parent=self.DROP_DOWN_SCROLL_AREA_FRAME, text=self.city_name, width = 261, height = 32)
+                            self.city_button.clicked.connect(lambda clicked, name=self.city_name: self.city_chosen(name))
+                            self.DROP_DOWN_LAYOUT.addWidget(self.city_button)
                         if city.lower() == self.LINE_TEXT.lower():
                             our_weather_container.ADD_BUTTON.show()
                             our_weather_container.ADD_BUTTON_ICON.show()
