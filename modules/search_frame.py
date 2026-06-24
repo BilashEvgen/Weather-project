@@ -42,7 +42,7 @@ class SearchFrame(widgets.QFrame):
     
         self.clear_button.setFixedSize(scale.scale_x(20),scale.scale_y(20))
         self.clear_button.setStyleSheet("background-color: transparent; border: none; color: white;")
-        self.clear_button.setIcon(gui.QIcon("media/title_bar/additional_elements/clear_button.png"))
+        self.clear_button.setIcon(gui.QIcon("media/title_bar/additional_elements/clear_button.svg"))
         self.clear_button.clicked.connect(self.hide_clear_button)
         
         

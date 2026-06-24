@@ -20,7 +20,7 @@ class CityListLable(widgets.QFrame):
         self.CITY_LIST_LAYOUT.CITY_LIST_SCROLL_AREA_FRAME_LAYOUT.addWidget(self)
         
         self.CITY_LAYOUT = widgets.QHBoxLayout()
-        self.CITY_LAYOUT.setContentsMargins(0, 8, 0, 8)
+        self.CITY_LAYOUT.setContentsMargins(0, scale.scale_y(8), 0, scale.scale_y(8))
         self.CITY_LAYOUT.setSpacing(0)
         self.setLayout(self.CITY_LAYOUT)
         
@@ -34,8 +34,10 @@ class CityListLable(widgets.QFrame):
         self.DELETE_BUTTON.setFixedSize(scale.scale_x(16), scale.scale_y(16))
         self.DELETE_BUTTON.setStyleSheet("background-color: transparent; border: none;")
         
-        self.DELETE_ICON = gui.QIcon("media/title_bar/additional_elements/trash.png")
-        self.DELETE_BUTTON.setIcon(self.DELETE_ICON)
+        self.DELETE_ICON = gui.QPixmap("media/title_bar/additional_elements/trash.png")
+        if not self.DELETE_ICON.isNull():
+                scaled_pixmap = self.DELETE_ICON.scaled(scale.scale_x(16),scale.scale_y(16), core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
+        self.DELETE_BUTTON.setIcon(gui.QIcon(scaled_pixmap))
         self.DELETE_BUTTON.clicked.connect(self.delete)
         self.CITY_LAYOUT.addWidget(self.DELETE_BUTTON)
         

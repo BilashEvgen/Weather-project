@@ -24,9 +24,14 @@ class SizeScale():
     def scale_font(self, value):
         return round(value * min(self.x, self.y))
     
-   
+    
     def setFontSize(self, widget, size):
         font = widget.font()
         font.setPixelSize(self.scale_font(size))
+        widget.setFont(font)
+        
+    def setLableSize(self,widget, size):
+        font = widget.font()
+        font.setPixelSize(size)
         widget.setFont(font)
 scale = SizeScale()

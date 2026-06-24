@@ -17,6 +17,7 @@ class SearchField(widgets.QLineEdit):
         self.LINE_CHOOSED = False
         self.setFixedSize(200, 22)
         self.setPlaceholderText("Пошук")
+        scale.setFontSize(self,17)
         try:
             with open("json/cities.json") as file:
                 data = json.load(file)
@@ -26,7 +27,8 @@ class SearchField(widgets.QLineEdit):
         
         self.DROP_DOWN_FRAME = widgets.QFrame(parent = self.window())
         self.DROP_DOWN_FRAME.setGeometry(scale.scale_x(918), scale.scale_y(55), scale.scale_x(261), scale.scale_y(200))
-        self.DROP_DOWN_FRAME.setStyleSheet("background-color: #9d8b38; border-radius: 10px;")
+        
+        self.DROP_DOWN_FRAME.setStyleSheet(f"background-color: #9d8b38; border-radius: 10px;")
         self.DROP_DOWN_FRAME.hide()
         
         

@@ -51,7 +51,7 @@ class ModalWindow(widgets.QWidget):
         self.CLOSE_BUTTON = widgets.QPushButton(parent = self.HEADER_FRAME)
         self.CLOSE_BUTTON.setStyleSheet("background-color: transparent")
         self.CLOSE_BUTTON.setFixedSize(24, 24)
-        self.CLOSE_ICON = gui.QIcon("media/title_bar/close.png")
+        self.CLOSE_ICON = gui.QIcon("media/title_bar/close.svg")
         self.CLOSE_BUTTON.setIcon(self.CLOSE_ICON)
         
         self.CLOSE_BUTTON.clicked.connect(self.hide_function)
@@ -119,9 +119,10 @@ class ModalWindow(widgets.QWidget):
             option.CHOOSED = False
             option.setStyleSheet("background-color: transparent; border-radius: 0px")
         self.hide()
-        clear_layout(self.SETTINGS_CONTEINER_RIGHT_LAYOUT)
         close_drop_menu(self.window())
-    def show_modal(self):
+        clear_layout(self.SETTINGS_CONTEINER_RIGHT_LAYOUT)
+        
+    def show_modal(self):   
         self.WEATHER_CONTAINER = self.window().findChild(widgets.QFrame,"WEATHER_CONTAINER")
         
         

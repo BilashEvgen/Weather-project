@@ -5,6 +5,8 @@ from utils import clear_layout
 from .modal_tools import IconPackFrame
 from ..cards import Cards
 from utils import scale
+from utils import close_drop_menu
+
 class AppIcons(widgets.QFrame):
     def __init__(self, parent):
         super().__init__(parent)
@@ -41,8 +43,8 @@ class AppIcons(widgets.QFrame):
         self.SETTINGS_LAYOUT = self.MODAL_WINDOW.SETTINGS_CONTEINER_RIGHT_LAYOUT
         self.SETTINGS_FRAME = self.MODAL_WINDOW.SETTINGS_CONTEINER_RIGHT
         
-        self.SETTINGS_LAYOUT.setContentsMargins(0,0,54,129)
-        self.SETTINGS_LAYOUT.setSpacing(24)
+        self.SETTINGS_LAYOUT.setContentsMargins(0,0,scale.scale_x(54),scale.scale_y(129))
+        self.SETTINGS_LAYOUT.setSpacing(scale.scale_y(24))
         
         self.IMAGES_LIST = widgets.QLabel(parent = self.SETTINGS_FRAME, text = self.images_list_label)
         self.IMAGES_LIST.setFixedSize(scale.scale_x(490), scale.scale_y(21))
@@ -56,8 +58,8 @@ class AppIcons(widgets.QFrame):
         self.SETTINGS_LAYOUT.addWidget(self.ADD_FRAME)
         
         self.ADD_FRAME_LAYOUT = widgets.QHBoxLayout(self.ADD_FRAME)
-        self.ADD_FRAME_LAYOUT.setContentsMargins(8,7,8,7)
-        self.ADD_FRAME_LAYOUT.setSpacing(7)
+        self.ADD_FRAME_LAYOUT.setContentsMargins(scale.scale_x(8), scale.scale_y(7),scale.scale_x(8), scale.scale_y(7))
+        self.ADD_FRAME_LAYOUT.setSpacing(scale.scale_x(7))
         self.ADD_FRAME_LAYOUT.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
         
         self.ADD_FRAME.setLayout(self.ADD_FRAME_LAYOUT)
@@ -91,7 +93,7 @@ class AppIcons(widgets.QFrame):
         self.SETTINGS_LAYOUT.addWidget(self.IMAGES_PACK_CHOOSE_FRAME)
         
         self.IMAGES_PACK_CHOOSE_FRAME_LAYOUT = widgets.QVBoxLayout()
-        self.IMAGES_PACK_CHOOSE_FRAME_LAYOUT.setSpacing(10)
+        self.IMAGES_PACK_CHOOSE_FRAME_LAYOUT.setSpacing(scale.scale_y(10))
         self.IMAGES_PACK_CHOOSE_FRAME_LAYOUT.setContentsMargins(0, 0, 0, 0)
         self.IMAGES_PACK_CHOOSE_FRAME.setLayout(self.IMAGES_PACK_CHOOSE_FRAME_LAYOUT)
         
@@ -109,11 +111,13 @@ class AppIcons(widgets.QFrame):
         self.SAVE_BUTTON.clicked.connect(self.icon_change)
         self.SAVE_BUTTON.setFixedSize(scale.scale_x(105), scale.scale_y(38))
         self.SAVE_BUTTON.setStyleSheet("background-color: rgba(0, 0, 0, 0.2); border-radius: 4px")
+        scale.setFontSize(self.SAVE_BUTTON,14)
         self.SETTINGS_LAYOUT.addWidget(self.SAVE_BUTTON)
         
     def mousePressEvent(self, event):
         self.list_of_options_frames = self.MODAL_WINDOW.LIST_OF_OPTIONS_FRAMES
         if event.button() == core.Qt.MouseButton.LeftButton and self.CHOOSED == False:
+            close_drop_menu(self.window())
             clear_layout(self.MODAL_WINDOW.SETTINGS_CONTEINER_RIGHT_LAYOUT)
             self.create_frame()
             for option in self.list_of_options_frames :

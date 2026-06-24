@@ -13,7 +13,7 @@ class Sun_Move_Card(widgets.QFrame):
         self.SMCARD_LAYOUT.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
         self.setLayout(self.SMCARD_LAYOUT)
         self.SMCARD_LAYOUT.setContentsMargins(0, 0, 0, 0)
-        self.SMCARD_LAYOUT.setSpacing(10)
+        self.SMCARD_LAYOUT.setSpacing(scale.scale_y(10))
         
         self.TIME_LABEL = widgets.QLabel()
         self.TIME_LABEL.setFixedSize(scale.scale_x(90),scale.scale_y(19))

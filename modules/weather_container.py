@@ -9,6 +9,7 @@ from .cards import Cards
 from .modal import ModalWindow
 from .modal_options.modal_tools.city_lables import CityListLable
 from utils import scale
+from .diagram_temp_lable import DiagrammTempLable
 
 class WeatherContainer(widgets.QFrame):
     def __init__(self, parent):
@@ -65,7 +66,8 @@ class WeatherContainer(widgets.QFrame):
         self.TOP_FRAME_LAYOUT.addWidget(self.TOP_SETTINGS_FRAME, alignment = core.Qt.AlignmentFlag.AlignLeft)
         
         # В TOP_SETTINGS_FRAME
-        self.TOP_SETTINGS_FRAME_BUTTON = widgets.QPushButton(parent = self.TOP_SETTINGS_FRAME, icon = gui.QIcon("media/title_bar/additional_elements/settings.png"))
+        self.TOP_SETTINGS_FRAME_BUTTON = widgets.QPushButton(parent = self.TOP_SETTINGS_FRAME, icon = gui.QIcon("media/title_bar/additional_elements/settings.svg"))
+        self.TOP_SETTINGS_FRAME_BUTTON.setIconSize(core.QSize(16,16))
         self.TOP_SETTINGS_FRAME_BUTTON.setFixedSize(36,36)
         self.TOP_SETTINGS_FRAME_BUTTON.setStyleSheet("background-color: rgba(0, 0, 0, 0.2); border-radius: 4px;")
         self.TOP_SETTINGS_FRAME_BUTTON.clicked.connect(self.MODAL_WINDOW.show_modal)
@@ -116,7 +118,7 @@ class WeatherContainer(widgets.QFrame):
         
         add_pixmap = gui.QPixmap(f"media/title_bar/additional_elements/plus_circle.png")
         if not add_pixmap.isNull():
-            scaled_pixmap = add_pixmap.scaled(16, 16, core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
+            scaled_pixmap = add_pixmap.scaled(scale.scale_x(16), scale.scale_y(16), core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
             self.ADD_BUTTON_ICON.setPixmap(scaled_pixmap)
         
         self.ADD_BUTTON_ICON.setStyleSheet("background-color: transparent; border-radius: 0px;")
@@ -470,7 +472,7 @@ class WeatherContainer(widgets.QFrame):
         self.FORECAST_DIAGRAM_ICON_FRAME.setFixedSize(730, 20)
         self.FORECAST_DIAGRAM_ICON_PARENT_FRAME_LAYOUT.addWidget(self.FORECAST_DIAGRAM_ICON_FRAME, alignment = core.Qt.AlignmentFlag.AlignCenter)
         
-        self.FORECAST_DIAGRAM_ICON_FRAME_LAYOUT = widgets.QHBoxLayout(self.FORECAST_DIAGRAM_ICON_FRAME)
+        self.FORECAST_DIAGRAM_ICON_FRAME_LAYOUT = widgets.QHBoxLayout()
         self.FORECAST_DIAGRAM_ICON_FRAME.setLayout(self.FORECAST_DIAGRAM_ICON_FRAME_LAYOUT)
         self.FORECAST_DIAGRAM_ICON_FRAME_LAYOUT
         self.FORECAST_DIAGRAM_ICON_FRAME_LAYOUT.setContentsMargins(0,0,0,0)
@@ -488,7 +490,7 @@ class WeatherContainer(widgets.QFrame):
         self.FORECAST_DIAGRAM_AND_TEMPERATURE_FRAME.setStyleSheet("background-color: transparent; border-radius: 0px;")
         self.FORECAST_DIAGRAM_FRAME_LAYOUT.addWidget(self.FORECAST_DIAGRAM_AND_TEMPERATURE_FRAME, alignment = core.Qt.AlignmentFlag.AlignCenter)
         
-        self.FORECAST_DIAGRAM_AND_TEMPERATURE_FRAME_LAYOUT = widgets.QHBoxLayout(self.FORECAST_DIAGRAM_AND_TEMPERATURE_FRAME)
+        self.FORECAST_DIAGRAM_AND_TEMPERATURE_FRAME_LAYOUT = widgets.QHBoxLayout()
         self.FORECAST_DIAGRAM_AND_TEMPERATURE_FRAME_LAYOUT.setContentsMargins(0,0,0,0)
         self.FORECAST_DIAGRAM_AND_TEMPERATURE_FRAME_LAYOUT.setSpacing(0)
         self.FORECAST_DIAGRAM_AND_TEMPERATURE_FRAME_LAYOUT.setAlignment(core.Qt.AlignmentFlag.AlignTop)
@@ -497,23 +499,44 @@ class WeatherContainer(widgets.QFrame):
         
         self.FORECAST_DIAGRAM_ITSELF_FRAME = widgets.QFrame(self.FORECAST_DIAGRAM_AND_TEMPERATURE_FRAME)
         self.FORECAST_DIAGRAM_ITSELF_FRAME.setFixedSize(728, 110)
-        self.FORECAST_DIAGRAM_ITSELF_FRAME.setStyleSheet("background-image: url('media/title_bar/additional_elements/spreadsheet.png');")
-        self.FORECAST_DIAGRAM_AND_TEMPERATURE_FRAME_LAYOUT.addWidget(self.FORECAST_DIAGRAM_ITSELF_FRAME, alignment = core.Qt.AlignmentFlag.AlignCenter)
+        self.FORECAST_DIAGRAM_ITSELF_FRAME.setStyleSheet("background-image: url('media/title_bar/additional_elements/spreadsheet.png');background-color : transparent")
+        self.FORECAST_DIAGRAM_AND_TEMPERATURE_FRAME_LAYOUT.addWidget(self.FORECAST_DIAGRAM_ITSELF_FRAME)
         
-        self.FORECAST_DIAGRAM_ITSELF_LAYOUT = widgets.QHBoxLayout(self.FORECAST_DIAGRAM_ITSELF_FRAME)
+        self.FORECAST_DIAGRAM_ITSELF_LAYOUT = widgets.QHBoxLayout()
         self.FORECAST_DIAGRAM_ITSELF_LAYOUT.setContentsMargins(1,0,3,0)
         self.FORECAST_DIAGRAM_ITSELF_LAYOUT.setSpacing(3)
         self.FORECAST_DIAGRAM_ITSELF_LAYOUT.setAlignment(core.Qt.AlignmentFlag.AlignBottom)
         self.FORECAST_DIAGRAM_ITSELF_FRAME.setLayout(self.FORECAST_DIAGRAM_ITSELF_LAYOUT)
         # Внутри forecast diagram and temperature frame
         
-        self.FORECAST_TEMPERATURE_ITSELF_LABEL = widgets.QLabel(parent = self.FORECAST_DIAGRAM_AND_TEMPERATURE_FRAME,text ="25°\n20°\n15°\n10°\n5°\n0°\n-5°\n-10°")
-        self.FORECAST_TEMPERATURE_ITSELF_LABEL.setStyleSheet(f"border-radius: 0px; background-color: transparent; font-family: 'Roboto'; font-weight: 400; color: #FFFFFF;")
-        scale.setFontSize(self.FORECAST_TEMPERATURE_ITSELF_LABEL,12)
-        self.FORECAST_TEMPERATURE_ITSELF_LABEL.setFixedSize(30, 110)
-        self.FORECAST_TEMPERATURE_ITSELF_LABEL.setAlignment(core.Qt.AlignmentFlag.AlignVCenter)
-        self.FORECAST_DIAGRAM_AND_TEMPERATURE_FRAME_LAYOUT.addWidget(self.FORECAST_TEMPERATURE_ITSELF_LABEL, alignment = core.Qt.AlignmentFlag.AlignCenter)
+        self.FORECAST_TEMPERATURE_ITSELF_FRAME = widgets.QFrame(self.FORECAST_DIAGRAM_AND_TEMPERATURE_FRAME)
+        self.FORECAST_TEMPERATURE_ITSELF_FRAME.setFixedSize(scale.scale_x(27), scale.scale_y(110))
+        self.FORECAST_TEMPERATURE_ITSELF_FRAME.setStyleSheet("background-color: transparent;")
+        self.FORECAST_DIAGRAM_AND_TEMPERATURE_FRAME_LAYOUT.addWidget(self.FORECAST_TEMPERATURE_ITSELF_FRAME)
+        
+        self.FORECAST_TEMPERATURE_ITSELF_FRAME_LAYOUT = widgets.QVBoxLayout()
+        self.FORECAST_TEMPERATURE_ITSELF_FRAME_LAYOUT.setSpacing(0)
+        self.FORECAST_TEMPERATURE_ITSELF_FRAME_LAYOUT.setContentsMargins(0, 0, 0, 0)
+        self.FORECAST_TEMPERATURE_ITSELF_FRAME.setLayout(self.FORECAST_TEMPERATURE_ITSELF_FRAME_LAYOUT)
+        
+        self.FORECAST_TEMPERATURE_ITSELF_LABEL1 = DiagrammTempLable(self.FORECAST_TEMPERATURE_ITSELF_FRAME, temp = "25°")
+        self.FORECAST_TEMPERATURE_ITSELF_LABEL2 = DiagrammTempLable(self.FORECAST_TEMPERATURE_ITSELF_FRAME, temp = "20°" )
+        self.FORECAST_TEMPERATURE_ITSELF_LABEL3 = DiagrammTempLable(self.FORECAST_TEMPERATURE_ITSELF_FRAME, temp = "15°" )
+        self.FORECAST_TEMPERATURE_ITSELF_LABEL4 = DiagrammTempLable(self.FORECAST_TEMPERATURE_ITSELF_FRAME, temp = "10°" )
+        self.FORECAST_TEMPERATURE_ITSELF_LABEL5 = DiagrammTempLable(self.FORECAST_TEMPERATURE_ITSELF_FRAME, temp = "5°" )
+        self.FORECAST_TEMPERATURE_ITSELF_LABEL6 = DiagrammTempLable(self.FORECAST_TEMPERATURE_ITSELF_FRAME, temp = "0°" )
+        self.FORECAST_TEMPERATURE_ITSELF_LABEL7 = DiagrammTempLable(self.FORECAST_TEMPERATURE_ITSELF_FRAME, temp = "-5°" )
+        self.FORECAST_TEMPERATURE_ITSELF_LABEL8 = DiagrammTempLable(self.FORECAST_TEMPERATURE_ITSELF_FRAME, temp = "-10°" )
 
+        self.FORECAST_TEMPERATURE_ITSELF_FRAME_LAYOUT.addWidget(self.FORECAST_TEMPERATURE_ITSELF_LABEL1, core.Qt.AlignmentFlag.AlignRight)
+        self.FORECAST_TEMPERATURE_ITSELF_FRAME_LAYOUT.addWidget(self.FORECAST_TEMPERATURE_ITSELF_LABEL2, core.Qt.AlignmentFlag.AlignRight)
+        self.FORECAST_TEMPERATURE_ITSELF_FRAME_LAYOUT.addWidget(self.FORECAST_TEMPERATURE_ITSELF_LABEL3, core.Qt.AlignmentFlag.AlignRight)
+        self.FORECAST_TEMPERATURE_ITSELF_FRAME_LAYOUT.addWidget(self.FORECAST_TEMPERATURE_ITSELF_LABEL4, core.Qt.AlignmentFlag.AlignRight)
+        self.FORECAST_TEMPERATURE_ITSELF_FRAME_LAYOUT.addWidget(self.FORECAST_TEMPERATURE_ITSELF_LABEL5, core.Qt.AlignmentFlag.AlignRight)
+        self.FORECAST_TEMPERATURE_ITSELF_FRAME_LAYOUT.addWidget(self.FORECAST_TEMPERATURE_ITSELF_LABEL6, core.Qt.AlignmentFlag.AlignRight)
+        self.FORECAST_TEMPERATURE_ITSELF_FRAME_LAYOUT.addWidget(self.FORECAST_TEMPERATURE_ITSELF_LABEL7, core.Qt.AlignmentFlag.AlignRight)
+        self.FORECAST_TEMPERATURE_ITSELF_FRAME_LAYOUT.addWidget(self.FORECAST_TEMPERATURE_ITSELF_LABEL8, core.Qt.AlignmentFlag.AlignRight)
+        
     def scroll_left(self):
         hbar = self.DAY_WEATHER_SCROLL_AREA.horizontalScrollBar()
         hbar.setValue(hbar.minimum())

@@ -4,7 +4,7 @@ import PyQt6.QtCore as core
 import PyQt6.QtWebEngineWidgets as WebEngine
 import folium 
 import io
-from utils import clear_layout
+from utils import clear_layout,close_drop_menu
 
 from .modal_tools.modal_city_menu import ModalCityMenu
 from .modal_tools.modal_country_menu import ModalCountryMenu
@@ -58,8 +58,8 @@ class SearchCity(widgets.QFrame):
         self.SETTINGS_LAYOUT = self.MODAL_WINDOW.SETTINGS_CONTEINER_RIGHT_LAYOUT
         self.SETTINGS_FRAME = self.MODAL_WINDOW.SETTINGS_CONTEINER_RIGHT
         
-        self.SETTINGS_LAYOUT.setContentsMargins(0,0,0,56)
-        self.SETTINGS_LAYOUT.setSpacing(24)
+        self.SETTINGS_LAYOUT.setContentsMargins(0,0,0,scale.scale_y(56))
+        self.SETTINGS_LAYOUT.setSpacing(scale.scale_y(24))
         
         self.SETTINGS_CONTEINER_RIGHT_TOP_FRAME = widgets.QFrame(parent = self.SETTINGS_FRAME)
         self.SETTINGS_CONTEINER_RIGHT_TOP_FRAME.setStyleSheet("background-color: transparent")
@@ -81,7 +81,7 @@ class SearchCity(widgets.QFrame):
         
         self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME_LAYOUT = widgets.QVBoxLayout()
         self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME_LAYOUT.setContentsMargins(0,0,0,0)
-        self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME_LAYOUT.setSpacing(24)
+        self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME_LAYOUT.setSpacing(scale.scale_y(24))
         self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME_LAYOUT.setAlignment(core.Qt.AlignmentFlag.AlignLeft)
         self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME.setLayout(self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME_LAYOUT)
         
@@ -101,8 +101,7 @@ class SearchCity(widgets.QFrame):
         self.SEARCH_CHOOSING_LAYOUT = widgets.QVBoxLayout()
         self.SEARCH_CHOOSING.setLayout(self.SEARCH_CHOOSING_LAYOUT)
         self.SEARCH_CHOOSING_LAYOUT.setContentsMargins(0,0,0,0)
-        self.SEARCH_CHOOSING_LAYOUT.setSpacing(16)
-        
+        self.SEARCH_CHOOSING_LAYOUT.setSpacing(scale.scale_y(16))
         
         
         self.COUNTRY_CHOOSING_FRAME = widgets.QFrame(parent = self.SEARCH_CHOOSING)
@@ -112,7 +111,7 @@ class SearchCity(widgets.QFrame):
         
         self.COUNTRY_CHOOSING_LAYOUT = widgets.QVBoxLayout()
         self.COUNTRY_CHOOSING_LAYOUT.setContentsMargins(0,0,0,0)
-        self.COUNTRY_CHOOSING_LAYOUT.setSpacing(4)
+        self.COUNTRY_CHOOSING_LAYOUT.setSpacing(scale.scale_y(4))
         self.COUNTRY_CHOOSING_FRAME.setLayout(self.COUNTRY_CHOOSING_LAYOUT)
         
         
@@ -135,7 +134,7 @@ class SearchCity(widgets.QFrame):
         
         self.CITY_CHOOSING_LAYOUT = widgets.QVBoxLayout()
         self.CITY_CHOOSING_LAYOUT.setContentsMargins(0,0,0,0)
-        self.CITY_CHOOSING_LAYOUT.setSpacing(4)
+        self.CITY_CHOOSING_LAYOUT.setSpacing(scale.scale_y(4))
         self.CITY_CHOOSING_FRAME.setLayout(self.CITY_CHOOSING_LAYOUT)
         
         self.CITY_LABEL = widgets.QLabel(parent = self.SEARCH_CHOOSING,text = self.city_label )
@@ -155,7 +154,7 @@ class SearchCity(widgets.QFrame):
         
         self.COORDINATE_LAYOUT = widgets.QVBoxLayout()
         self.COORDINATE_LAYOUT.setContentsMargins(0,0,0,0)
-        self.COORDINATE_LAYOUT.setSpacing(4)
+        self.COORDINATE_LAYOUT.setSpacing(scale.scale_y(4))
         self.COORDINATE_FRAME.setLayout(self.COORDINATE_LAYOUT)
         
         self.COORDINATE_LABEL1 = widgets.QLabel(parent = self.COORDINATE_FRAME, text = self.coordinate_label)
@@ -170,7 +169,7 @@ class SearchCity(widgets.QFrame):
         self.COORDINATE_LAYOUT.addWidget(self.COORDINATE_LABEL2_FRAME)
         
         self.COORDINATE_LABEL2_FRAME_LAYOUT = widgets.QHBoxLayout()
-        self.COORDINATE_LABEL2_FRAME_LAYOUT.setContentsMargins(10,8,10,8)   
+        self.COORDINATE_LABEL2_FRAME_LAYOUT.setContentsMargins(scale.scale_x(10),scale.scale_y(8),scale.scale_x(10),scale.scale_y(8))   
         self.COORDINATE_LABEL2_FRAME_LAYOUT.setSpacing(0)
         self.COORDINATE_LABEL2_FRAME.setLayout(self.COORDINATE_LABEL2_FRAME_LAYOUT)
         
@@ -187,6 +186,7 @@ class SearchCity(widgets.QFrame):
         self.SAVE_BUTTON.clicked.connect(lambda clicked: self.WEATHER_CONTAINER.add_city_card(True))
         self.SAVE_BUTTON.setFixedSize(scale.scale_x(105), scale.scale_y(38))
         self.SAVE_BUTTON.setStyleSheet("background-color: rgba(0, 0, 0, 0.2); border-radius: 4px")
+        scale.setFontSize(self.SAVE_BUTTON,14)
         self.SETTINGS_CONTEINER_RIGHT_TOP_CHOOSE_FRAME_LAYOUT.addWidget(self.SAVE_BUTTON)
         
         
@@ -199,7 +199,7 @@ class SearchCity(widgets.QFrame):
         self.SETTINGS_CONTEINER_RIGHT_TOP_FRAME_LAYOUT.addWidget(self.MAP_CONTAINER_FRAME, core.Qt.AlignmentFlag.AlignBottom)
         
         self.MAP_CONTAINER_FRAME_LAYOUT = widgets.QHBoxLayout()
-        self.MAP_CONTAINER_FRAME_LAYOUT.setContentsMargins(16, 45,0, 0)
+        self.MAP_CONTAINER_FRAME_LAYOUT.setContentsMargins(scale.scale_x(16), scale.scale_y(45),0, 0)
         self.MAP_CONTAINER_FRAME_LAYOUT.setSpacing(0)
         self.MAP_CONTAINER_FRAME.setLayout(self.MAP_CONTAINER_FRAME_LAYOUT)
         
@@ -221,7 +221,7 @@ class SearchCity(widgets.QFrame):
         
         self.SETTINGS_CONTEINER_RIGHT_BOTTOM_FRAME_LAYOUT = widgets.QVBoxLayout()
         self.SETTINGS_CONTEINER_RIGHT_BOTTOM_FRAME_LAYOUT.setContentsMargins(0, 0, 0, 0)
-        self.SETTINGS_CONTEINER_RIGHT_BOTTOM_FRAME_LAYOUT.setSpacing(16)
+        self.SETTINGS_CONTEINER_RIGHT_BOTTOM_FRAME_LAYOUT.setSpacing(scale.scale_y(16))
         self.SETTINGS_CONTEINER_RIGHT_BOTTOM_FRAME.setLayout(self.SETTINGS_CONTEINER_RIGHT_BOTTOM_FRAME_LAYOUT)
         
         self.BOTTOM_FRAME_LABEL = widgets.QLabel(text = self.bottom_frame_label)
@@ -236,7 +236,7 @@ class SearchCity(widgets.QFrame):
         self.SETTINGS_CONTEINER_RIGHT_BOTTOM_FRAME_LAYOUT.addWidget(self.CITY_LIST)
         
         self.CITY_LIST_LAYOUT = widgets.QHBoxLayout()
-        self.CITY_LIST_LAYOUT.setContentsMargins(16, 16, 16, 16)
+        self.CITY_LIST_LAYOUT.setContentsMargins(scale.scale_x(16),scale.scale_y(16),scale.scale_x(16),scale.scale_y(16))
         self.CITY_LIST.setLayout(self.CITY_LIST_LAYOUT)
         
         self.CITY_LIST_SCROLL_PARENT = widgets.QFrame(self.CITY_LIST)
@@ -301,6 +301,7 @@ class SearchCity(widgets.QFrame):
                     option.CHOOSED = False
             
             # Потом очищаем layout
+            close_drop_menu(self.window())
             clear_layout(self.MODAL_WINDOW.SETTINGS_CONTEINER_RIGHT_LAYOUT)
             # И создаем новый фрейм
             self.create_frame()

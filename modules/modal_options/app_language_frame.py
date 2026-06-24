@@ -1,9 +1,10 @@
 import PyQt6.QtWidgets as widgets
 import PyQt6.QtGui as gui
 import PyQt6.QtCore as core
-from utils import clear_layout
+from utils import clear_layout, close_drop_menu
 from ..cards import Cards
 from utils import scale
+
 class AppLanguage(widgets.QFrame):
     def __init__(self, parent):
         super().__init__(parent)
@@ -41,7 +42,7 @@ class AppLanguage(widgets.QFrame):
         self.SETTINGS_LAYOUT = self.MODAL_WINDOW.SETTINGS_CONTEINER_RIGHT_LAYOUT
         self.SETTINGS_FRAME = self.MODAL_WINDOW.SETTINGS_CONTEINER_RIGHT
         
-        self.SETTINGS_LAYOUT.setContentsMargins(0,0,305,417)
+        self.SETTINGS_LAYOUT.setContentsMargins(0,0,scale.scale_x(305),scale.scale_y(417))
         
         self.CHOOSE_LANGUAGE_FRAME = widgets.QFrame()
         self.CHOOSE_LANGUAGE_FRAME.setFixedSize(scale.scale_x(239), scale.scale_y(161))
@@ -50,7 +51,7 @@ class AppLanguage(widgets.QFrame):
 
         self.CHOOSE_LANGUAGE_LAYOUT = widgets.QVBoxLayout()
         self.CHOOSE_LANGUAGE_LAYOUT.setContentsMargins(0, 0, 0, 0)
-        self.CHOOSE_LANGUAGE_LAYOUT.setSpacing(24)
+        self.CHOOSE_LANGUAGE_LAYOUT.setSpacing(scale.scale_y(24))
         self.CHOOSE_LANGUAGE_LAYOUT.setAlignment(core.Qt.AlignmentFlag.AlignTop)
 
         self.CHOOSE_LANGUAGE_FRAME.setLayout(self.CHOOSE_LANGUAGE_LAYOUT)
@@ -82,6 +83,7 @@ class AppLanguage(widgets.QFrame):
         self.APP_LANGUAGE_DROP_DOWN_MENU = widgets.QComboBox(self.APP_LANGUAGE_FRAME)
         self.APP_LANGUAGE_DROP_DOWN_MENU.setFixedSize(scale.scale_x(239), scale.scale_y(32))
         self.APP_LANGUAGE_DROP_DOWN_MENU.setStyleSheet("background-color: white; color: black; border-radius: 4px; padding-left: 8px;")
+        scale.setFontSize(self.APP_LANGUAGE_DROP_DOWN_MENU, 12)
         
         if self.WEATHER_CONTAINER.LANGUAGE == "Українська":
             self.APP_LANGUAGE_DROP_DOWN_MENU.addItem("Українська")
@@ -314,6 +316,7 @@ class AppLanguage(widgets.QFrame):
     def mousePressEvent(self, event):
         self.list_of_options_frames = self.MODAL_WINDOW.LIST_OF_OPTIONS_FRAMES
         if event.button() == core.Qt.MouseButton.LeftButton and self.CHOOSED == False:
+            close_drop_menu(self.window())
             clear_layout(self.MODAL_WINDOW.SETTINGS_CONTEINER_RIGHT_LAYOUT)
             self.create_frame()
             for option in self.list_of_options_frames :

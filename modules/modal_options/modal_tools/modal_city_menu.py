@@ -8,6 +8,8 @@ from ...search_field_button import SearchFieldCityButton
 from utils import close_drop_menu
 from utils import request
 from utils import scale
+import PyQt6.sip as sip
+
 class ModalCityMenu(widgets.QFrame):
     def __init__(self, parent):
         super().__init__(parent)
@@ -23,6 +25,7 @@ class ModalCityMenu(widgets.QFrame):
         self.DROP_MENU_SHOW = False
         self.setFixedSize(scale.scale_x(239), scale.scale_y(32))
         self.language_widget = self.window().findChild(widgets.QFrame, "WEATHER_CONTAINER")
+        self.APP_SIZE = self.window().findChild(widgets.QFrame,"APPSIZE")
         try:
             with open("json/cities.json") as file:
                 data = json.load(file)
@@ -55,8 +58,23 @@ class ModalCityMenu(widgets.QFrame):
         self.ARROW_BUTTON.clicked.connect(self.arrow_clicked)
         self.DROP_LAYOUT.addWidget(self.ARROW_BUTTON)
        
-        self.DROP_DOWN_FRAME = widgets.QFrame(parent = self.window())   
-        self.DROP_DOWN_FRAME.setGeometry(scale.scale_x(613), scale.scale_y(321), scale.scale_x(239), scale.scale_y(186))
+        self.DROP_DOWN_FRAME = widgets.QFrame(parent = self.window()) 
+        self.DROP_DOWN_FRAME.setGeometry(613, 321, 239, 186)
+
+        button_group = getattr(self.APP_SIZE, "BUTTON_GROUP", None)
+
+        if button_group and not sip.isdeleted(button_group):
+            checked = button_group.checkedButton()
+            if checked:
+                size_text = self.APP_SIZE.SIZE_TEXT
+                if size_text == "1200x800":
+                    self.DROP_DOWN_FRAME.setGeometry(613, 321, scale.scale_x(239), scale.scale_y(186))
+                elif size_text == "1440x1024":
+                    self.DROP_DOWN_FRAME.setGeometry(733, 400, scale.scale_x(239), scale.scale_y(186))
+                elif size_text == "1512x982":
+                    self.DROP_DOWN_FRAME.setGeometry(770, 386, scale.scale_x(239), scale.scale_y(186))
+                elif size_text == "1728x1117":
+                    self.DROP_DOWN_FRAME.setGeometry(879, 435, scale.scale_x(239), scale.scale_y(186))
         self.DROP_DOWN_FRAME.setStyleSheet("background-color: #676767; border-radius: 10px;")
         self.DROP_DOWN_FRAME.hide()
         

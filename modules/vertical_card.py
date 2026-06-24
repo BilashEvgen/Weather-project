@@ -9,7 +9,7 @@ class Vertical_Card(widgets.QFrame):
         self.setFixedSize(scale.scale_x(45),scale.scale_y(82))
         self.VCARD_LAYOUT = widgets.QVBoxLayout()
         self.setLayout(self.VCARD_LAYOUT)
-        self.VCARD_LAYOUT.setSpacing(10)
+        self.VCARD_LAYOUT.setSpacing(scale.scale_y(10))
         self.VCARD_LAYOUT.setContentsMargins(0,0,0,0)
         self.VCARD_LAYOUT.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
 

@@ -42,7 +42,6 @@ class MainWindow(widgets.QMainWindow):
         self.content_container.setLayout(self.content_layout)
         
         self.content_container.setFixedSize(self.window_width, self.window_height)
-        self.setCentralWidget(self.content_container)
         
         
         

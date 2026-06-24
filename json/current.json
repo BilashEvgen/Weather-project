@@ -1,44 +1,46 @@
 {
     "coord": {
-        "lon": -58.199,
-        "lat": -35.2784
+        "lon": 2.9978,
+        "lat": 36.714
     },
     "weather": [
         {
-            "id": 801,
-            "main": "Clouds",
-            "description": "кілька хмар",
-            "icon": "02d"
+            "id": 800,
+            "main": "Clear",
+            "description": "чисте небо",
+            "icon": "01d"
         }
     ],
     "base": "stations",
     "main": {
-        "temp": 10.17,
-        "feels_like": 8.63,
-        "temp_min": 10.17,
-        "temp_max": 10.17,
-        "pressure": 1016,
-        "humidity": 53,
-        "sea_level": 1016,
-        "grnd_level": 1014
+        "temp": 27.7,
+        "feels_like": 27.29,
+        "temp_min": 27.7,
+        "temp_max": 27.7,
+        "pressure": 1013,
+        "humidity": 38,
+        "sea_level": 1013,
+        "grnd_level": 1004
     },
     "visibility": 10000,
     "wind": {
-        "speed": 5.7,
-        "deg": 254,
-        "gust": 6.91
+        "speed": 4.32,
+        "deg": 60,
+        "gust": 6.68
     },
     "clouds": {
-        "all": 16
+        "all": 1
     },
-    "dt": 1782234862,
+    "dt": 1782318517,
     "sys": {
-        "country": "AR",
-        "sunrise": 1782212503,
-        "sunset": 1782247691
+        "type": 2,
+        "id": 2096234,
+        "country": "DZ",
+        "sunrise": 1782275411,
+        "sunset": 1782328229
     },
-    "timezone": -10800,
-    "id": 3433340,
-    "name": "Jeppener",
+    "timezone": 3600,
+    "id": 2505854,
+    "name": "Draria",
     "cod": 200
 }

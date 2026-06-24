@@ -48,7 +48,7 @@ class Cards(widgets.QFrame):
         self.setFixedSize(scale.scale_x(330), scale.scale_y(98))
         
         self.CARD_LAYOUT = widgets.QHBoxLayout()
-        self.CARD_LAYOUT.setContentsMargins(8,8,8,8)
+        self.CARD_LAYOUT.setContentsMargins(scale.scale_x(8),scale.scale_y(8),scale.scale_x(8),scale.scale_y(8))
         
         self.setLayout(self.CARD_LAYOUT)
         
@@ -94,7 +94,7 @@ class Cards(widgets.QFrame):
         self.FRAME22_LAYOUT = widgets.QHBoxLayout()
         self.FRAME22_LAYOUT.setContentsMargins(0,0,0,0)
         self.FRAME22_LAYOUT.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
-        self.FRAME22_LAYOUT.setSpacing(3)
+        self.FRAME22_LAYOUT.setSpacing(scale.scale_x(3))
         self.FRAME22.setLayout(self.FRAME22_LAYOUT)
         
         self.FRAME2_LABEL1 = widgets.QLabel(text = f"{int(self.REQUEST_DATA["main"]["temp"])}", parent = self.FRAME22)
@@ -149,6 +149,7 @@ class Cards(widgets.QFrame):
                 self.UA_DAY_STR = day[1].capitalize()
         return self.UA_DAY_STR
     def select(self):
+        self.DIAGRAMM_ICON_LIST = []
         self.DIAGRAMM_LIST = []
         self.VERTICAL_CARD_LIST = []
         self.SUNMOVE_CARDS_LIST = []
@@ -184,18 +185,20 @@ class Cards(widgets.QFrame):
         clear_layout(weather_container.FORECAST_DIAGRAM_ITSELF_LAYOUT)
         # Цикл для получения данных о погоде в течение дня и отображения их в виде диаграммы и скролла с часами, температурой и иконкой погоды
         for self.INDEX in range(len(self.day_request_data["list"])):
-                hour_data = self.day_request_data["list"][self.INDEX]
-                hour_temp = hour_data["main"]["temp"]
+                self.hour_data = self.day_request_data["list"][self.INDEX]
+                hour_temp = self.hour_data["main"]["temp"]
                 
-                hour_time = datetime.fromtimestamp(hour_data["dt"]+ self.day_request_data["city"]["timezone"], timezone.utc).hour 
+                hour_time = datetime.fromtimestamp(self.hour_data["dt"]+ self.day_request_data["city"]["timezone"], timezone.utc).hour 
                 if self.INDEX <= 21:
                     self.weather_forecast_icon = widgets.QLabel(parent = weather_container.FORECAST_DIAGRAM_AND_TEMPERATURE_FRAME)
+                    self.DIAGRAMM_ICON_LIST.append(self.weather_forecast_icon)
                     self.weather_forecast_icon.setFixedSize(scale.scale_x(16), scale.scale_y(16))
-                    forecast_icon = gui.QPixmap(f"media/title_bar/scrollbar_weather_icons/{hour_data["weather"][0]["icon"]}.png")
+                    forecast_icon = gui.QPixmap(f"media/title_bar/scrollbar_weather_icons/{self.hour_data["weather"][0]["icon"]}.png")
                     
                     if not forecast_icon.isNull():
                         scaled_pixmap = forecast_icon.scaled(scale.scale_x(16), scale.scale_y(16), core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
                         self.weather_forecast_icon.setPixmap(scaled_pixmap)
+                        
                     weather_container.FORECAST_DIAGRAM_ICON_FRAME_LAYOUT.addWidget(self.weather_forecast_icon, alignment = core.Qt.AlignmentFlag.AlignCenter)
                     
                     for i in range(3):
@@ -204,6 +207,7 @@ class Cards(widgets.QFrame):
                         else:  
                             self.heightt = 3 * int(hour_temp +10)
                         self.diagramma = widgets.QFrame(parent = weather_container.FORECAST_DIAGRAM_ITSELF_FRAME)
+                        self.diagramma.base_height = self.heightt
                         self.diagramma.setFixedWidth(scale.scale_x(8))
                         self.diagramma.setFixedHeight(scale.scale_y(self.heightt))
                         self.DIAGRAMM_LIST.append(self.diagramma)
@@ -235,6 +239,7 @@ class Cards(widgets.QFrame):
               
                 
                 vertical_card = Vertical_Card(parent = weather_container.DAY_WEATHER_SCROLL_FRAME)
+                vertical_card.hour_data = self.hour_data
                 self.VERTICAL_CARD_LIST.append(vertical_card)
                 if self.TEXT_LABEL:
                     vertical_card.TIME_LABEL.setText(f"{self.TEXT_LABEL}")
@@ -243,10 +248,10 @@ class Cards(widgets.QFrame):
                     self.TEXT_LABEL = None
                 else:
                     vertical_card.TIME_LABEL.setText(f"{hour_time}")
-                pixmap_scroll_card = gui.QPixmap(f"media/title_bar/scrollbar_weather_icons/{hour_data["weather"][0]["icon"]}.png")
+                self.pixmap_scroll_card = gui.QPixmap(f"media/title_bar/scrollbar_weather_icons/{self.hour_data["weather"][0]["icon"]}.png")
                
-                if not pixmap_scroll_card.isNull():
-                    scaled_pixmap = pixmap_scroll_card.scaled(scale.scale_x(24),scale.scale_y(24), core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
+                if not self.pixmap_scroll_card.isNull():
+                    scaled_pixmap = self.pixmap_scroll_card.scaled(scale.scale_x(24),scale.scale_y(24), core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
                     vertical_card.WEATHER_LABEL.setPixmap(scaled_pixmap)
                     
                 vertical_card.TEMPERATURE_LABEL.setText(f"{int(hour_temp)}°")

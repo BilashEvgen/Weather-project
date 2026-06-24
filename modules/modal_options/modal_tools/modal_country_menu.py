@@ -7,6 +7,7 @@ from utils import clear_layout
 from ...search_field_button import SearchFieldCityButton
 from utils import close_drop_menu
 from utils import scale
+import PyQt6.sip as sip
 class ModalCountryMenu(widgets.QFrame):
     def __init__(self, parent):
         super().__init__(parent)
@@ -21,7 +22,7 @@ class ModalCountryMenu(widgets.QFrame):
         self.COUNTRY_CHOOSED = False
         self.DROP_MENU_SHOW = False
         self.setFixedSize(scale.scale_x(239), scale.scale_y(32))
-
+        self.APP_SIZE = self.window().findChild(widgets.QFrame,"APPSIZE")
         try:
             with open("json/cities.json") as file:
                 data = json.load(file)
@@ -36,8 +37,8 @@ class ModalCountryMenu(widgets.QFrame):
         self.setStyleSheet("background-color: white")
         
         self.DROP_LAYOUT = widgets.QHBoxLayout()
-        self.DROP_LAYOUT.setSpacing(5)
-        self.DROP_LAYOUT.setContentsMargins(10, 8, 10, 8)
+        self.DROP_LAYOUT.setSpacing(scale.scale_x(5))
+        self.DROP_LAYOUT.setContentsMargins(scale.scale_x(10),scale.scale_y(8),scale.scale_x(10),scale.scale_y(8))
         self.DROP_LAYOUT.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
         self.setLayout(self.DROP_LAYOUT)
         
@@ -53,8 +54,24 @@ class ModalCountryMenu(widgets.QFrame):
         self.ARROW_BUTTON.clicked.connect(self.arrow_clicked)
         self.DROP_LAYOUT.addWidget(self.ARROW_BUTTON)
         
-        self.DROP_DOWN_FRAME = widgets.QFrame(parent = self.window())   
-        self.DROP_DOWN_FRAME.setGeometry(scale.scale_x(613), scale.scale_y(251), scale.scale_x(239), scale.scale_y(186))
+        self.DROP_DOWN_FRAME = widgets.QFrame(parent = self.window())
+        self.DROP_DOWN_FRAME.setGeometry(613, 251, 239, 186)
+        
+        button_group = getattr(self.APP_SIZE, "BUTTON_GROUP", None)
+
+        if button_group and not sip.isdeleted(button_group):
+            checked = button_group.checkedButton()
+            if checked:
+                size_text = self.APP_SIZE.SIZE_TEXT
+                if size_text == "1200x800":
+                    self.DROP_DOWN_FRAME.setGeometry(613, 251, scale.scale_x(239), scale.scale_y(186))
+                elif size_text == "1440x1024":
+                    self.DROP_DOWN_FRAME.setGeometry(733, 312, scale.scale_x(239), scale.scale_y(186))
+                elif size_text == "1512x982":
+                    self.DROP_DOWN_FRAME.setGeometry(770, 300, scale.scale_x(239), scale.scale_y(186))
+                elif size_text == "1728x1117":
+                    self.DROP_DOWN_FRAME.setGeometry(879, 338, scale.scale_x(239), scale.scale_y(186))
+        
         self.DROP_DOWN_FRAME.setStyleSheet("background-color: #676767; border-radius: 10px;")
         self.DROP_DOWN_FRAME.hide()
         
@@ -72,7 +89,7 @@ class ModalCountryMenu(widgets.QFrame):
         self.DROP_DOWN_SCROLL_AREA_FRAME.setStyleSheet("background-color: transparent; border-radius: 10px;")
                     
         self.DROP_DOWN_LAYOUT = widgets.QVBoxLayout(self.DROP_DOWN_SCROLL_AREA_FRAME)
-        self.DROP_DOWN_LAYOUT.setContentsMargins(8,8,0,8)
+        self.DROP_DOWN_LAYOUT.setContentsMargins(scale.scale_x(8),scale.scale_y(8),0,scale.scale_y(8))
         self.DROP_DOWN_LAYOUT.setSpacing(0)
         self.DROP_DOWN_LAYOUT.setAlignment(core.Qt.AlignmentFlag.AlignTop)
         
@@ -100,12 +117,12 @@ class ModalCountryMenu(widgets.QFrame):
         city_modal = self.window().findChild(widgets.QFrame,"DROP_CITY_MODAL")
         search_field = self.window().findChild(widgets.QLineEdit, "SEARCH_FIELD")
         
-        # Безопасная проверка для city_modal.DROP_DOWN_FRAME
+        
         if (city_modal and hasattr(city_modal, 'DROP_DOWN_FRAME') and 
             city_modal.DROP_DOWN_FRAME and isinstance(city_modal.DROP_DOWN_FRAME, widgets.QFrame)):
             city_modal.DROP_DOWN_FRAME.hide()
         
-        # Безопасная проверка для search_field.DROP_DOWN_FRAME
+        
         if (search_field and hasattr(search_field, 'DROP_DOWN_FRAME') and 
             search_field.DROP_DOWN_FRAME and isinstance(search_field.DROP_DOWN_FRAME, widgets.QFrame)):
             search_field.DROP_DOWN_FRAME.hide()

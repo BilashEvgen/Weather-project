@@ -16,8 +16,8 @@ class IconPackFrame(widgets.QFrame) :
             self.setStyleSheet("background-color : transparent")
         
         self.ICON_PACK_LAYOUT = widgets.QVBoxLayout()
-        self.ICON_PACK_LAYOUT.setSpacing(13)
-        self.ICON_PACK_LAYOUT.setContentsMargins(16, 16, 16, 16)
+        self.ICON_PACK_LAYOUT.setSpacing(scale.scale_y(13))
+        self.ICON_PACK_LAYOUT.setContentsMargins(scale.scale_x(16), scale.scale_y(16), scale.scale_x(16), scale.scale_y(16))
         self.setLayout(self.ICON_PACK_LAYOUT)
         
         self.language = self.window().findChild(widgets.QFrame,"WEATHER_CONTAINER").LANGUAGE
@@ -41,7 +41,7 @@ class IconPackFrame(widgets.QFrame) :
         self.PACK_FRAME.setAttribute(core.Qt.WidgetAttribute.WA_TransparentForMouseEvents, True)
         
         self.PACK_FRAME_LAYOUT = widgets.QHBoxLayout()
-        self.PACK_FRAME_LAYOUT.setSpacing(22)
+        self.PACK_FRAME_LAYOUT.setSpacing(scale.scale_x(22))
         self.PACK_FRAME_LAYOUT.setContentsMargins(0,0,0,0)
         self.PACK_FRAME.setLayout(self.PACK_FRAME_LAYOUT)
         
@@ -56,10 +56,10 @@ class IconPackFrame(widgets.QFrame) :
             self.ICON_FRAME_LAYOUT.setSpacing(0)
             self.ICON_FRAME_LAYOUT.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
             if i == 1 and icon_pack == "main" or i == 3:
-                self.ICON_FRAME_LAYOUT.setContentsMargins(0, 2, 1, 0)
+                self.ICON_FRAME_LAYOUT.setContentsMargins(0, scale.scale_y(2), scale.scale_x(1), 0)
 
             if i == 1 and icon_pack == "additional":
-                self.ICON_FRAME_LAYOUT.setContentsMargins(0, 0, 1, 0)
+                self.ICON_FRAME_LAYOUT.setContentsMargins(0, 0, scale.scale_x(1), 0)
             self.ICON_FRAME.setLayout(self.ICON_FRAME_LAYOUT)
             
             self.SETTINGS_WEATHER_ICON = widgets.QLabel(self.ICON_FRAME)
@@ -85,13 +85,13 @@ class IconPackFrame(widgets.QFrame) :
             self.ICON_FRAME_LAYOUT.setSpacing(0)
             self.ICON_FRAME_LAYOUT.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
             if i == 1 and  icon_pack == "main":
-                self.ICON_FRAME_LAYOUT.setContentsMargins(0, 0, 0, 2)  
+                self.ICON_FRAME_LAYOUT.setContentsMargins(0, 0, 0,scale.scale_y(2) )  
             
             if i == 1 and icon_pack == "additional":
                 self.ICON_FRAME_LAYOUT.setContentsMargins(0, 0, 0, 0) 
             
             if i == 2 and icon_pack == "additional":
-                self.ICON_FRAME_LAYOUT.setContentsMargins(0, 0, 2, 1)
+                self.ICON_FRAME_LAYOUT.setContentsMargins(0, 0, scale.scale_x(2), 1)
             self.ICON_FRAME.setLayout(self.ICON_FRAME_LAYOUT)
             
             self.SETTINGS_WEATHER_ICON = widgets.QLabel(self.ICON_FRAME)
