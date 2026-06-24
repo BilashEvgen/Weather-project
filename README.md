@@ -138,11 +138,11 @@ python main.py
 
 ### Головне вікно
 
-![Головне вікно](images/main_window.png)
+![Головне вікно](screenshoots/main_window.png)
 
 ### Результат пошуку погоди
 
-![Пошук погоди](images/weather_result.png)
+![Пошук погоди](images/city_seacrh.png)
 
 ---
 
@@ -288,7 +288,7 @@ Contains application resources:
 
 ### Weather Search Result
 
-![Weather Result](images/weather_result.png)
+![Weather Result](images/city_seacrh.png)
 
 ---
 
