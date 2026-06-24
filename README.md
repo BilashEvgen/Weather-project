@@ -11,7 +11,7 @@ A desktop weather application developed with Python and PyQt6.
 
 ## Мета створення проєкту
 
-Метою проєкту було створення настільного застосунку для перегляду поточної погоди в різних містах світу. Під час розробки були закріплені навички роботи з PyQt6, REST API, HTTP-запитами, обробкою JSON-файлів та організацією багатомодульного Python-проєкту.
+Метою проєкту було створення настільного застосунку для перегляду поточної погоди в різних містах світу. Під час розробки були закріплені навички роботи з PyQt6, Weather API, обробкою JSON-файлів та організацією багатомодульного Python-проєкту.
 
 ---
 
@@ -157,7 +157,7 @@ graph TD
 
 ## Висновок
 
-Під час виконання проєкту були отримані практичні навички створення графічних застосунків на PyQt6, роботи з REST API, HTTP-запитами та JSON. Також був отриманий досвід організації багатомодульного Python-проєкту та командної розробки. Надалі проєкт можна розширити підтримкою погодинного прогнозу, прогнозу на декілька днів, системою обраних міст та багатомовним інтерфейсом.
+Під час виконання проєкту були отримані практичні навички створення графічних застосунків на PyQt6, роботи з REST API, HTTP-запитами та JSON. Також був отриманий досвід організації багатомодульного Python-проєкту та командної розробки. Надалі проєкт можна розширити збереженням інформації після перезапуску додатку.
 
 ---
 
@@ -312,6 +312,6 @@ Contains application resources:
 
 ## Conclusion
 
-This project provided practical experience in developing desktop applications with PyQt6, integrating REST APIs, processing JSON data, and organizing a modular Python project. It also improved teamwork and software architecture skills. Future improvements may include hourly forecasts, multi-day forecasts, favorite locations, and multilingual support.
+This project provided practical experience in developing desktop applications with PyQt6, integrating REST APIs, processing JSON data, and organizing a modular Python project. It also improved teamwork and software architecture skills. Future improvements may include saving information after the app is restarted
 
 Weather_Project is a Python desktop application that demonstrates GUI development with PyQt6, REST API integration, JSON data processing, modular project architecture, and HTTP requests in an interactive weather application.
