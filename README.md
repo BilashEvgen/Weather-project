@@ -99,18 +99,9 @@ python main.py
 
 ## Структура проєкту
 
-graph TD
-    A[Weather_Project] --> B[json/]
-    A --> C[media/]
-    A --> D[modules/]
-    A --> E[config.py]
-    A --> F[main.py]
-    A --> G[requirements.txt]
-    A --> H[.gitignore]
+
 
 ---
-
-## Зміст проєкту
 
 ### main.py
 
@@ -254,18 +245,9 @@ python main.py
 
 ## Project Structure
 
-graph TD
-    A[Weather_Project] --> B[json/]
-    A --> C[media/]
-    A --> D[modules/]
-    A --> E[config.py]
-    A --> F[main.py]
-    A --> G[requirements.txt]
-    A --> H[.gitignore]
+
 
 ---
-
-## Project Overview
 
 ### main.py
 
