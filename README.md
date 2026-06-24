@@ -138,11 +138,11 @@ python main.py
 
 ### Головне вікно
 
-![Головне вікно](images/main_window.png)
+![Головне вікно](screenshots/main_window.png)
 
 ### Результат пошуку погоди
 
-![Пошук погоди](images/weather_result.png)
+![Пошук погоди](screenshots/city_search.png)
 
 ---
 
