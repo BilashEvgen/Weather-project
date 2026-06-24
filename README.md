@@ -61,7 +61,7 @@ A desktop weather application developed with Python and PyQt6.
 
 1. Клонувати репозиторій
 
-git clone https://github.com/rostikprogrammer228/Weather_Project.git
+git clone https://github.com/BilashEvgen/Weather-project.git
 
 2. Перейти до папки проєкту
 
@@ -134,6 +134,17 @@ python main.py
 
 ---
 
+## Зображення
+
+### Головне вікно
+
+![Головне вікно](images/main_window.png)
+
+### Результат пошуку погоди
+
+![Пошук погоди](images/weather_result.png)
+
+---
 
 ## Висновок
 
@@ -266,6 +277,18 @@ Contains application resources:
 - icons;
 - images;
 - graphical interface assets.
+
+---
+
+## Screenshots
+
+### Main Window
+
+![Main Window](images/main_window.png)
+
+### Weather Search Result
+
+![Weather Result](images/weather_result.png)
 
 ---
 
