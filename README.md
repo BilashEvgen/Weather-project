@@ -284,11 +284,11 @@ Contains application resources:
 
 ### Main Window
 
-![Main Window](images/main_window.png)
+![Main Window](screenshots/main_window.png)
 
 ### Weather Search Result
 
-![Weather Result](images/weather_result.png)
+![Weather Result](screenshots/weather_result.png)
 
 ---
 
