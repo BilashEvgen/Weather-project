@@ -134,17 +134,6 @@ python main.py
 
 ---
 
-## Зображення
-
-### Головне вікно
-
-![Головне вікно](screenshoots/main_window.png)
-
-### Результат пошуку погоди
-
-![Пошук погоди](images/city_seacrh.png)
-
----
 
 ## Висновок
 
@@ -277,18 +266,6 @@ Contains application resources:
 - icons;
 - images;
 - graphical interface assets.
-
----
-
-## Screenshots
-
-### Main Window
-
-![Main Window](images/main_window.png)
-
-### Weather Search Result
-
-![Weather Result](images/city_seacrh.png)
 
 ---
 
