@@ -1,66 +1,104 @@
 # Weather_Project
 
-## Project Description
+A desktop weather application developed with Python and PyQt6.
 
-Weather_Project is a desktop weather application written in Python using PyQt6. The application allows users to search for current weather conditions in different cities by retrieving data from a weather API. The project demonstrates GUI development, API integration, JSON processing, and HTTP requests.
+- 🇺🇦 [Українська](#-українська)
+- 🇬🇧 [English](#-english)
+  
+---
 
-## Installation and Running Instructions
+# 🇺🇦 Українська
 
-1. Clone the repository
+## Мета створення проєкту
 
-   ```bash
-   git clone https://github.com/rostikprogrammer228/Weather_Project.git
-   ```
+Метою проєкту було створення настільного застосунку для перегляду поточної погоди в різних містах світу. Під час розробки були закріплені навички роботи з PyQt6, REST API, HTTP-запитами, обробкою JSON-файлів та організацією багатомодульного Python-проєкту.
 
-2. Navigate to the project folder
+---
 
-   ```bash
-   cd Weather_Project
-   ```
+## Склад команди
 
-3. (Optional) Create a virtual environment
+| Учасник | GitHub |
+|---------|--------|
+| Ростислав Тищенко | https://github.com/rostikprogrammer228 |
+| Єгор Столяров | https://github.com/YehorStoliarov |
+| Білаш Євген | https://github.com/BilashEvgen |
 
-   **Windows**
+---
 
-   ```bash
-   python -m venv venv
-   ```
+## Зміст
 
-   **macOS/Linux**
+- [Мета створення проєкту](#мета-створення-проєкту)
+- [Склад команди](#склад-команди)
+- [Перелік модулів та технологій](#перелік-модулів-та-технологій)
+- [Як запустити проєкт](#як-запустити-проєкт)
+- [Структура проєкту](#структура-проєкту)
+- [Зміст проєкту](#зміст-проєкту)
+- [Зображення](#зображення)
+- [Висновок](#висновок)
 
-   ```bash
-   python3 -m venv venv
-   ```
+---
 
-4. Activate the virtual environment
+## Перелік модулів та технологій
 
-   **Windows**
+### Мови програмування
 
-   ```bash
-   venv\Scripts\activate
-   ```
+- Python 3
 
-   **macOS/Linux**
+### Бібліотеки
 
-   ```bash
-   source venv/bin/activate
-   ```
+- PyQt6
+- Requests
 
-5. Install the required dependencies
+### Технології
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+- REST API
+- JSON
+- Object-Oriented Programming (OOP)
 
-6. Run the project
+---
 
-   ```bash
-   python main.py
-   ```
+## Як запустити проєкт
 
-## Project Structure
+1. Клонувати репозиторій
 
-```mermaid
+git clone https://github.com/rostikprogrammer228/Weather_Project.git
+
+2. Перейти до папки проєкту
+
+cd Weather_Project
+
+3. (Необов'язково) Створити віртуальне середовище
+
+Windows
+
+python -m venv venv
+
+Linux/macOS
+
+python3 -m venv venv
+
+4. Активувати середовище
+
+Windows
+
+venv\Scripts\activate
+
+Linux/macOS
+
+source venv/bin/activate
+
+5. Встановити залежності
+
+pip install -r requirements.txt
+
+6. Запустити застосунок
+
+python main.py
+
+---
+
+## Структура проєкту
+
 graph TD
     A[Weather_Project] --> B[json/]
     A --> C[media/]
@@ -69,45 +107,211 @@ graph TD
     A --> F[main.py]
     A --> G[requirements.txt]
     A --> H[.gitignore]
-```
 
-## Module Documentation
+---
+
+## Зміст проєкту
 
 ### main.py
 
-Entry point of the application. Initializes the program, creates the main window, and starts the application.
+Точка входу в програму. Ініціалізує застосунок та запускає головне вікно.
+
+### modules/
+
+Містить основну логіку програми:
+
+- взаємодію з API погоди;
+- обробку отриманих даних;
+- роботу з графічним інтерфейсом;
+- допоміжні класи та функції.
+
+### config.py
+
+Зберігає конфігурацію застосунку та глобальні константи.
+
+### json/
+
+Містить JSON-файли, що використовуються програмою для збереження та обробки даних.
+
+### media/
+
+Містить ресурси застосунку:
+
+- іконки;
+- зображення;
+- графічні елементи інтерфейсу.
+
+---
+
+## Зображення
+
+### Головне вікно
+
+![Головне вікно](images/main_window.png)
+
+### Результат пошуку погоди
+
+![Пошук погоди](images/weather_result.png)
+
+---
+
+## Висновок
+
+Під час виконання проєкту були отримані практичні навички створення графічних застосунків на PyQt6, роботи з REST API, HTTP-запитами та JSON. Також був отриманий досвід організації багатомодульного Python-проєкту та командної розробки. Надалі проєкт можна розширити підтримкою погодинного прогнозу, прогнозу на декілька днів, системою обраних міст та багатомовним інтерфейсом.
+
+---
+
+# 🇬🇧 English
+
+## Project Goal
+
+The goal of this project was to develop a desktop weather application for viewing current weather conditions in cities around the world. During development, the project helped improve skills in PyQt6 GUI development, REST API integration, HTTP requests, JSON processing, and organizing a modular Python application.
+
+---
+
+## Team Members
+
+| Member | GitHub |
+|---------|--------|
+| Rostyslav Tyshchenko | https://github.com/rostikprogrammer228 |
+| Yehor Stoliarov | https://github.com/YehorStoliarov |
+| Bilash Evgen | https://github.com/BilashEvgen |
+
+---
+
+## Contents
+
+- [Project Goal](#project-goal)
+- [Team Members](#team-members)
+- [Modules and Technologies](#modules-and-technologies)
+- [Installation](#installation)
+- [Project Structure](#project-structure)
+- [Project Overview](#project-overview)
+- [Screenshots](#screenshots)
+- [Conclusion](#conclusion)
+
+---
+
+## Modules and Technologies
+
+### Programming Language
+
+- Python 3
+
+### Libraries
+
+- PyQt6
+- Requests
+
+### Technologies
+
+- REST API
+- JSON
+- Object-Oriented Programming (OOP)
+
+---
+
+## Project Summary
+## Installation
+
+1. Clone the repository
+
+git clone https://github.com/rostikprogrammer228/Weather_Project.git
+
+2. Navigate to the project folder
+
+cd Weather_Project
+
+3. (Optional) Create a virtual environment
+
+Windows
+
+python -m venv venv
+
+Linux/macOS
+
+python3 -m venv venv
+
+4. Activate the environment
+
+Windows
+
+venv\Scripts\activate
+
+Linux/macOS
+
+source venv/bin/activate
+
+5. Install the required dependencies
+
+pip install -r requirements.txt
+
+6. Run the application
+
+python main.py
+
+---
+
+## Project Structure
+
+graph TD
+    A[Weather_Project] --> B[json/]
+    A --> C[media/]
+    A --> D[modules/]
+    A --> E[config.py]
+    A --> F[main.py]
+    A --> G[requirements.txt]
+    A --> H[.gitignore]
+
+---
+
+## Project Overview
+
+### main.py
+
+Application entry point. Initializes the application and launches the main window.
 
 ### modules/
 
 Contains the core application logic, including:
 
-* Weather API communication
-* GUI components
-* JSON data processing
-* Utility functions
-* Custom widgets
+- weather API communication;
+- data processing;
+- graphical interface management;
+- utility classes and helper functions.
 
 ### config.py
 
-Stores application configuration, API settings, and constants used throughout the project.
+Stores application configuration and global constants.
 
 ### json/
 
-Stores JSON files used by the application, including:
-
-* Current weather data
-* Forecast data
-* Geocoding results
-* Saved application settings
+Contains JSON files used to store and process application data.
 
 ### media/
 
-Contains application resources such as:
+Contains application resources:
 
-* Weather icons
-* Interface images
-* Window icons
+- icons;
+- images;
+- graphical interface assets.
 
-## Project Summary
+---
+
+## Screenshots
+
+### Main Window
+
+![Main Window](images/main_window.png)
+
+### Weather Search Result
+
+![Weather Result](images/weather_result.png)
+
+---
+
+## Conclusion
+
+This project provided practical experience in developing desktop applications with PyQt6, integrating REST APIs, processing JSON data, and organizing a modular Python project. It also improved teamwork and software architecture skills. Future improvements may include hourly forecasts, multi-day forecasts, favorite locations, and multilingual support.
 
 Weather_Project is a Python desktop application that demonstrates GUI development with PyQt6, REST API integration, JSON data processing, modular project architecture, and HTTP requests in an interactive weather application.
