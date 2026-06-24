@@ -288,7 +288,7 @@ Contains application resources:
 
 ### Weather Search Result
 
-![Weather Result](screenshots/weather_result.png)
+![Weather Result](screenshots/city_search.png)
 
 ---
 
