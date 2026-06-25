@@ -1,0 +1,42 @@
+[
+    {
+        "name": "Dnipro",
+        "local_names": {
+            "de": "Dnipro",
+            "fi": "Dnipro",
+            "es": "Dnipró",
+            "hi": "दनीप्रो",
+            "ur": "دنیپرو",
+            "ar": "دنيبرو",
+            "ko": "드니프로",
+            "el": "Ντνίπρο",
+            "eo": "Dnipro",
+            "oc": "Dnipro",
+            "ml": "ഡിനിപ്രോ",
+            "hr": "Dnjipro",
+            "sk": "Dnipro",
+            "et": "Dnipro",
+            "zh": "第聂伯罗",
+            "uk": "Дніпро",
+            "ru": "Днепр",
+            "en": "Dnipro",
+            "hu": "Dnyipro",
+            "sl": "Dnipro",
+            "it": "Dnipro",
+            "fr": "Dnipro",
+            "cs": "Dnipro",
+            "nl": "Dnipro",
+            "sr": "Дњепро",
+            "be": "Дніпро",
+            "pl": "Dniepr",
+            "tr": "Dinipro",
+            "he": "דניפרו",
+            "io": "Dnipro",
+            "ja": "ドニプロ"
+        },
+        "lat": 48.4680221,
+        "lon": 35.0417711,
+        "country": "UA",
+        "state": "Dnipropetrovsk Oblast"
+    }
+]
