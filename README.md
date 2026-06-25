@@ -207,7 +207,7 @@ The goal of this project was to develop a desktop weather application for viewin
 
 1. Clone the repository
 
-git clone https://github.com/rostikprogrammer228/Weather_Project.git
+git clone https://github.com/BilashEvgen/Weather_Project.git
 
 2. Navigate to the project folder
 

@@ -1,7 +1,6 @@
 import PyQt6.QtWidgets as widgets
 import PyQt6.QtGui as gui
 import PyQt6.QtCore as core
-
 from .modal_options.search_city_frame import SearchCity
 from .modal_options.app_size_frame import AppSize
 from .modal_options.app_language_frame import AppLanguage

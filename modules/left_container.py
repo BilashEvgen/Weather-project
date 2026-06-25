@@ -2,7 +2,6 @@ import PyQt6.QtWidgets as widgets
 import PyQt6.QtGui as gui
 import PyQt6.QtCore as core
 
-
 from utils import request
 from .cards import Cards
 from utils import close_drop_menu
