@@ -100,7 +100,7 @@ class SearchField(widgets.QLineEdit):
             elif self.language == "English" :
                 self.drop_down_label = "Search result"
             self.DROP_DOWN_LABEL = widgets.QLabel(parent = self.DROP_DOWN_FRAME, text = self.drop_down_label)
-            self.DROP_DOWN_LABEL.setStyleSheet("background-color: transparent; border: none; color: #d2c685; font-family: 'Roboto'; font-weight: 400;")
+            self.DROP_DOWN_LABEL.setStyleSheet("background-color: transparent; border: none; color: rgba(255, 255, 255, 0.4) font-family: 'Roboto'; font-weight: 400;")
             scale.setFontSize(self.DROP_DOWN_LABEL,14)
             self.DROP_DOWN_LAYOUT.addWidget(self.DROP_DOWN_LABEL)
             
