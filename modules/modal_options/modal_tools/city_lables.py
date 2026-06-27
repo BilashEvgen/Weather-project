@@ -1,19 +1,22 @@
 import PyQt6.QtWidgets as widgets
 import PyQt6.QtGui as gui
 import PyQt6.QtCore as core
-
+from PyQt6.sip import isdeleted
 from utils.clear_layout  import clear_layout
 from modules.cards import Cards
 from utils.clear_weather_frame import clear_weather_frame
 from utils import scale
 class CityListLable(widgets.QFrame):
-    def __init__(self, parent, city_name):
+    CITY_LIST = []
+    def __init__(self, parent, card, city_name):
         super().__init__(parent)
-        
+        CityListLable.CITY_LIST.append(self)
         self.CITY_LIST_LAYOUT = self.window().findChild(widgets.QFrame,"SEARCHCITY")
 
+        self.setObjectName("CityListLable")
         
-        
+        self.card = card
+        self.CITY_NAME = city_name
         
         self.setFixedSize(scale.scale_x(512), scale.scale_y(32))
         self.setStyleSheet("background-color: transparent; border: none;")
@@ -52,51 +55,54 @@ class CityListLable(widgets.QFrame):
         left_container = main_window.findChild(widgets.QFrame, "Left_container")
 
         if weather_container and hasattr(weather_container, 'LIST_OF_SETTINGS_CARDS'):
-            try:
-                weather_container.LIST_OF_SETTINGS_CARDS.remove(self.CITY_NAME)
-            except ValueError:
-                pass
+            if self.card in weather_container.LIST_OF_SETTINGS_CARDS:
+                weather_container.LIST_OF_SETTINGS_CARDS.remove(self.card)
 
         if left_container and hasattr(left_container, 'scroll_frame_layout'):
-            for index in range(left_container.scroll_frame_layout.count() - 1, -1, -1):
-                item = left_container.scroll_frame_layout.itemAt(index)
-                if not item:
-                    continue
-                widget = item.widget()
-                if widget and getattr(widget, 'CITY_NAME', None) == self.CITY_NAME:
-                    left_container.scroll_frame_layout.removeWidget(widget)
-                    if widget in Cards.CARDS_LIST:
-                        Cards.CARDS_LIST.remove(widget)
-                    widget.setParent(None)
-                    widget.deleteLater()
-                    break
+            left_container.scroll_frame_layout.removeWidget(self.card)
 
-        clear_weather_frame(weather_container = weather_container)
+        if self.card in Cards.CARDS_LIST:
+            Cards.CARDS_LIST.remove(self.card)
+
+        if self.card in weather_container.LIST_OF_SETTINGS_CARDS:
+            weather_container.LIST_OF_SETTINGS_CARDS.remove(self.card)
+
+        self.card.setParent(None)
+        self.card.deleteLater()
 
         parent_layout = self.parent().layout() if self.parent() else None
         if parent_layout:
             parent_layout.removeWidget(self)
+            
+        if self in CityListLable.CITY_LIST:
+            CityListLable.CITY_LIST.remove(self)
+        
         self.setParent(None)
         self.deleteLater()
         
-        
-    # main_window = self.window()
-    #     if main_window:
-    #         weather_container = main_window.findChild(widgets.QFrame, "WEATHER_CONTAINER")
-    #         left_container = main_window.findChild(widgets.QFrame, "Left_container")
-    #         if weather_container and hasattr(weather_container, 'LIST_OF_SETTINGS_CARDS'):
-    #             weather_container.LIST_OF_SETTINGS_CARDS = [name for name in weather_container.LIST_OF_SETTINGS_CARDS if name != self.CITY_NAME]
-    #         if left_container and hasattr(left_container, 'scroll_frame_layout'):
-    #             for index in range(left_container.scroll_frame_layout.count() - 1, -1, -1):
-    #                 item = left_container.scroll_frame_layout.itemAt(index)
-    #                 if item:
-    #                     widget = item.widget()
-    #                     if widget and getattr(widget, 'CITY_NAME', None) == self.CITY_NAME:
-    #                         left_container.scroll_frame_layout.removeWidget(widget)
-    #                         widget.setParent(None)
-    #                         widget.deleteLater()
-    #     parent_layout = self.parent().layout() if self.parent() else None
-    #     if parent_layout:
-    #         parent_layout.removeWidget(self)
-    #     self.setParent(None)
-    #     self.deleteLater()
+        clear_weather_frame(weather_container=weather_container)
+    def change_size(self, scale):
+        if isdeleted(self):
+            return
+        self.setFixedSize(scale.scale_x(512), scale.scale_y(32))
+
+        self.CITY_LABEL.setFixedSize(
+            scale.scale_x(496),
+            scale.scale_y(20)
+        )
+        scale.setFontSize(self.CITY_LABEL,14)
+        self.DELETE_BUTTON.setFixedSize(
+            scale.scale_x(16),
+            scale.scale_y(16)
+        )
+
+        self.DELETE_BUTTON.setIcon(
+            gui.QIcon(
+                self.DELETE_ICON.scaled(
+                    scale.scale_x(16),
+                    scale.scale_y(16),
+                    core.Qt.AspectRatioMode.KeepAspectRatio, 
+                    core.Qt.TransformationMode.SmoothTransformation
+                )
+            )
+        )

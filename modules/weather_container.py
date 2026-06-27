@@ -17,7 +17,7 @@ class WeatherContainer(widgets.QFrame):
         self.LIST_OF_SETTINGS_CARDS = []
         self.LANGUAGE = "Українська"
         self.setObjectName("WEATHER_CONTAINER")
-        self.MODAL_WINDOW = ModalWindow(parent = self.window())
+        self.MODAL_WINDOW = ModalWindow(parent = self.window().central_widget)
         self.setFixedSize(828, 760)
         
         if self.LANGUAGE == "Українська":
@@ -561,7 +561,7 @@ class WeatherContainer(widgets.QFrame):
                 if city_name and city_name not in self.LIST_OF_SETTINGS_CARDS:
                     self.LIST_OF_SETTINGS_CARDS.append(city_card)
                 if hasattr(search_city, 'CITY_LIST_SCROLL_AREA_FRAME') and search_city.CHOOSED:
-                    settings_city_card = CityListLable(parent= search_city.CITY_LIST_SCROLL_AREA_FRAME,city_name = city_card.FRAME1_LABEL1.text())
+                    settings_city_card = CityListLable(parent= search_city.CITY_LIST_SCROLL_AREA_FRAME, card = city_card, city_name = city_card.FRAME1_LABEL1.text())
                     search_city.update_map_coordinates(
                         city_card.REQUEST_DATA["coord"]["lat"],
                         city_card.REQUEST_DATA["coord"]["lon"]
@@ -579,7 +579,7 @@ class WeatherContainer(widgets.QFrame):
                     if city_name and city_name not in self.LIST_OF_SETTINGS_CARDS:
                         self.LIST_OF_SETTINGS_CARDS.append(city_card)
                     if hasattr(search_city, 'CITY_LIST_SCROLL_AREA_FRAME') and search_city.CHOOSED:
-                        settings_city_card = CityListLable(parent= search_city.CITY_LIST_SCROLL_AREA_FRAME,city_name = city_card.FRAME1_LABEL1.text())
+                        settings_city_card = CityListLable(parent= search_city.CITY_LIST_SCROLL_AREA_FRAME, card = city_card, city_name = city_card.FRAME1_LABEL1.text())
                         search_city.update_map_coordinates(
                             city_card.REQUEST_DATA["coord"]["lat"],
                             city_card.REQUEST_DATA["coord"]["lon"]

@@ -296,17 +296,10 @@ class Cards(widgets.QFrame):
             
         
         weather_container.LEFT_CITY_LABEL.setText(self.CITY_TEXT)
-            # temperature
-        # if len(weather_container.LEFT_WEATHER_LABEL.text()) > 1 :
-        #     weather_container.LEFT_WEATHER_LAYOUT.setSpacing(7)
-        # else:
-        #     weather_container.LEFT_WEATHER_LAYOUT.setFixedSize(0)
         weather_container.LEFT_WEATHER_LABEL.setText(f"{int(self.REQUEST_DATA["main"]["temp"])}")
             
         weather_container.LEFT_WEATHER_LABEL11.setText("°")
-            # description
         weather_container.LEFT_DESCRIPTION_LABEL1.setText(self.frame1_label3)
-            # max min temp
         weather_container.LEFT_DESCRIPTION_LABEL2.setText(self.max_min_temp)
             
         weather_icons_pack = self.window().findChild(widgets.QFrame, "APPICONS").WEATHER_ICONS_PACK
@@ -316,7 +309,6 @@ class Cards(widgets.QFrame):
         if not pixmap.isNull():
             scaled = pixmap.scaled(scale.scale_x(76), scale.scale_y(76), core.Qt.AspectRatioMode.KeepAspectRatio, core.Qt.TransformationMode.SmoothTransformation)
             weather_container.LEFT_WEATHER_ICON.setPixmap(scaled)
-            # Запись в правую часть контейнера погоды данных о погоде с запроса API при каждом клике на карточку
             
         weather_container.RIGHT_DATA_LABEL1.setText(self.day_str)
             
@@ -332,7 +324,6 @@ class Cards(widgets.QFrame):
             weather_container.RIGHT_CLOCK_FRAME.setPixmap(scaled_pixmap)
             
             
-            # Обновление данных на карточке, которая была выбрана
         self.FRAME1_LABEL2.setText(self.TIME_STR)
         self.FRAME1_LABEL3.setText(self.frame1_label3)
         self.FRAME2_LABEL1.setText(f"{int(self.REQUEST_DATA["main"]["temp"])}")

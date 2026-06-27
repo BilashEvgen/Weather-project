@@ -1,44 +1,47 @@
 {
     "coord": {
-        "lon": 34.9833,
-        "lat": 48.45
+        "lon": -6.7715,
+        "lat": 61.9959
     },
     "weather": [
         {
-            "id": 802,
-            "main": "Clouds",
-            "description": "уривчасті хмари",
-            "icon": "03n"
+            "id": 501,
+            "main": "Rain",
+            "description": "помірний дощ",
+            "icon": "10d"
         }
     ],
     "base": "stations",
     "main": {
-        "temp": 19.76,
-        "feels_like": 19.57,
-        "temp_min": 19.76,
-        "temp_max": 19.76,
-        "pressure": 1012,
-        "humidity": 68,
-        "sea_level": 1012,
+        "temp": 9.73,
+        "feels_like": 6.14,
+        "temp_min": 9.73,
+        "temp_max": 9.73,
+        "pressure": 1007,
+        "humidity": 98,
+        "sea_level": 1007,
         "grnd_level": 1001
     },
-    "visibility": 10000,
+    "visibility": 2267,
     "wind": {
-        "speed": 2.53,
-        "deg": 323,
-        "gust": 4.91
+        "speed": 8.75,
+        "deg": 73,
+        "gust": 14.22
+    },
+    "rain": {
+        "1h": 1.67
     },
     "clouds": {
-        "all": 28
+        "all": 100
     },
-    "dt": 1782412994,
+    "dt": 1782557391,
     "sys": {
-        "country": "UA",
-        "sunrise": 1782351564,
-        "sunset": 1782409544
+        "country": "FO",
+        "sunrise": 1782527974,
+        "sunset": 1782598827
     },
-    "timezone": 10800,
-    "id": 709930,
-    "name": "Dnipro",
+    "timezone": 3600,
+    "id": 2624653,
+    "name": "Argir",
     "cod": 200
 }

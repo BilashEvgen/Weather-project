@@ -1,12 +1,13 @@
 import PyQt6.QtCore as core
 import PyQt6.QtWidgets as widgets
 import PyQt6.QtGui as gui
+from utils import change_size
 
 class Header(widgets.QFrame):
     def __init__(self, parent):
         super().__init__(parent)
         self.setStyleSheet("background-color: rgba(0, 0, 0, 0.2);")
-        self.setFixedSize(self.window().width(), 40)
+        self.setFixedSize(self.window().width(), 34)
         
         layout = widgets.QHBoxLayout()
         
@@ -24,7 +25,7 @@ class Header(widgets.QFrame):
         close_button.clicked.connect(self.window().close)
         close_button.setStyleSheet("border: none;background-color: transparent;")
         minimize_button = widgets.QPushButton(parent= self)
-        minimize_icon = gui.QIcon("media/title_bar/Minimize_Button.svg")
+        minimize_icon = gui.QIcon("media/title_bar/Minimize_Button_Hover.svg")
         minimize_button.setIcon(minimize_icon)
         layout.addWidget(minimize_button)
         minimize_button.setStyleSheet("border: none;background-color: transparent;")
@@ -38,7 +39,26 @@ class Header(widgets.QFrame):
         layout.addWidget(max_button)
         max_button.setStyleSheet("border: none;background-color: transparent;")
         
-        max_button.clicked.connect(self.window().showMaximized)
+        window = self.window()
+       
+        max_button.clicked.connect(lambda: change_size(window, True))
 
-   
+    def mousePressEvent(self, event: gui.QMouseEvent):
+        
+        if event.button() == core.Qt.MouseButton.LeftButton:
+            self.CLICK_COORD = event.position().toPoint()
+        else:
+            self.CLICK_COORD = None
+    
+    def mouseMoveEvent(self, event: gui.QMouseEvent):
+        window = self.window()
+        
+        if self.CLICK_COORD:
+            # Получаем координаты курсора
+            coord = event.position().toPoint() - self.CLICK_COORD
+            
+            window.move(
+                window.x() + coord.x(), 
+                window.y() + coord.y()
+            )
         
